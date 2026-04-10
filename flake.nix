@@ -1,12 +1,13 @@
 {
   description = "Jester's Jovian NixOS Steam Deck config";
 
+  # Left this at the top for anyone who is looking/using this flake
+  # can find it easily
   nixConfig = {
     extra-substituters = [
       "https://noctalia.cachix.org"
       "https://jovian.cachix.org"
     ];
-
     extra-trusted-public-keys = [
       "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
       "jovian.cachix.org-1:8Vq4Txku6VZIRhYrHYki3Ab9XHJRoWmdYqMqj4rB/Uc="
@@ -59,10 +60,6 @@
 
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
 
-    # plugins-obsidian-nvim = {
-    #   url = "github:obsidian-nvim/obsidian.nvim";
-    #   flake = false;
-    # };
     plugins-kanban-nvim = {
       url = "github:arakkkkk/kanban.nvim";
       flake = false;

@@ -59,9 +59,4 @@ in
     niri-overview-bind
     fuzzel-helper
   ];
-
-  # Auto-start tile-to-n on niri startup
-  # programs.niri.settings.spawn-at-startup = [
-  #   { command = [ "${niri-tile-to-n}/bin/niri-tile-to-n" ]; }
-  # ];
 }

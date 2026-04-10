@@ -4,7 +4,7 @@
 }:
 let
   inherit (pkgs.stdenv.hostPlatform) system;
-  # zen-pkg = inputs.zen-browser.packages..beta;
+  zen-pkg = inputs.zen-browser.packages.${system}.beta;
 in
 {
   imports = [
@@ -29,8 +29,8 @@ in
 
   programs.zen-browser = {
     enable = true;
-    # package = zen-pkg;
-    policies.SecurityDevices.CAC-Device = "${pkgs.opensc}/lib/opensc-pkcs11.so";
+    package = zen-pkg;
+    policies.SecurityDevices."CAC-Device" = "${pkgs.opensc}/lib/opensc-pkcs11.so";
     policies.SecurityDevices.p11-kit-proxy = "${pkgs.p11-kit}/lib/p11-kit-proxy.so";
     profiles.default = rec {
       id = 0;
@@ -131,7 +131,7 @@ in
           disabled = true;
         }
       ];
-      keyboardShortcutsVersion = 16;
+      keyboardShortcutsVersion = 17;
       containersForce = true;
       spacesForce = true;
       pinsForce = true;

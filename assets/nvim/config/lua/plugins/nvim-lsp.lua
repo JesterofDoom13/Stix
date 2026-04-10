@@ -19,6 +19,19 @@ return {
 							formatting = {
 								command = { "nixpkgs-fmt" },
 							},
+							options = {
+								nixos = {
+									expr = "(builtins.getFlake (builtins.toString ./.)).nixosCinfigurations.steamdeck.options",
+								},
+								home_manager = {
+									expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.steamdeck.options.home-manager.users.type.getSubOptions []",
+								},
+							},
+							diagnostic = {
+								supress = {
+									"sema-extra-with",
+								},
+							},
 						},
 					},
 				},
