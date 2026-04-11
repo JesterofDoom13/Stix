@@ -48,6 +48,36 @@
           "textColor": "none",
           "useMonospaceFont": true,
           "usePadding": false
+        },
+        {
+          "defaultSettings": {
+            "compactMode": false,
+            "defaultPeerAction": "copy-ip",
+            "hideDisconnected": false,
+            "hideMullvadExitNodes": true,
+            "pingCount": 5,
+            "refreshInterval": 5000,
+            "showIpAddress": true,
+            "showPeerCount": true,
+            "sshUsername": "",
+            "taildropDownloadDir": "~/Downloads",
+            "taildropEnabled": true,
+            "taildropReceiveMode": "operator",
+            "terminalCommand": ""
+          },
+          "id": "plugin:tailscale"
+        },
+        {
+          "defaultSettings": {
+            "apiKey": "",
+            "apiUrl": "",
+            "configPath": "",
+            "enabled": true,
+            "folderIds": [],
+            "pollIntervalMs": 10000,
+            "verifyTls": false
+          },
+          "id": "plugin:syncthing-status"
         }
       ],
       "center": [
@@ -89,7 +119,7 @@
         {
           "blacklist": [],
           "chevronColor": "none",
-          "colorizeIcons": false,
+          "colorizeIcons": true,
           "drawerEnabled": true,
           "hidePassive": false,
           "id": "Tray",
@@ -102,7 +132,7 @@
           "id": "PowerProfile"
         },
         {
-          "deviceNativePath": "__default__",
+          "deviceNativePath": "BAT1",
           "displayMode": "graphic",
           "hideIfIdle": false,
           "hideIfNotDetected": true,
@@ -288,7 +318,7 @@
     "fillColor": "#000000",
     "useSolidColor": false,
     "solidColor": "#1a1a2e",
-    "automationEnabled": false,
+    "automationEnabled": true,
     "wallpaperChangeMode": "random",
     "randomIntervalSec": 300,
     "transitionDuration": 1500,
@@ -335,7 +365,7 @@
       "google-chrome"
     ],
     "sortByMostUsed": true,
-    "terminalCommand": "alacritty -e",
+    "terminalCommand": "ghostty -e",
     "customLaunchPrefixEnabled": false,
     "customLaunchPrefix": "",
     "viewMode": "list",
@@ -434,8 +464,8 @@
     "externalMonitor": "resources || missioncenter || jdsystemmonitor || corestats || system-monitoring-center || gnome-system-monitor || plasma-systemmonitor || mate-system-monitor || ukui-system-monitor || deepin-system-monitor || pantheon-system-monitor"
   },
   "noctaliaPerformance": {
-    "disableWallpaper": true,
-    "disableDesktopWidgets": true
+    "disableWallpaper": false,
+    "disableDesktopWidgets": false
   },
   "dock": {
     "enabled": true,
@@ -616,7 +646,7 @@
     "schedulingMode": "off",
     "manualSunrise": "06:30",
     "manualSunset": "18:30",
-    "generationMethod": "faithful",
+    "generationMethod": "vibrant",
     "monitorForColors": "",
     "syncGsettings": true
   },
@@ -648,15 +678,19 @@
       },
       {
         "enabled": true,
-        "id": "sway"
-      },
-      {
-        "enabled": true,
         "id": "gtk"
       },
       {
         "enabled": true,
         "id": "discord"
+      },
+      {
+        "enabled": true,
+        "id": "zathura"
+      },
+      {
+        "enabled": true,
+        "id": "steam"
       }
     ],
     "enableUserTheming": false
@@ -671,7 +705,7 @@
     "manualSunset": "18:30"
   },
   "hooks": {
-    "enabled": false,
+    "enabled": true,
     "wallpaperChange": "",
     "darkModeChange": "",
     "screenLock": "",

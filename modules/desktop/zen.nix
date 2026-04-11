@@ -1,10 +1,10 @@
-{ pkgs
-, inputs
-, ...
+{
+  pkgs,
+  inputs,
+  ...
 }:
 let
   inherit (pkgs.stdenv.hostPlatform) system;
-  zen-pkg = inputs.zen-browser.packages.${system}.beta;
 in
 {
   imports = [
@@ -29,9 +29,11 @@ in
 
   programs.zen-browser = {
     enable = true;
-    package = zen-pkg;
-    policies.SecurityDevices."CAC-Device" = "${pkgs.opensc}/lib/opensc-pkcs11.so";
-    policies.SecurityDevices.p11-kit-proxy = "${pkgs.p11-kit}/lib/p11-kit-proxy.so";
+    package = inputs.zen-browser.packages.${system}.beta;
+    policies = {
+      SecurityDevices."CAC-Device" = "${pkgs.opensc}/lib/opensc-pkcs11.so";
+      SecurityDevices.p11-kit-proxy = "${pkgs.p11-kit}/lib/p11-kit-proxy.so";
+    };
     profiles.default = rec {
       id = 0;
       isDefault = true;

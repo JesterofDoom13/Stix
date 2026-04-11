@@ -1,12 +1,15 @@
-{ config
-, myStylix
-, inputs
-, ...
+{
+  config,
+  myStylix,
+  inputs,
+  pkgs,
+  lib,
+  ...
 }:
 let
   inherit (inputs.nixCats) utils;
   # Points to your local lua folder for the builder
-  luaPath = "${../assets/nvim/config}";
+  luaPath = "${../assets}";
 
   categoryDefinitions =
     { pkgs, ... }:
@@ -17,6 +20,7 @@ let
           chafa
           cmake-lint
           curl
+          fd
           lua5_1
           lua51Packages.lualine-nvim
           lua51Packages.luarocks
@@ -201,12 +205,12 @@ let
       { pkgs, ... }:
       {
         settings = {
-          wrapRc = true;
+          wrapRc = false;
           aliases = [
             "vim"
             "nv"
           ];
-          unwrappedCfgPath = utils.mkLuaInline "os.getenv('HOME') .. '/.config/home-manager/assets/nvim/config'";
+          # unwrappedCfgPath = utils.mkLuaInline "os.getenv('HOME') .. ''";
         };
         categories = {
           general = true;
@@ -233,7 +237,7 @@ let
           aliases = [
             "debugnvim"
           ];
-          unwrappedCfgPath = utils.mkLuaInline "os.getenv('HOME') .. '/.config/home-manager/assets/nvim/config'";
+          unwrappedCfgPath = utils.mkLuaInline "os.getenv('HOME') .. '/.config/nvim'";
         };
         categories = {
           general = true;
@@ -266,10 +270,23 @@ in
       "nvim"
       "tvim"
     ];
-    xdg.configFile."nvim" = {
-      enable = true;
-      recursive = false;
-      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/home-manager/assets/nvim/config"; # Keep orca with me and allow it to update and pull changes
-    };
+
+    # Was wworking with pulling it from inside the directory but I'm going to work like this so I can
+    # reload my configs more easier and it saves to a git repo
+    home.activation.cloneNvimConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      if [ ! -d "$HOME/.config/nvim/.git" ]; then
+        ${pkgs.git}/bin/git clone https://github.com/JesterofDoom13/nvim-config "$HOME/.config/nvim"
+      fi
+    '';
+    home.activation.pushNvimConfig = lib.hm.dag.entryBefore [ "writeBoundary" ] ''
+        export PATH="${pkgs.git}/bin:${pkgs.openssh}/bin:$PATH"
+      if [ -d "$HOME/.config/nvim/.git" ]; then
+        cd "$HOME/.config/nvim"
+        ${pkgs.git}/bin/git add -A
+        ${pkgs.git}/bin/git diff --quiet && ${pkgs.git}/bin/git diff --staged --quiet || \
+          ${pkgs.git}/bin/git commit -m "auto: pre-rebuild snapshot" && \
+          ${pkgs.git}/bin/git push
+      fi
+    '';
   };
 }

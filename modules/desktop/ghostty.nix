@@ -1,8 +1,9 @@
-{ pkgs
-, config
-, inputs
-, system
-, ...
+{
+  pkgs,
+  config,
+  inputs,
+  system,
+  ...
 }:
 let
   ghostty-pkg = inputs.ghostty.packages.${system}.default;
@@ -46,4 +47,3 @@ in
       ../../assets/ghostty/shaders/sonic_boom_cursor.glsl;
   };
 }
-

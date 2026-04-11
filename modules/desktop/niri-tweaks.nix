@@ -2,39 +2,38 @@
 let
   src = inputs.niri-tweaks;
 
-  # Package each script
   niri-tile-to-n = pkgs.writers.writePython3Bin "niri-tile-to-n"
     {
       libraries = [ ];
-      doCheck = false; # This disables the flake8/pycodestyle linting checkj
+      doCheck = false;
     }
     (builtins.readFile "${src}/niri_tile_to_n.py");
 
   niri-spawnjump = pkgs.writers.writePython3Bin "niri-spawnjump"
     {
       libraries = [ ];
-      doCheck = false; # This disables the flake8/pycodestyle linting checkj
+      doCheck = false;
     }
     (builtins.readFile "${src}/niri_spawnjump.py");
 
   niri-workspace-helper = pkgs.writers.writePython3Bin "niri-workspace-helper"
     {
       libraries = [ ];
-      doCheck = false; # This disables the flake8/pycodestyle linting checkj
+      doCheck = false;
     }
     (builtins.readFile "${src}/niri_workspace_helper.py");
 
   niri-peekaboo = pkgs.writers.writePython3Bin "niri-peekaboo"
     {
       libraries = [ ];
-      doCheck = false; # This disables the flake8/pycodestyle linting checkj
+      doCheck = false;
     }
     (builtins.readFile "${src}/niri_peekaboo.py");
 
   niri-parse-keybinds = pkgs.writers.writePython3Bin "niri-parse-keybinds"
     {
       libraries = [ ];
-      doCheck = false; # This disables the flake8/pycodestyle linting checkj
+      doCheck = false;
     }
     (builtins.readFile "${src}/niri_parse_keybinds.py");
 

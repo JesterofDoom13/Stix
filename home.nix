@@ -1,6 +1,7 @@
-{ pkgs
-, user
-, ...
+{
+  pkgs,
+  user,
+  ...
 }:
 {
   home = {

@@ -9,7 +9,7 @@
       sensible
       fingers
       # Couldn't get this to load from here
-      # but I have it installe din neovim so I use
+      # but I have it installed in neovim so I use
       # the run-shell command on it and that does the
       # trick.
       # pkgs.vimPlugins.tmux-nvim

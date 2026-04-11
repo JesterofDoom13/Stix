@@ -1,7 +1,8 @@
-{ pkgs
-, config
-, user
-, ...
+{
+  pkgs,
+  config,
+  user,
+  ...
 }:
 {
   imports = [ ./hardware-configuration.nix ];
@@ -30,7 +31,10 @@
     devices.steamdeck.enable = true;
     decky-loader = {
       enable = true;
-      extraPythonPackages = p: [ p.requests p.pillow ];
+      extraPythonPackages = p: [
+        p.requests
+        p.pillow
+      ];
     };
     steam = {
       enable = true;
@@ -40,10 +44,19 @@
     };
   };
 
-  # Niri — systemd units, session file, polkit all handled by this
+  # Niri
   programs.niri.enable = true;
   programs.kdeconnect.enable = true;
   programs.dconf.enable = true;
+
+  # Noctalia - Just in case we didn't get it from Jovian-NixOS
+  # All labeled as requirements under Noctalia docs for NixOS
+
+  # networking is supported but if you put this in a different conifg enable it.
+  # networking.networkmanager.enable = true;
+  hardware.bluetooth.enable = true;
+  services.power-profiles-daemon.enable = true;
+  services.upower.enable = true;
 
   # Retrodeck - Enabling Flatpaks and installing it
   services.flatpak.enable = true;
@@ -60,7 +73,11 @@
   # Force Wayland for all Flatpaks globally
   services.flatpak.overrides = {
     global = {
-      Context.sockets = [ "wayland" "!x11" "!fallback-x11" ];
+      Context.sockets = [
+        "wayland"
+        "!x11"
+        "!fallback-x11"
+      ];
       Environment = {
         XCURSOR_PATH = "/run/host/user-share/icons:/run/host/share/icons";
       };
@@ -147,8 +164,13 @@
   networking.hostName = "steamdeck";
   networking.networkmanager.enable = true;
   networking.firewall = rec {
-    # kdeconnect 
-    allowedTCPPortRanges = [{ from = 1714; to = 1764; }];
+    # kdeconnect
+    allowedTCPPortRanges = [
+      {
+        from = 1714;
+        to = 1764;
+      }
+    ];
     allowedUDPPortRanges = allowedTCPPortRanges;
   };
   services.avahi = {
@@ -196,7 +218,10 @@
 
   nix.settings = {
     accept-flake-config = true;
-    trusted-users = [ "root" "@wheel" ];
+    trusted-users = [
+      "root"
+      "@wheel"
+    ];
     experimental-features = [
       "nix-command"
       "flakes"

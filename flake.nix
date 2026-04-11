@@ -71,13 +71,14 @@
   };
 
   outputs =
-    { nixpkgs
-    , jovian
-    , nix-flatpak
-    , home-manager
-    , disko
-    , niri
-    , ...
+    {
+      nixpkgs,
+      jovian,
+      nix-flatpak,
+      home-manager,
+      disko,
+      niri,
+      ...
     }@inputs:
     let
       system = "x86_64-linux";
