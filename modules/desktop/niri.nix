@@ -55,6 +55,13 @@ in
     spawn-at-startup = [
       { command = [ "${pkgs.kanshi}/bin/kanshi" ]; }
       { command = [ "${pkgs.niriswitcher}/bin/niriswitcher" ]; }
+      {
+        command = [
+          "sh"
+          "-c"
+          "export XDG_MENU_PREFIX=plasma- && kbuildsycoca6 --noincremental"
+        ];
+      }
     ];
 
     hotkey-overlay.skip-at-startup = true;

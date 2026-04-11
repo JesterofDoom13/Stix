@@ -14,7 +14,7 @@
       q = "exit";
       # rsg restarts ghostty service
       rsg = "systemctl --user daemon-reload && systemctl --user restart app-ghostty-service.service";
-      oswitch = "sn && nh os switch";
+      oswitch = "find ~/.config -name \"*hmup\" -delete && sn && nh os switch";
     };
 
     sessionVariables = {

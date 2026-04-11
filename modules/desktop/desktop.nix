@@ -45,6 +45,9 @@ in
     google-chrome
     solaar
     kando
+    kdePackages.ark
+    kdePackages.gwenview
+    kdePackages.kservice
     kdePackages.skanlite
     libreoffice
     system-config-printer
@@ -52,4 +55,10 @@ in
     flips
     cac-google-setup
   ];
+  xdg.mimeApps = {
+    associations.added."applications/zip" = [ "org.kde.ark.desktop" ];
+    defaultApplications."applications/zip" = [ "org.kde.ark.desktop" ];
+    associations.added."applications/x-compress-tar" = [ "org.kde.ark.desktop" ];
+    defaultApplications."applications/x-compress-tar" = [ "org.kde.ark.desktop" ];
+  };
 }

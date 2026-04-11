@@ -72,6 +72,7 @@
 
   outputs =
     {
+      self,
       nixpkgs,
       jovian,
       nix-flatpak,
@@ -86,78 +87,120 @@
       myStylix = "gruvbox-material-dark-hard";
     in
     {
-      nixosConfigurations.min = nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = {
-          inherit
-            inputs
-            user
-            myStylix
-            system
-            ;
-        };
-        modules = [
-          jovian.nixosModules.default
-          niri.nixosModules.niri
-          disko.nixosModules.disko
-          home-manager.nixosModules.home-manager
-          ./configuration.nix
-          ./disko.nix
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              extraSpecialArgs = {
-                inherit
-                  inputs
-                  user
-                  myStylix
-                  system
-                  ;
+      nixosConfigurations = {
+        min = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = {
+            inherit
+              inputs
+              user
+              myStylix
+              system
+              ;
+          };
+          modules = [
+            jovian.nixosModules.default
+            niri.nixosModules.niri
+            disko.nixosModules.disko
+            home-manager.nixosModules.home-manager
+            ./configuration.nix
+            ./disko.nix
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = {
+                  inherit
+                    inputs
+                    user
+                    myStylix
+                    system
+                    ;
+                };
+                users.${user} = import ./home.nix;
               };
-              users.${user} = import ./home.nix;
-            };
-          }
-        ];
-      };
-
-      nixosConfigurations.steamdeck = nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = {
-          inherit
-            inputs
-            user
-            myStylix
-            system
-            ;
+            }
+          ];
         };
-        modules = [
-          jovian.nixosModules.default
-          niri.nixosModules.niri
-          nix-flatpak.nixosModules.nix-flatpak
-          disko.nixosModules.disko
-          home-manager.nixosModules.home-manager
-          ./configuration.nix
-          ./disko.nix
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              extraSpecialArgs = {
-                inherit
-                  inputs
-                  user
-                  myStylix
-                  system
-                  ;
+        steamdeck = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = {
+            inherit
+              inputs
+              user
+              myStylix
+              system
+              ;
+          };
+          modules = [
+            jovian.nixosModules.default
+            niri.nixosModules.niri
+            nix-flatpak.nixosModules.nix-flatpak
+            disko.nixosModules.disko
+            home-manager.nixosModules.home-manager
+            ./configuration.nix
+            ./disko.nix
+            { networking.hostName = "steamdeck"; }
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = {
+                  inherit
+                    inputs
+                    user
+                    myStylix
+                    system
+                    ;
+                };
+                users.${user}.imports = [
+                  ./home.nix
+                  ./modules/default.nix
+                ];
               };
-              users.${user}.imports = [
-                ./home.nix
-                ./modules/default.nix
-              ];
-            };
-          }
-        ];
+            }
+          ];
+        };
+        kharon = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = {
+            inherit
+              inputs
+              user
+              myStylix
+              system
+              ;
+          };
+          modules = [
+            jovian.nixosModules.default
+            niri.nixosModules.niri
+            nix-flatpak.nixosModules.nix-flatpak
+            disko.nixosModules.disko
+            home-manager.nixosModules.home-manager
+            ./configuration.nix
+            ./disko.nix
+            { networking.hostName = "kharon"; }
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = {
+                  inherit
+                    inputs
+                    user
+                    myStylix
+                    system
+                    ;
+                };
+                users.${user}.imports = [
+                  ./home.nix
+                  ./modules/default.nix
+                ];
+              };
+            }
+          ];
+        };
+        default = self.nixosConfigurations.steamdeck;
       };
     };
 }

@@ -109,8 +109,8 @@ in
 
     nh = {
       enable = true;
-      flake = "/home/Jester/Stix"; # updated path
-      homeFlake = "/home/Jester/Stix"; # updated path
+      flake = "/home/Jester/Stix";
+      homeFlake = "/home/Jester/Stix";
       clean = {
         enable = true;
         dates = "weekly";

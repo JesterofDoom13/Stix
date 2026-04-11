@@ -105,12 +105,20 @@
         pkgs.xdg-desktop-portal-gnome
       ];
       config.niri = {
+        default = [
+          "kde"
+          "gnome"
+          "gtk"
+        ];
         "org.freedesktop.impl.portal.FileChooser" = "kde";
         "org.freedesktop.imp.portal.AppChooser" = "kde";
         # "default" = [ "gtk" ];
       };
     };
   };
+  # in configuration.nix
+  environment.etc."xdg/menus/applications.menu".source =
+    "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
 
   console.useXkbConfig = true;
   services = {
@@ -161,7 +169,7 @@
   };
 
   # Networking
-  networking.hostName = "steamdeck";
+  networking.hostName = "kharon";
   networking.networkmanager.enable = true;
   networking.firewall = rec {
     # kdeconnect

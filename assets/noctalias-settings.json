@@ -360,7 +360,7 @@
     "enableClipboardChips": true,
     "clipboardWatchTextCommand": "wl-paste --type text --watch cliphist store",
     "clipboardWatchImageCommand": "wl-paste --type image --watch cliphist store",
-    "position": "top_center",
+    "position": "center",
     "pinnedApps": [
       "google-chrome"
     ],

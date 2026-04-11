@@ -1,5 +1,4 @@
 {
-  config,
   myStylix,
   inputs,
   pkgs,
@@ -27,6 +26,8 @@ let
           lua51Packages.luasnip
           lua51Packages.neotest
           lua51Packages.rustaceanvim
+          #TODO: Check back. Broken when inputting this comment.
+          # lua51Packages.magick
           lua-language-server
           lldb
           nil
@@ -58,7 +59,10 @@ let
           tectonic
         ];
         node = with pkgs; [ nodejs_24 ];
-        perl = with pkgs; [ perl5Packages.NeovimExt ];
+        perl = with pkgs; [
+          perl5Packages.NeovimExt
+          perl5Packages.CPAN
+        ];
         python = with pkgs; [
           black
           isort
@@ -80,6 +84,7 @@ let
           catppuccin-nvim
           conform-nvim
           dial-nvim
+          fastaction-nvim
           flash-nvim
           friendly-snippets
           fzf-lua
