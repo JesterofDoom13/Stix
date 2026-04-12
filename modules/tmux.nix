@@ -28,6 +28,9 @@
       set -g allow-passthrough on
       set -g visual-activity off
 
+      # Noctalia theme loading
+      source-file ~/.config/tmux/noctalia-colors.conf
+
       bind-key r source-file ~/.config/tmux/tmux.conf
 
       ## Smart-splits loading without plugin. Plugin does the rest in neovim.

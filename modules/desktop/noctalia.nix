@@ -30,38 +30,33 @@ in
     inputs.noctalia.homeModules.default
   ];
 
-  home.packages = with pkgs; [
-    # Our script from above
-    sn
-    jq
-  ];
-
   programs.noctalia-shell = {
     enable = true;
     settings = lib.recursiveUpdate {
       settingsVersion = 59;
       bar = {
-        barType = "simple";
-        position = "left";
+        barType = "floating";
+        position = "top";
         monitors = [
 
         ];
-        density = "compact";
+        density = "mini";
         showOutline = false;
         showCapsule = true;
-        capsuleOpacity = 1;
-        capsuleColorKey = "none";
-        widgetSpacing = 6;
-        contentPadding = 2;
-        fontScale = 1;
-        enableExclusionZoneInset = true;
-        useSeparateOpacity = false;
+        capsuleOpacity = 0.26;
+        capsuleColorKey = "primary";
+        widgetSpacing = 5;
+        contentPadding = 30;
+        fontScale = 1.3;
+        enableExclusionZoneInset = false;
+        backgroundOpacity = 1;
+        useSeparateOpacity = true;
         marginVertical = 4;
         marginHorizontal = 4;
         frameThickness = 8;
-        frameRadius = 12;
+        frameRadius = 13;
         outerCorners = true;
-        hideOnOverview = false;
+        hideOnOverview = true;
         displayMode = "always_visible";
         autoHideDelay = 500;
         autoShowDelay = 150;
@@ -69,24 +64,58 @@ in
         widgets = {
           left = [
             {
-              colorizeSystemIcon = "none";
-              customIconPath = "";
-              enableColorization = false;
-              icon = "rocket";
+              compactMode = true;
+              diskPath = "/";
               iconColor = "none";
-              id = "Launcher";
-              useDistroLogo = false;
+              id = "SystemMonitor";
+              showCpuCores = true;
+              showCpuFreq = false;
+              showCpuTemp = true;
+              showCpuUsage = true;
+              showDiskAvailable = true;
+              showDiskUsage = true;
+              showDiskUsageAsPercent = true;
+              showGpuTemp = false;
+              showLoadAverage = true;
+              showMemoryAsPercent = true;
+              showMemoryUsage = true;
+              showNetworkStats = true;
+              showSwapUsage = false;
+              textColor = "none";
+              useMonospaceFont = true;
+              usePadding = false;
             }
             {
-              colorizeIcons = false;
-              hideMode = "hidden";
-              id = "ActiveWindow";
-              maxWidth = 145;
-              scrollingMode = "hover";
-              showIcon = true;
-              showText = true;
-              textColor = "none";
-              useFixedWidth = false;
+              defaultSettings = {
+                compactMode = false;
+                defaultPeerAction = "copy-ip";
+                hideDisconnected = false;
+                hideMullvadExitNodes = true;
+                pingCount = 5;
+                refreshInterval = 5000;
+                showIpAddress = true;
+                showPeerCount = true;
+                sshUsername = "";
+                taildropDownloadDir = "~/Downloads";
+                taildropEnabled = true;
+                taildropReceiveMode = "operator";
+                terminalCommand = "";
+              };
+              id = "plugin:tailscale";
+            }
+            {
+              defaultSettings = {
+                apiKey = "";
+                apiUrl = "";
+                configPath = "";
+                enabled = true;
+                folderIds = [
+
+                ];
+                pollIntervalMs = 10000;
+                verifyTls = false;
+              };
+              id = "plugin:syncthing-status";
             }
           ];
           center = [
@@ -111,6 +140,18 @@ in
               showLabelsOnlyWhenOccupied = true;
               unfocusedIconsOpacity = 1;
             }
+            {
+              displayMode = "onhover";
+              iconColor = "none";
+              id = "Bluetooth";
+              textColor = "none";
+            }
+            {
+              displayMode = "onhover";
+              iconColor = "none";
+              id = "Network";
+              textColor = "none";
+            }
           ];
           right = [
             {
@@ -118,13 +159,26 @@ in
 
               ];
               chevronColor = "none";
-              colorizeIcons = false;
+              colorizeIcons = true;
               drawerEnabled = true;
               hidePassive = false;
               id = "Tray";
               pinned = [
-
+                "indicator-solaar"
               ];
+            }
+            {
+              iconColor = "none";
+              id = "PowerProfile";
+            }
+            {
+              deviceNativePath = "BAT1";
+              displayMode = "graphic";
+              hideIfIdle = false;
+              hideIfNotDetected = true;
+              id = "Battery";
+              showNoctaliaPerformance = true;
+              showPowerProfiles = true;
             }
             {
               displayMode = "onhover";
@@ -141,41 +195,44 @@ in
               textColor = "none";
             }
             {
-              deviceNativePath = "__default__";
-              displayMode = "graphic-clean";
-              hideIfIdle = false;
-              hideIfNotDetected = true;
-              id = "Battery";
-              showNoctaliaPerformance = false;
-              showPowerProfiles = false;
+              defaultSettings = {
+              };
+              id = "plugin:kde-connect";
+            }
+            {
+              defaultSettings = {
+                autoHeight = true;
+                cheatsheetData = [
+
+                ];
+                columnCount = 3;
+                detectedCompositor = "";
+                hyprlandConfigPath = "~/.config/hypr/hyprland.conf";
+                modKeyVariable = "$mod";
+                niriConfigPath = "~/.config/niri/config.kdl";
+                windowHeight = 0;
+                windowWidth = 1400;
+              };
+              id = "plugin:keybind-cheatsheet";
             }
             {
               clockColor = "none";
               customFont = "";
-              formatHorizontal = "HH:mm";
-              formatVertical = "HH mm - dd MM";
+              formatHorizontal = "HH:mm ddd ddMMMyy";
+              formatVertical = "HH mm ss - ddd - dd MMM yy";
               id = "Clock";
               tooltipFormat = "HH:mm ddd, MMM dd";
               useCustomFont = false;
             }
-            {
-              colorizeDistroLogo = false;
-              colorizeSystemIcon = "none";
-              customIconPath = "";
-              enableColorization = false;
-              icon = "noctalia";
-              id = "ControlCenter";
-              useDistroLogo = true;
-            }
           ];
         };
-        mouseWheelAction = "none";
+        mouseWheelAction = "volume";
         reverseScroll = false;
         mouseWheelWrap = true;
-        middleClickAction = "none";
-        middleClickFollowMouse = false;
+        middleClickAction = "controlCenter";
+        middleClickFollowMouse = true;
         middleClickCommand = "";
-        rightClickAction = "controlCenter";
+        rightClickAction = "settings";
         rightClickFollowMouse = true;
         rightClickCommand = "";
         screenOverrides = [
@@ -251,8 +308,8 @@ in
       ui = {
         fontDefault = "FiraCode Nerd Font Ret";
         fontFixed = "FiraCode Nerd Font Mono Med";
-        fontDefaultScale = 0.91;
-        fontFixedScale = 0.9;
+        fontDefaultScale = 0.84;
+        fontFixedScale = 0.89;
         tooltipsEnabled = true;
         scrollbarAlwaysVisible = true;
         boxBorderEnabled = false;
@@ -310,7 +367,7 @@ in
         fillColor = "#000000";
         useSolidColor = false;
         solidColor = "#1a1a2e";
-        automationEnabled = false;
+        automationEnabled = true;
         wallpaperChangeMode = "random";
         randomIntervalSec = 300;
         transitionDuration = 1500;
@@ -359,7 +416,7 @@ in
           "google-chrome"
         ];
         sortByMostUsed = true;
-        terminalCommand = "alacritty -e";
+        terminalCommand = "ghostty -e";
         customLaunchPrefixEnabled = false;
         customLaunchPrefix = "";
         viewMode = "list";
@@ -372,7 +429,7 @@ in
         ignoreMouseInput = false;
         screenshotAnnotationTool = "";
         overviewLayer = false;
-        density = "default";
+        density = "comfortable";
       };
       controlCenter = {
         position = "close_to_bar_button";
@@ -458,37 +515,37 @@ in
         externalMonitor = "resources || missioncenter || jdsystemmonitor || corestats || system-monitoring-center || gnome-system-monitor || plasma-systemmonitor || mate-system-monitor || ukui-system-monitor || deepin-system-monitor || pantheon-system-monitor";
       };
       noctaliaPerformance = {
-        disableWallpaper = true;
-        disableDesktopWidgets = true;
+        disableWallpaper = false;
+        disableDesktopWidgets = false;
       };
       dock = {
         enabled = true;
         position = "bottom";
-        displayMode = "auto_hide";
-        dockType = "attached";
-        backgroundOpacity = 0.78;
-        floatingRatio = 1;
-        size = 1;
+        displayMode = "always_visible";
+        dockType = "floating";
+        backgroundOpacity = 0.29;
+        floatingRatio = 0.27;
+        size = 0.75;
         onlySameOutput = true;
         monitors = [
 
         ];
         pinnedApps = [
-
+          "google-chrome"
         ];
         colorizeIcons = false;
-        showLauncherIcon = false;
-        launcherPosition = "end";
-        launcherUseDistroLogo = false;
+        showLauncherIcon = true;
+        launcherPosition = "start";
+        launcherUseDistroLogo = true;
         launcherIcon = "";
-        launcherIconColor = "none";
-        pinnedStatic = false;
-        inactiveIndicators = false;
-        groupApps = false;
+        launcherIconColor = "secondary";
+        pinnedStatic = true;
+        inactiveIndicators = true;
+        groupApps = true;
         groupContextMenuMode = "extended";
         groupClickAction = "cycle";
         groupIndicatorStyle = "dots";
-        deadOpacity = 0.6;
+        deadOpacity = 0.62;
         animationSpeed = 1;
         sitOnFrame = false;
         showDockIndicator = true;
@@ -499,7 +556,7 @@ in
       network = {
         bluetoothRssiPollingEnabled = false;
         bluetoothRssiPollIntervalMs = 60000;
-        networkPanelView = "wifi";
+        networkPanelView = "ethernet";
         wifiDetailsViewMode = "grid";
         bluetoothDetailsViewMode = "grid";
         bluetoothHideUnnamedDevices = false;
@@ -517,44 +574,65 @@ in
         powerOptions = [
           {
             action = "lock";
+            command = "";
+            countdownEnabled = true;
             enabled = true;
             keybind = "1";
           }
           {
             action = "suspend";
+            command = "";
+            countdownEnabled = true;
             enabled = true;
             keybind = "2";
           }
           {
             action = "hibernate";
+            command = "";
+            countdownEnabled = true;
             enabled = true;
             keybind = "3";
           }
           {
             action = "reboot";
+            command = "";
+            countdownEnabled = true;
             enabled = true;
             keybind = "4";
           }
           {
             action = "logout";
+            command = "";
+            countdownEnabled = true;
             enabled = true;
             keybind = "5";
           }
           {
             action = "shutdown";
+            command = "";
+            countdownEnabled = true;
             enabled = true;
             keybind = "6";
           }
           {
             action = "rebootToUefi";
+            command = "";
+            countdownEnabled = true;
             enabled = true;
             keybind = "7";
+          }
+          {
+            action = "userspaceReboot";
+            command = "";
+            countdownEnabled = true;
+            enabled = false;
+            keybind = "";
           }
         ];
       };
       notifications = {
         enabled = true;
-        enableMarkdown = false;
+        enableMarkdown = true;
         density = "default";
         monitors = [
 
@@ -573,7 +651,7 @@ in
           critical = true;
         };
         sounds = {
-          enabled = false;
+          enabled = true;
           volume = 0.5;
           separateSounds = false;
           criticalSoundFile = "";
@@ -581,7 +659,7 @@ in
           lowSoundFile = "";
           excludedApps = "discord,firefox,chrome,chromium,edge";
         };
-        enableMediaToast = false;
+        enableMediaToast = true;
         enableKeyboardLayoutToast = true;
         enableBatteryToast = true;
       };
@@ -595,6 +673,7 @@ in
           0
           1
           2
+          3
         ];
         monitors = [
 
@@ -602,7 +681,7 @@ in
       };
       audio = {
         volumeStep = 5;
-        volumeOverdrive = false;
+        volumeOverdrive = true;
         spectrumFrameRate = 30;
         visualizerType = "linear";
         spectrumMirrored = true;
@@ -622,13 +701,13 @@ in
         ];
       };
       colorSchemes = {
-        useWallpaperColors = false;
+        useWallpaperColors = true;
         predefinedScheme = "Monochrome";
         darkMode = true;
         schedulingMode = "off";
         manualSunrise = "06:30";
         manualSunset = "18:30";
-        generationMethod = "tonal-spot";
+        generationMethod = "vibrant";
         monitorForColors = "";
         syncGsettings = true;
       };
@@ -660,15 +739,19 @@ in
           }
           {
             enabled = true;
-            id = "sway";
-          }
-          {
-            enabled = true;
             id = "gtk";
           }
           {
             enabled = true;
             id = "discord";
+          }
+          {
+            enabled = true;
+            id = "zathura";
+          }
+          {
+            enabled = true;
+            id = "steam";
           }
         ];
         enableUserTheming = false;
@@ -683,7 +766,7 @@ in
         manualSunset = "18:30";
       };
       hooks = {
-        enabled = false;
+        enabled = true;
         wallpaperChange = "";
         darkModeChange = "";
         screenLock = "";
@@ -699,8 +782,8 @@ in
         notifyUpdates = true;
       };
       idle = {
-        enabled = false;
-        screenOffTimeout = 600;
+        enabled = true;
+        screenOffTimeout = 300;
         lockTimeout = 660;
         suspendTimeout = 1800;
         fadeDuration = 5;
@@ -722,11 +805,79 @@ in
         ];
       };
     } savedSettings;
+    user-templates = {
+      templates = {
+        nvim-colors = {
+          input_path = "~/.config/nvim/lua/templates/colors-template.lua";
+          output_path = "~/.config/nvim/lua/noctalia-colors.lua";
+          post_hook = "pkill -SIGUSR1 nvim";
+        };
+        tmux-colors = {
+          input_path = "~/.config/tmux/templates/colors-template.conf";
+          output_path = "~/.config/tmux/noctalia-colors.conf";
+          post_hook = "tmux source-file ~/.config/tmux/noctalia-colors.conf";
+        };
+        fish-colors = {
+          input_path = "~/.config/fish/templates/colors-template.fish";
+          output_path = "~/.config/fish/noctalia-colors.fish";
+          post_hook = "fish ~/.config/fish/noctalia-colors.fish";
+        };
+      };
+    };
   };
+  home = {
 
-  # Wallpaper config
-  home.file.".cache/noctalia/wallpapers.json".text = builtins.toJSON {
-    defaultWallpaper = "${homeDir}/Stix/assets/imgs/background/brown_city_planet_w.jpg";
+    packages = with pkgs; [
+      sn
+      jq
+    ];
+    file = {
+
+      # Wallpaper config
+      ".cache/noctalia/wallpapers.json".text = builtins.toJSON {
+        defaultWallpaper = "${homeDir}/Stix/assets/imgs/background/brown_city_planet_w.jpg";
+      };
+      # tmux noctalia wallpaper template
+      ".config/tmux/templates/colors-template.conf".text = ''
+        # Status bar background and foreground
+        set -g status-style "bg={{colors.surface.default.hex}},fg={{colors.on_surface.default.hex}}"
+        # Window selection colors
+        set -g window-status-current-style "bg={{colors.primary.default.hex}},fg={{colors.on_primary.default.hex}},bold"
+        set -g window-status-style "bg={{colors.surface.default.hex}},fg={{colors.on_surface_variant.default.hex}}"
+        # Pane borders
+        set -g pane-border-style "fg={{colors.outline.default.hex}}"
+        set -g pane-active-border-style "fg={{colors.primary.default.hex}}"
+        # Message command line
+        set -g message-style "bg={{colors.secondary_container.default.hex}},fg={{colors.on_secondary_container.default.hex}}"
+      '';
+      # fish noctalia wallpaper template
+      ".config/fish/templates/colors-template.fish" = {
+        text = ''
+          #!/usr/bin/env fish
+          set -U fish_color_normal {{colors.on_surface.default.hex_stripped}}
+          set -U fish_color_command {{colors.primary.default.hex_stripped}} --bold
+          set -U fish_color_keyword {{colors.tertiary.default.hex_stripped}}
+          set -U fish_color_quote {{colors.secondary.default.hex_stripped}}
+          set -U fish_color_redirection {{colors.primary_container.default.hex_stripped}}
+          set -U fish_color_end {{colors.on_surface_variant.default.hex_stripped}}
+          set -U fish_color_error {{colors.error.default.hex_stripped}}
+          set -U fish_color_param {{colors.on_surface.default.hex_stripped}}
+          set -U fish_color_comment {{colors.outline.default.hex_stripped}}
+          set -U fish_color_selection --background={{colors.surface_container_high.default.hex_stripped}}
+          set -U fish_color_search_match --background={{colors.surface_container_highest.default.hex_stripped}}
+          set -U fish_color_operator {{colors.primary.default.hex_stripped}}
+          set -U fish_color_escape {{colors.secondary.default.hex_stripped}}
+          set -U fish_color_autosuggestion {{colors.outline.default.hex_stripped}}
+
+          # Pager colors (completion menu)
+          set -U fish_pager_color_progress {{colors.on_surface_variant.default.hex_stripped}}
+          set -U fish_pager_color_prefix {{colors.primary.default.hex_stripped}} --bold --underline
+          set -U fish_pager_color_completion {{colors.on_surface.default.hex_stripped}}
+          set -U fish_pager_color_description {{colors.outline.default.hex_stripped}}
+        '';
+        executable = true;
+      };
+    };
   };
 
   # Launch noctalia on niri startup

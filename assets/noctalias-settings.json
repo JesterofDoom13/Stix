@@ -693,7 +693,7 @@
         "id": "steam"
       }
     ],
-    "enableUserTheming": false
+    "enableUserTheming": true
   },
   "nightLight": {
     "enabled": false,
