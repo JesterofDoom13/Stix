@@ -172,10 +172,9 @@
   networking.hostName = "kharon";
   networking.networkmanager.enable = true;
   networking.firewall = rec {
-    # kdeconnect
     allowedTCPPortRanges = [
       {
-        from = 1714;
+        from = 1714; # kde-connect
         to = 1764;
       }
     ];

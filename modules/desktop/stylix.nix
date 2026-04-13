@@ -25,6 +25,7 @@
     targets = {
       zen-browser.profileNames = [ "default" ];
       noctalia-shell.enable = false;
+      fish.enable = false;
     };
   };
 }

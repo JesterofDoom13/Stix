@@ -820,7 +820,14 @@ in
         fish-colors = {
           input_path = "~/.config/fish/templates/colors-template.fish";
           output_path = "~/.config/fish/noctalia-colors.fish";
-          post_hook = "fish ~/.config/fish/noctalia-colors.fish";
+          # post_hook = "tmux list-panes -a -F '#{pane_id}' | xargs -I{} tmux send-keys -t {} 'source ~/.config/fish/noctalia-colors.fish' Enter";
+          post_hook = "fish -c ~/.config/fish/noctalia-colors.fish";
+        };
+        user-templates.templates.dolphin = {
+          input_path = "~/.config/nvim/templates/kdeglobals.template"; # Or wherever you keep templates
+          output_path = "~/.config/kdeglobals";
+          # Signal Qt apps to refresh if possible
+          post_hook = "dbus-send --type=signal /KWin org.kde.KWin.reloadConfig";
         };
       };
     };
@@ -832,7 +839,6 @@ in
       jq
     ];
     file = {
-
       # Wallpaper config
       ".cache/noctalia/wallpapers.json".text = builtins.toJSON {
         defaultWallpaper = "${homeDir}/Stix/assets/imgs/background/brown_city_planet_w.jpg";
@@ -843,7 +849,7 @@ in
         set -g status-style "bg={{colors.surface.default.hex}},fg={{colors.on_surface.default.hex}}"
         # Window selection colors
         set -g window-status-current-style "bg={{colors.primary.default.hex}},fg={{colors.on_primary.default.hex}},bold"
-        set -g window-status-style "bg={{colors.surface.default.hex}},fg={{colors.on_surface_variant.default.hex}}"
+        set -g window-status-style "fg={{colors.surface.default.hex}},bg={{colors.on_surface_variant.default.hex}}"
         # Pane borders
         set -g pane-border-style "fg={{colors.outline.default.hex}}"
         set -g pane-active-border-style "fg={{colors.primary.default.hex}}"
@@ -874,9 +880,29 @@ in
           set -U fish_pager_color_prefix {{colors.primary.default.hex_stripped}} --bold --underline
           set -U fish_pager_color_completion {{colors.on_surface.default.hex_stripped}}
           set -U fish_pager_color_description {{colors.outline.default.hex_stripped}}
+          source ~/.config/fish/config.fish
+
         '';
         executable = true;
       };
+      # ".config/kdeglobals.template".text = ''
+      #   [General]
+      #   ColorScheme=Noctalia
+      #   Name=Noctalia
+      #
+      #   [Colors:Window]
+      #   BackgroundNormal={{colors.surface.default.hex}}
+      #   ForegroundNormal={{colors.on_surface.default.hex}}
+      #
+      #   [Colors:View]
+      #   BackgroundNormal={{colors.surface.default.hex}}
+      #   ForegroundNormal={{colors.on_surface.default.hex}}
+      #   BackgroundAlternate={{colors.surface_container.default.hex}}
+      #
+      #   [Colors:Selection]
+      #   BackgroundNormal={{colors.primary.default.hex}}
+      #   ForegroundNormal={{colors.on_primary.default.hex}}
+      # '';
     };
   };
 

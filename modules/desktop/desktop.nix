@@ -49,12 +49,14 @@ in
     kdePackages.gwenview
     kdePackages.kservice
     kdePackages.skanlite
+    kdePackages.qt6ct
     libreoffice
     system-config-printer
     kdePackages.dolphin
     flips
     cac-google-setup
   ];
+
   xdg.mimeApps = {
     associations.added."applications/zip" = [ "org.kde.ark.desktop" ];
     defaultApplications."applications/zip" = [ "org.kde.ark.desktop" ];

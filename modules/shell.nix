@@ -41,10 +41,24 @@ in
       shellInit = ''
         fish_vi_key_bindings
         batman --export-env | source
+        if test -f ~/.config/fish/noctalia-colors.fish
+          source ~/.config/fish/noctalia-colors.fish
+        end
       '';
       interactiveShellInit = ''
         set fish_greeting
         if status is-interactive; and not set -q TMUX; tmux_smart_attach; end
+        function fish_prompt
+          # Use the universal variables set by Noctalia
+          set_color $my_prompt_color
+          echo -n (prompt_pwd)
+          set_color $my_prompt_secondary
+          if test -n "$IN_NIX_SHELL"
+              echo -n (set_color blue)"(nix) " (set_color normal)
+          end
+          echo -n " > "
+          set_color normal
+        end
       '';
       shellAbbrs = {
         cd = "z";

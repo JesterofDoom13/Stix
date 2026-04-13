@@ -23,8 +23,7 @@
     };
 
     packages = with pkgs; [
-      alacritty
-      firefox
+      git
     ];
   };
 

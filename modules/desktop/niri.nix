@@ -62,6 +62,15 @@ in
           "export XDG_MENU_PREFIX=plasma- && kbuildsycoca6 --noincremental"
         ];
       }
+      {
+        command = [
+          "dbus-update-activation-environment"
+          "--systemd"
+          "DISPLAY"
+          "WAYLAND_DISPLAY"
+          "XDG_CURRENT_DESKTOP"
+        ];
+      }
     ];
 
     hotkey-overlay.skip-at-startup = true;
