@@ -1,7 +1,7 @@
-{
-  pkgs,
-  inputs,
-  ...
+{ pkgs
+, inputs
+, config
+, ...
 }:
 let
   inherit (pkgs.stdenv.hostPlatform) system;
@@ -40,6 +40,18 @@ in
       extensions.packages = with inputs.firefox-addons.packages.${system}; [
         vimium-c
       ];
+      settings = {
+        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+      };
+
+      # The @import that points to Noctalia's generated CSS
+      userChrome = ''
+        @import "${config.home.homeDirectory}/.cache/noctalia/zen-browser/zen-userChrome.css";
+      '';
+
+      userContent = ''
+        @import "${config.home.homeDirectory}/.cache/noctalia/zen-browser/zen-userContent.css";
+      '';
       keyboardShortcuts = [
         {
           id = "zen-toggle-sidebar";

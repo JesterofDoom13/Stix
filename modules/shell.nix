@@ -56,6 +56,7 @@ in
           if test -n "$IN_NIX_SHELL"
               echo -n (set_color blue)"(nix) " (set_color normal)
           end
+          printf '%s' $PWD (fish_git_prompt) ' $ '
           echo -n " > "
           set_color normal
         end

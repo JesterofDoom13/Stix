@@ -1,14 +1,13 @@
-{
-  pkgs,
-  myStylix,
-  inputs,
-  ...
+{ pkgs
+, myStylix
+, inputs
+, ...
 }:
 {
   imports = [ inputs.stylix.homeModules.stylix ];
 
   stylix = {
-    enable = true;
+    enable = false;
     autoEnable = true;
     polarity = "dark";
     image = ../../assets/imgs/background/brown_city_planet_w.jpg;

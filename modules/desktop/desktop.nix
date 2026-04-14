@@ -40,20 +40,21 @@ in
     nerd-fonts.jetbrains-mono
     nerd-fonts.fira-code
     (pkgs.kodi.withPackages (kodiPkgs: with kodiPkgs; [ plex-for-kodi ]))
-    virt-viewer
-    freecad # no nixGL needed on NixOS
+    flips
+    freecad
     google-chrome
-    solaar
     kando
     kdePackages.ark
+    kdePackages.dolphin
     kdePackages.gwenview
     kdePackages.kservice
-    kdePackages.skanlite
     kdePackages.qt6ct
+    kdePackages.skanlite
     libreoffice
+    nixd
+    solaar
     system-config-printer
-    kdePackages.dolphin
-    flips
+    virt-viewer
     cac-google-setup
   ];
 
