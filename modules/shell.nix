@@ -1,7 +1,7 @@
 { pkgs, inputs, ... }:
 let
   mf = pkgs.writeShellScriptBin "mf" ''
-    FLAKE_URL="''${1:-$HOME/.local/my-flakes/}"
+    FLAKE_URL="''${1:-$HOME/Workspace/Tools/my-flakes/}"
     template_list=$(${pkgs.nix}/bin/nix flake show "$FLAKE_URL" --json 2>/dev/null | ${pkgs.jq}/bin/jq -r '
       .templates | to_entries[] | "\(.key)\t\(.value.description)"
     ')
@@ -56,7 +56,7 @@ in
           if test -n "$IN_NIX_SHELL"
               echo -n (set_color blue)"(nix) " (set_color normal)
           end
-          printf '%s' $PWD (fish_git_prompt) ' $ '
+          echo -n (fish_git_prompt)
           echo -n " > "
           set_color normal
         end
