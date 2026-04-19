@@ -7,7 +7,7 @@
   imports = [ inputs.stylix.homeModules.stylix ];
 
   stylix = {
-    enable = false;
+    enable = true;
     autoEnable = true;
     polarity = "dark";
     image = ../../assets/imgs/background/brown_city_planet_w.jpg;

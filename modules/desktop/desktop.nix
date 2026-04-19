@@ -46,6 +46,10 @@ in
     kando
     kdePackages.ark
     kdePackages.dolphin
+    kio-fuse
+    kdePackages.kio-extras
+    kdePackages.kio-gdrive
+    kdePackages.dolphin-plugins
     kdePackages.gwenview
     kdePackages.kservice
     kdePackages.qt6ct
@@ -57,6 +61,11 @@ in
     virt-viewer
     cac-google-setup
   ];
+  home.file.".local/share/kservices6/ServiceMenus/steam.desktop".source =
+    pkgs.fetchurl {
+      url = "https://raw.githubusercontent.com/vicrodh/steamos-add-to-steam/main/share/kservices/steam.desktop";
+      sha256 = "1xlx3j4468g2dnv15appr2qj0aaw9hky32binklr2sjzs8v0cnr0";
+    };
 
   xdg.mimeApps = {
     associations.added."applications/zip" = [ "org.kde.ark.desktop" ];

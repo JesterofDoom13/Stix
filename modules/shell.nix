@@ -57,7 +57,7 @@ in
               echo -n (set_color blue)"(nix) " (set_color normal)
           end
           echo -n (fish_git_prompt)
-          echo -n " > "
+          echo -n " : "
           set_color normal
         end
       '';
