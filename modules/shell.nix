@@ -51,13 +51,13 @@ in
         function fish_prompt
           # Use the universal variables set by Noctalia
           set_color $my_prompt_color
-          echo -n (prompt_pwd)
+          echo -n (prompt_pwd)" "
           set_color $my_prompt_secondary
           if test -n "$IN_NIX_SHELL"
-              echo -n (set_color blue)"(nix) " (set_color normal)
+              echo -n (set_color blue)"(nix)" (set_color normal)
           end
-          echo -n (fish_git_prompt)
-          echo -n " : "
+          echo -n (fish_git_prompt)" "
+          echo -n "> "
           set_color normal
         end
       '';
@@ -72,6 +72,7 @@ in
         pi = "fissh pi@johnny";
         head = "fissh root@10.0.0.94";
         nixi = "fissh Jester@10.0.0.175";
+        ssync = "fissh root@syncthing";
       };
       functions = {
         fissh = "SSH_PREFER_FISH=1 ssh -o SendEnv=SSH_PREFER_FISH $argv";

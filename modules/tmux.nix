@@ -1,6 +1,5 @@
-{
-  pkgs,
-  ...
+{ pkgs
+, ...
 }:
 {
   programs.tmux = {
@@ -79,7 +78,6 @@
              --bind 'ctrl-t:change-prompt(🪟  )+reload(sesh list -t --icons)' \
              --bind 'ctrl-g:change-prompt(⚙️  )+reload(sesh list -c --icons)' \
              --bind 'ctrl-d:execute(tmux kill-session -t {2..})+change-prompt(⚡  )+reload(sesh list --icons)' \
-             # --bind 'ctrl-x:execute(tmux list-sessions -F \'#{session_attached} #{session_name}\' | awk \'/^0/{print $2}\' | xargs -I {} tmux kill-session -t \'{}\')+change-prompt(⚡  )+reload(sesh list --icons)' \
              --preview-window 'right:55%' \
              --preview 'sesh preview {}'
           )\""

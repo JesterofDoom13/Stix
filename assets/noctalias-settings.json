@@ -81,13 +81,6 @@
         },
         {
           "defaultSettings": {
-            "precision": 8,
-            "showBarValue": true
-          },
-          "id": "plugin:noctalia-calculator"
-        },
-        {
-          "defaultSettings": {
             "activeColor": "primary",
             "camFilterRegex": "",
             "enableToast": true,
@@ -201,6 +194,9 @@
           "id": "Clock",
           "tooltipFormat": "HH:mm ddd, MMM dd",
           "useCustomFont": false
+        },
+        {
+          "id": "plugin:weekly-calendar"
         }
       ]
     },

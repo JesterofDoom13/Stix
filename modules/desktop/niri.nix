@@ -139,6 +139,12 @@ in
         hotkey-overlay.title = "Noctalia Cheatsheet";
       };
 
+      # Toggle weekly calendar
+      "Mod+Comma" = {
+        action.spawn = noctalia "plugin:weekly-calendar togglePanel";
+        hotkey-overlay.title = "Noctalia Weekly calendar";
+      };
+
       # Show kde-connect
       "Mod+Period" = {
         action.spawn = noctalia "plugin:kde-connect toggle";

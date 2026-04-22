@@ -1,8 +1,7 @@
-{
-  pkgs,
-  config,
-  user,
-  ...
+{ pkgs
+, config
+, user
+, ...
 }:
 {
   imports = [ ./hardware-configuration.nix ];
@@ -203,11 +202,12 @@
     isNormalUser = true;
     extraGroups = [
       "wheel"
-      "video"
-      "input"
       "audio"
-      "networkmanager"
+      "dialout"
+      "input"
       "lpadmin"
+      "networkmanager"
+      "video"
     ];
     shell = pkgs.fish;
   };

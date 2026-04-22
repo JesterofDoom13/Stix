@@ -31,6 +31,7 @@ in
 
   programs.noctalia-shell = {
     enable = true;
+    package = (inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default.override { calendarSupport = true; });
     settings = lib.recursiveUpdate
       {
         settingsVersion = 59;
