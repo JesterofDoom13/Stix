@@ -47,6 +47,7 @@ in
     kdePackages.ark
     kdePackages.dolphin
     kio-fuse
+    kdePackages.kate
     kdePackages.kio-extras
     kdePackages.kio-gdrive
     kdePackages.dolphin-plugins
