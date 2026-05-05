@@ -159,14 +159,15 @@ in
 
   home.packages = with pkgs; [
     mf
-    gcc
-    python3
-    ruby
-    fd
     dust
+    fd
+    gcc
+    nssTools
+    opensc
+    p7zip-rar
     pandoc
     pcsc-tools
-    opensc
-    nssTools
+    python3
+    ruby
   ];
 }

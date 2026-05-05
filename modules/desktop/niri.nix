@@ -133,6 +133,10 @@ in
         ];
       };
 
+      "Mod+Shift+W" = {
+        action.spawn = noctalia "wallpaper random";
+        hotkey-overlay.title = "Noctalia Change to Random Wallpaper";
+      };
       # Show keybind-cheatsheet
       "Mod+Slash" = {
         action.spawn = noctalia "plugin:keybind-cheatsheet toggle";

@@ -91,6 +91,45 @@
             "removeMargins": false
           },
           "id": "plugin:privacy-indicator"
+        },
+        {
+          "commandPrefix": "music-search",
+          "defaultSettings": {
+            "autoSaveMp3AfterPlayback": false,
+            "defaultPanelLibrarySection": "tracks",
+            "defaultPanelTab": "search",
+            "panelDensity": "balanced",
+            "previewMetadataMode": "always",
+            "previewPaneWidth": 0,
+            "previewThumbnailSize": "comfortable",
+            "showAlbumMetadata": true,
+            "showBarHoverTrackTitle": true,
+            "showDurationMetadata": true,
+            "showHomeArtists": true,
+            "showHomePlaylists": true,
+            "showHomeRecent": true,
+            "showHomeTags": true,
+            "showHomeTop": true,
+            "showPanelHeader": true,
+            "showPanelNowPlaying": true,
+            "showPanelPlaybackProgress": true,
+            "showPanelPreview": true,
+            "showPanelProviderChips": true,
+            "showPanelQueueControls": true,
+            "showPanelRecentTracks": true,
+            "showPanelSearchHelper": true,
+            "showPanelSpeedControls": true,
+            "showPanelStatusBanner": true,
+            "showPanelUrlActions": true,
+            "showPlayStatsMetadata": true,
+            "showPreviewChips": true,
+            "showRatingMetadata": true,
+            "showStatusMetadata": true,
+            "showTagMetadata": true,
+            "showUploaderMetadata": true,
+            "ytPlayerClient": "android"
+          },
+          "id": "plugin:music-search"
         }
       ],
       "center": [
@@ -197,6 +236,45 @@
         },
         {
           "id": "plugin:weekly-calendar"
+        },
+        {
+          "commandPrefix": "music-search",
+          "defaultSettings": {
+            "autoSaveMp3AfterPlayback": false,
+            "defaultPanelLibrarySection": "tracks",
+            "defaultPanelTab": "search",
+            "panelDensity": "balanced",
+            "previewMetadataMode": "always",
+            "previewPaneWidth": 0,
+            "previewThumbnailSize": "comfortable",
+            "showAlbumMetadata": true,
+            "showBarHoverTrackTitle": true,
+            "showDurationMetadata": true,
+            "showHomeArtists": true,
+            "showHomePlaylists": true,
+            "showHomeRecent": true,
+            "showHomeTags": true,
+            "showHomeTop": true,
+            "showPanelHeader": true,
+            "showPanelNowPlaying": true,
+            "showPanelPlaybackProgress": true,
+            "showPanelPreview": true,
+            "showPanelProviderChips": true,
+            "showPanelQueueControls": true,
+            "showPanelRecentTracks": true,
+            "showPanelSearchHelper": true,
+            "showPanelSpeedControls": true,
+            "showPanelStatusBanner": true,
+            "showPanelUrlActions": true,
+            "showPlayStatsMetadata": true,
+            "showPreviewChips": true,
+            "showRatingMetadata": true,
+            "showStatusMetadata": true,
+            "showTagMetadata": true,
+            "showUploaderMetadata": true,
+            "ytPlayerClient": "android"
+          },
+          "id": "plugin:music-search"
         }
       ]
     },
@@ -741,7 +819,7 @@
   },
   "idle": {
     "enabled": true,
-    "screenOffTimeout": 300,
+    "screenOffTimeout": 90,
     "lockTimeout": 660,
     "suspendTimeout": 0,
     "fadeDuration": 5,

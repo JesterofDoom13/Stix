@@ -60,6 +60,11 @@ in
     solaar
     system-config-printer
     virt-viewer
+    yt-dlp
+    mpv
+    jq
+    ffmpeg-full
+    pear-desktop
     cac-google-setup
   ];
   home.file.".local/share/kservices6/ServiceMenus/steam.desktop".source =

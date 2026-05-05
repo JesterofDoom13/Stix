@@ -21,7 +21,14 @@ in
     shellAliases = {
       am = "amethyst-mod-manager";
     };
-    packages = [ amethyst ];
+    packages = with pkgs; [
+      amethyst
+      discord
+      lutris
+      protonup-qt
+      protontricks
+      bottles
+    ];
   };
 
   xdg = {
