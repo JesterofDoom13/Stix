@@ -32,28 +32,34 @@
     disko.url = "github:nix-community/disko/latest";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
+    # -- Niri and tweaks --------------
+    niri.url = "github:sodiboo/niri-flake";
+    niri.inputs.nixpkgs.follows = "nixpkgs";
+
+    niri-tweaks = {
+      url = "github:heyoeyo/niri_tweaks";
+      flake = false;
+    };
+    # -------------------------------- 
+
     noctalia.url = "github:noctalia-dev/noctalia-shell";
     noctalia.inputs.nixpkgs.follows = "nixpkgs";
 
-    niri.url = "github:sodiboo/niri-flake";
-    niri.inputs.nixpkgs.follows = "nixpkgs";
-    niri-tweaks = {
-      url = "github:heyoeyo/niri_tweaks";
-      flake = false; # it's not a flake, just a source
-    };
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
+    nix-flatpak.inputs.nixpkgs.follows = "nixpkgs";
 
     stylix.url = "github:nix-community/stylix";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
 
     ghostty.url = "github:ghostty-org/ghostty";
+    ghostty.inputs.nixpkgs.follows = "nixpkgs";
 
     pvetui.url = "github:devnullvoid/pvetui";
-    pvetui.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-yazi-plugins.url = "github:lordkekz/nix-yazi-plugins";
     nix-yazi-plugins.inputs.nixpkgs.follows = "nixpkgs";
 
+    # -- zen-browser and plugins -----------
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     zen-browser.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -61,11 +67,15 @@
     firefox-addons.inputs.nixpkgs.follows = "nixpkgs";
 
     vimium-options.url = "github:uimataso/vimium-nixos";
+    vimium-options.inputs.nixpkgs.follows = "nixpkgs";
+    # ----------------------------zen-browser
 
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
+    # -- nixCats-nvim and added plugins --
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
+    nixCats.inputs.nixpkgs.follows = "nixpkgs";
 
     plugins-kanban-nvim = {
       url = "github:arakkkkk/kanban.nvim";
@@ -75,6 +85,7 @@
       url = "github:yousefhadder/markdown-plus.nvim";
       flake = false;
     };
+    # -------------------------------------
   };
 
   outputs =
