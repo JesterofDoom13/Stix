@@ -5,12 +5,14 @@
   # can find it easily
   nixConfig = {
     extra-substituters = [
+      "https://cache.nixos.org"
       "https://noctalia.cachix.org"
       "https://jovian.cachix.org"
       "https://ghostty.cachix.org"
       "https://nix-community.cachix.org"
     ];
     extra-trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
       "jovian.cachix.org-1:8Vq4Txku6VZIRhYrHYki3Ab9XHJRoWmdYqMqj4rB/Uc="
       "ghostty.cachix.org-1:QB389yTa6gTyneehvqG58y0WnHjQOqgnA+wBnpWWxns="
@@ -47,13 +49,13 @@
     ghostty.url = "github:ghostty-org/ghostty";
 
     pvetui.url = "github:devnullvoid/pvetui";
+    pvetui.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-yazi-plugins.url = "github:lordkekz/nix-yazi-plugins";
     nix-yazi-plugins.inputs.nixpkgs.follows = "nixpkgs";
 
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     zen-browser.inputs.nixpkgs.follows = "nixpkgs";
-    zen-browser.inputs.home-manager.follows = "home-manager";
 
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
     firefox-addons.inputs.nixpkgs.follows = "nixpkgs";

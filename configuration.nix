@@ -7,6 +7,14 @@
   imports = [ ./hardware-configuration.nix ];
   nixpkgs.config.allowUnfree = true;
 
+  nixpkgs.overlays = [
+    (final: prev: {
+      openldap = prev.openldap.overrideAttrs (_: {
+        doCheck = false;
+      });
+    })
+  ];
+
   boot = {
     kernelParams = [
       "quiet"

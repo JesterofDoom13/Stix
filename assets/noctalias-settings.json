@@ -819,7 +819,7 @@
   },
   "idle": {
     "enabled": true,
-    "screenOffTimeout": 90,
+    "screenOffTimeout": 200,
     "lockTimeout": 660,
     "suspendTimeout": 0,
     "fadeDuration": 5,

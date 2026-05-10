@@ -153,7 +153,7 @@ in
         "Personal" = {
           color = "blue";
           icon = "briefcase";
-          id = 0;
+          id = 1;
         };
       };
       spaces = {
@@ -161,7 +161,6 @@ in
           id = "572910e1-4468-4832-a869-0b3a93e2f165";
           icon = "🌐";
           position = 1000;
-          container = 0;
         };
         "3D Printing" = {
           id = "08be3ada-2398-4e63-bb8e-f8bf9caa8d10";
