@@ -3,6 +3,7 @@
 , ...
 }:
 {
+  gtk.gtk4.theme = null;
   home = {
     username = user;
     homeDirectory = "/home/${user}";

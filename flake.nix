@@ -46,7 +46,6 @@
     noctalia.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
-    nix-flatpak.inputs.nixpkgs.follows = "nixpkgs";
 
     stylix.url = "github:nix-community/stylix";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
@@ -75,7 +74,6 @@
 
     # -- nixCats-nvim and added plugins --
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
-    nixCats.inputs.nixpkgs.follows = "nixpkgs";
 
     plugins-kanban-nvim = {
       url = "github:arakkkkk/kanban.nvim";
