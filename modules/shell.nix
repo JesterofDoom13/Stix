@@ -94,7 +94,12 @@ in
     };
     btop = {
       enable = true;
-      settings.vim_keys = true;
+      settings = {
+        vim_keys = true;
+        cpu_sensor = "acpitz/temp1";
+        color_theme = "noctalia";
+        update_ms = 500;
+      };
     };
     eza = {
       enable = true;

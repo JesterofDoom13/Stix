@@ -2,13 +2,13 @@
 let
   #TODO: Have noctalia display notification when launching into gamescope
   gamescope-json = ''
-    '{ "app_name": "Steam", "body": "Launching Gamescope..." }'
+    '{"app_name":"Steam","body":"Launching Gamescope..."}'
   '';
+
   gamescope-launch = pkgs.writeShellScriptBin "gamescope-launch" ''
     noctalia msg notification-show ${gamescope-json}
     start-gamescope-session
   '';
-
   noctalia =
     cmd:
     [
@@ -33,8 +33,24 @@ in
     kanshi
     niriswitcher
     wl-clipboard-rs
+    wvkbd
   ];
 
+  # -- wvkbd to possible get the steam deck controls working in niri --
+  systemd.user.services.wvkbd = {
+    Unit = {
+      Description = "On-screen keyboard for niri session";
+    };
+    Install = {
+      partOf = [ "graphical-session.target" ];
+      after = [ "graphical-session.target" ];
+      wantedBy = [ "graphical-session.target" ];
+    };
+    Service = {
+      ExecStart = "${pkgs.wvkbd}/bin/wvkbd-mobintl --hidden --auto -L 300";
+      Restart = "on-failure";
+    };
+  };
   # Kanshi config
   xdg.configFile."kanshi/config".text = ''
     profile deck_only {
@@ -48,9 +64,13 @@ in
   '';
 
   programs.niri.settings = {
+    environment = {
+      QT_QPA_PLATFORMTHEME = "qt6ct";
+    };
     spawn-at-startup = [
       { command = [ "${pkgs.kanshi}/bin/kanshi" ]; }
       { command = [ "${pkgs.niriswitcher}/bin/niriswitcher" ]; }
+      { command = [ "steam" "-silent" ]; }
       {
         command = [
           "sh"
@@ -86,7 +106,9 @@ in
     };
 
     binds = {
-
+      "Mod+X" = {
+        action.spawn = [ "systemctl" "--user" "kill" "-s" "SIGRTMIN" "wvkbd.service" ];
+      };
       # Window details (useful for finding app-ids)
       "Mod+Backslash" = {
         action.spawn = [ "niri-window-details" ];

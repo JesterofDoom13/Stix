@@ -8,7 +8,7 @@
     ./niri-tweaks.nix
     ./noctalia.nix
     ./orca.nix
-    ./stylix.nix
+    # ./stylix.nix
     ./zathura.nix
     ./zen.nix
   ];

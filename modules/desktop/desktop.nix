@@ -44,18 +44,27 @@ in
     freecad
     google-chrome
     kando
+
     kdePackages.ark
-    kdePackages.dolphin
+    kdePackages.breeze
+    kdePackages.breeze-icons
+    # kdePackages.dolphin ## Replacing with pcmanfm-qt because it respects noctalia's theme swapping better
+    pcmanfm-qt
     kdePackages.kio-fuse
     kdePackages.kate
+    kdePackages.kcolorscheme
     kdePackages.kio-extras
     kdePackages.kio-gdrive
     kdePackages.dolphin-plugins
     kdePackages.gwenview
     kdePackages.kservice
-    kdePackages.qt6ct
     kdePackages.skanlite
-    # libreoffice
+    kdePackages.qtstyleplugin-kvantum
+    qt6Packages.qt6ct
+    libsForQt5.qtstyleplugin-kvantum
+    gruvbox-kvantum
+    #
+    # libreoffice ## Installed through flatpaks. Otherwise it recompiles it from source and takes WAY too long.
     nixd
     solaar
     system-config-printer

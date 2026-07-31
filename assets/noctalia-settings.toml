@@ -1,5 +1,12 @@
 [bar.widgets]
-center = [ "workspaces" ]
+background_opacity = 0.1099999975413084
+capsule_border = "on_surface"
+capsule_fill = "surface"
+capsule_opacity = 0.35999999195337296
+capsule_padding = 9.0
+capsule_radius = 10
+center = [ "date", "media" ]
+contact_shadow = true
 end = [
     "tray",
     "notifications",
@@ -15,8 +22,19 @@ end = [
 margin_edge = 4
 padding = 4
 scale = 0.80000000447034836
-start = [ "clock", "date", "media" ]
+start = [ "workspaces", "group:g1" ]
 thickness = 28
+
+    [[bar.widgets.capsule_group]]
+    border = "tertiary"
+    enabled = true
+    fill = "secondary"
+    foreground = "primary"
+    id = "g1"
+    members = [ "cpu", "temp", "ram", "network_rx" ]
+    opacity = 0.05000000074505806
+    padding = 9.0
+    radius = 10.0
 
 [battery]
 warning_threshold = 20
@@ -43,7 +61,7 @@ icon_size = 30
 item_spacing = 0
 launcher_position = "start"
 main_axis_padding = 8
-pinned = [ "google-chrome", "org.kde.dolphin" ]
+pinned = [ "google-chrome", "pcmanfm-qt" ]
 
 [idle]
 behavior_order = [ "lock", "screen-off", "lock-and-suspend" ]
@@ -128,14 +146,22 @@ background_opacity = 1.0
 background_opacity = 1.0
 
 [plugins]
-enabled = [ "avivbintangaringga/nix-monitor" ]
+enabled = []
 
 [shell]
 app_icon_colorize = true
 font_family = "FiraCode Nerd Font"
 niri_overview_type_to_launch_enabled = true
 
+    [shell.launcher.providers.emoji]
+    global = true
+
     [shell.panel]
+    clipboard_position = "auto"
+    list_item_background = true
+    open_near_click_session = true
+    polkit_position = "auto"
+    session_placement = "floating"
     wallpaper_placement = "floating"
 
     [shell.shadow]
@@ -144,24 +170,49 @@ niri_overview_type_to_launch_enabled = true
 [theme]
 custom_palette = "stylix"
 mode = "dark"
+pure_black_dark = true
 source = "wallpaper"
-wallpaper_scheme = "vibrant"
+wallpaper_scheme = "faithful"
 
     [theme.templates]
-    builtin_ids = [ "ghostty", "kcolorscheme", "mango", "niri", "qt" ]
-    community_ids = [ "zen-browser", "neovim", "steam", "bat", "lazygit", "yazi" ]
+    builtin_ids = [ "btop", "gtk3", "gtk4", "ghostty", "kcolorscheme", "niri", "qt" ]
+    community_ids = [
+        "pear-desktop",
+        "zen-browser",
+        "neovim",
+        "heroiclauncher",
+        "prismlauncher",
+        "steam",
+        "zathura",
+        "bat",
+        "lazygit",
+        "yazi"
+    ]
+
+        [theme.templates.user.fish]
+        input_path = "$XDG_CONFIG_HOME/noctalia/templates/colors-template.fish"
+        output_path = "$XDG_CONFIG_HOME/fish/generated-colors.fish"
+        post_hook = "fish $XDG_CONFIG_HOME/fish/generated-colors.fish"
+
+        [theme.templates.user.tmux]
+        input_path = "$XDG_CONFIG_HOME/noctalia/templates/tmux.conf"
+        output_path = "$XDG_CONFIG_HOME/tmux/noctalia.conf"
+        post_hook = "tmux source-file $XDG_CONFIG_HOME/tmux/noctalia.conf 2>/dev/null || true"
 
 [wallpaper.automation]
 interval_seconds = 300
 
 [wallpaper.default]
-path = "/home/Jester/Pictures/Wallpapers/Portal.jpg"
+path = "/home/Jester/Pictures/Wallpapers/aiw5lqn.jpeg"
 
 [wallpaper.last]
-path = "/home/Jester/Pictures/Wallpapers/Portal.jpg"
+path = "/home/Jester/Pictures/Wallpapers/aiw5lqn.jpeg"
 
 [wallpaper.monitors.DP-1]
-path = "/home/Jester/Pictures/Wallpapers/Portal.jpg"
+path = "/home/Jester/Pictures/Wallpapers/aiw5lqn.jpeg"
+
+[weather]
+unit = "imperial"
 
 [widget.clock]
 capsule = true
@@ -169,12 +220,28 @@ capsule_border = "primary"
 capsule_padding = 11
 
 [widget.date]
+anchor = true
 capsule = true
 capsule_border = "outline"
 capsule_padding = 13
+format = "{:%H:%M %a %d %b}"
+
+[widget.media]
+capsule_padding = 9
 
 [widget.network]
-capsule = true
+capsule = false
+show_label = false
+
+[widget.network_rx]
+stat = "disk_pct"
 
 [widget.sysmon]
 custom_image_colorize = true
+stat = "swap_pct"
+
+[widget.workspaces]
+capsule_opacity = 0.0
+capsule_padding = 8
+focused_output_only = true
+labels_only_when_occupied = true

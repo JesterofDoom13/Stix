@@ -19,7 +19,6 @@ let
   '';
   # Now use those settings
   settingsFile = ../../assets/noctalia-settings.toml;
-  homeDir = config.home.homeDirectory;
 in
 {
   imports = [
@@ -40,12 +39,19 @@ in
       ".config/noctalia/zz-synced.toml" = lib.mkIf (builtins.pathExists settingsFile) {
         source = settingsFile;
       };
-      # Wallpaper config
-      ".cache/noctalia/wallpapers.json".text = builtins.toJSON {
-        defaultWallpaper = "${homeDir}/Stix/assets/imgs/background/brown_city_planet_w.jpg";
-      };
-      # tmux noctalia wallpaper template
-      ".config/tmux/templates/colors-template.conf".text = ''
+      # -- Personal templates for noctalia to handle. -----
+      ".config/noctalia/templates.toml".text = ''
+        [theme.templates.user.tmux]
+        input_path  = "$XDG_CONFIG_HOME/noctalia/templates/tmux.conf"
+        output_path = "$XDG_CONFIG_HOME/tmux/noctalia.conf"
+        post_hook   = "tmux source-file $XDG_CONFIG_HOME/tmux/noctalia.conf 2>/dev/null || true"
+        [theme.templates.user.fish]
+        input_path  = "$XDG_CONFIG_HOME/noctalia/templates/colors-template.fish"
+        output_path = "$XDG_CONFIG_HOME/fish/generated-colors.fish"
+        post_hook   = "fish $XDG_CONFIG_HOME/fish/generated-colors.fish"
+      '';
+      # -- Tmux template  ------------------------------------
+      ".config/noctalia/templates/tmux.conf".text = ''
         # Status bar background and foreground
         set -g status-style "bg={{colors.surface.default.hex}},fg={{colors.on_surface.default.hex}}"
         # Window selection colors
@@ -57,34 +63,39 @@ in
         # Message command line
         set -g message-style "bg={{colors.secondary_container.default.hex}},fg={{colors.on_secondary_container.default.hex}}"
       '';
-      # fish noctalia wallpaper template
-      ".config/fish/templates/colors-template.fish" = {
+      # TODO: Haven't gotten this working yet
+      # -- fish noctalia wallpaper template ------------------
+      ".config/noctalia/templates/colors-template.fish".text = ''
+        set -U fish_color_normal {{colors.on_surface.default.hex_stripped}}
+        set -U fish_color_command {{colors.primary.default.hex_stripped}} --bold
+        set -U fish_color_keyword {{colors.tertiary.default.hex_stripped}}
+        set -U fish_color_quote {{colors.secondary.default.hex_stripped}}
+        set -U fish_color_redirection {{colors.primary_container.default.hex_stripped}}
+        set -U fish_color_end {{colors.on_surface_variant.default.hex_stripped}}
+        set -U fish_color_error {{colors.error.default.hex_stripped}}
+        set -U fish_color_param {{colors.on_surface.default.hex_stripped}}
+        set -U fish_color_comment {{colors.outline.default.hex_stripped}}
+        set -U fish_color_selection --background={{colors.surface_container_high.default.hex_stripped}}
+        set -U fish_color_search_match --background={{colors.surface_container_highest.default.hex_stripped}}
+        set -U fish_color_operator {{colors.primary.default.hex_stripped}}
+        set -U fish_color_escape {{colors.secondary.default.hex_stripped}}
+        set -U fish_color_autosuggestion {{colors.outline.default.hex_stripped}}
+        set -U fish_pager_color_progress {{colors.on_surface_variant.default.hex_stripped}}
+        set -U fish_pager_color_prefix {{colors.primary.default.hex_stripped}} --bold --underline
+        set -U fish_pager_color_completion {{colors.on_surface.default.hex_stripped}}
+        set -U fish_pager_color_description {{colors.outline.default.hex_stripped}}
+      '';
+      ".local/state/noctalia/community-templates/neovim/template.toml" = {
         text = ''
-          #!/usr/bin/env fish
-          set -U fish_color_normal {{colors.on_surface.default.hex_stripped}}
-          set -U fish_color_command {{colors.primary.default.hex_stripped}} --bold
-          set -U fish_color_keyword {{colors.tertiary.default.hex_stripped}}
-          set -U fish_color_quote {{colors.secondary.default.hex_stripped}}
-          set -U fish_color_redirection {{colors.primary_container.default.hex_stripped}}
-          set -U fish_color_end {{colors.on_surface_variant.default.hex_stripped}}
-          set -U fish_color_error {{colors.error.default.hex_stripped}}
-          set -U fish_color_param {{colors.on_surface.default.hex_stripped}}
-          set -U fish_color_comment {{colors.outline.default.hex_stripped}}
-          set -U fish_color_selection --background={{colors.surface_container_high.default.hex_stripped}}
-          set -U fish_color_search_match --background={{colors.surface_container_highest.default.hex_stripped}}
-          set -U fish_color_operator {{colors.primary.default.hex_stripped}}
-          set -U fish_color_escape {{colors.secondary.default.hex_stripped}}
-          set -U fish_color_autosuggestion {{colors.outline.default.hex_stripped}}
+          [catalog.neovim]
+          name = "Neovim"
+          category = "editor"
 
-          # Pager colors (completion menu)
-          set -U fish_pager_color_progress {{colors.on_surface_variant.default.hex_stripped}}
-          set -U fish_pager_color_prefix {{colors.primary.default.hex_stripped}} --bold --underline
-          set -U fish_pager_color_completion {{colors.on_surface.default.hex_stripped}}
-          set -U fish_pager_color_description {{colors.outline.default.hex_stripped}}
-          source ~/.config/fish/config.fish
-
+          [templates.nvim-base16]
+          input_path = "$XDG_CONFIG_HOME/nvim/lua/templates/matugen-template.lua"
+          output_path = "$XDG_CONFIG_HOME/nvim/lua/matugen.lua"
+          post_hook = "bash '{{ config_dir }}/apply.sh'"
         '';
-        executable = true;
       };
     };
   };
