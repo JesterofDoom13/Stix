@@ -2,22 +2,18 @@
 let
   #TODO: Have noctalia display notification when launching into gamescope
   gamescope-json = ''
-    '{
-      "title": "Steam",
-      "body": "Launching Gamescope..."
-    }'
+    '{ "app_name": "Steam", "body": "Launching Gamescope..." }'
   '';
-
   gamescope-launch = pkgs.writeShellScriptBin "gamescope-launch" ''
-    noctalia-shell ipc call toast send ${gamescope-json}
+    noctalia msg notification-show ${gamescope-json}
     start-gamescope-session
   '';
+
   noctalia =
     cmd:
     [
-      "noctalia-shell"
-      "ipc"
-      "call"
+      "noctalia"
+      "msg"
     ]
     ++ (pkgs.lib.splitString " " cmd);
   terminal = "${pkgs.ghostty}/bin/ghostty";
@@ -134,7 +130,7 @@ in
       };
 
       "Mod+Shift+W" = {
-        action.spawn = noctalia "wallpaper random";
+        action.spawn = noctalia "wallpaper-random";
         hotkey-overlay.title = "Noctalia Change to Random Wallpaper";
       };
       # Show keybind-cheatsheet
@@ -212,27 +208,27 @@ in
         action.spawn = [ "${pkgs.google-chrome}/bin/google-chrome" ];
       };
       "Mod+Space" = {
-        action.spawn = noctalia "launcher toggle";
+        action.spawn = noctalia "panel-toggle launcher";
       };
 
       # Noctalia controls
       "Mod+N" = {
-        action.spawn = noctalia "controlCenter toggle";
+        action.spawn = noctalia "panel-toggle controlCenter";
       };
       "XF86AudioRaiseVolume" = {
-        action.spawn = noctalia "volume increase";
+        action.spawn = noctalia "volume-up";
       };
       "XF86AudioLowerVolume" = {
-        action.spawn = noctalia "volume decrease";
+        action.spawn = noctalia "volume-down";
       };
       "XF86AudioMute" = {
-        action.spawn = noctalia "volume muteOutput";
+        action.spawn = noctalia "volume-mute";
       };
       "XF86MonBrightnessUp" = {
-        action.spawn = noctalia "brightness increase";
+        action.spawn = noctalia "brightness-up";
       };
       "XF86MonBrightnessDown" = {
-        action.spawn = noctalia "brightness decrease";
+        action.spawn = noctalia "brightness-down";
       };
 
       # Screenshots
@@ -299,19 +295,6 @@ in
       "Mod+Shift+K" = {
         action.move-window-up = { };
       };
-
-      # Workspaces
-      "Mod+Ctrl+J" = {
-        action.focus-workspace-down = { };
-      };
-      "Mod+Ctrl+K" = {
-        action.focus-workspace-up = { };
-      };
-      # "Mod+1" = { action.focus-workspace = 1; };
-      # "Mod+2" = { action.focus-workspace = 2; };
-      # "Mod+3" = { action.focus-workspace = 3; };
-      # "Mod+4" = { action.focus-workspace = 4; };
-      # "Mod+5" = { action.focus-workspace = 5; };
       "Mod+Shift+1" = {
         action.move-column-to-workspace = 1;
       };
@@ -328,6 +311,14 @@ in
         action.move-column-to-workspace = 5;
       };
 
+
+      # Workspaces
+      "Mod+Ctrl+J" = {
+        action.focus-workspace-down = { };
+      };
+      "Mod+Ctrl+K" = {
+        action.focus-workspace-up = { };
+      };
       # Column sizing
       "Mod+Minus" = {
         action.set-column-width = "-10%";

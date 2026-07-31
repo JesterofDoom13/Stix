@@ -32,7 +32,7 @@ in
           path = "${homeDir}/.mame";
           devices = [ "proxmox-syncthing" ];
           type = "sendreceive";
-          ignorePatterns = "// DO NOT IGNORE\n!/nvram\n!/sta\n// IGNORE\n*\n.DS_Store";
+          ignorePatterns = [ "// DO NOT IGNORE" "!/nvram" "!/sta" "// IGNORE" "*" ".DS_Store" ];
         };
         "flycast-saves" = {
           path = "${emuBase}/saves/flycast/saves";
@@ -47,7 +47,7 @@ in
           path = "${homeDir}/.var/app/org.libretro.RetroArch/config/retroarch";
           devices = [ "proxmox-syncthing" ];
           type = "sendreceive";
-          ignorePatterns = "// DO NOT IGNORE\n!/states\n!/saves\n// IGNORE\n*\n.DS_Store";
+          ignorePatterns = [ "// DO NOT IGNORE" "!/states" "!/saves" "// IGNORE" "*" ".DS_Store" ];
         };
         "ryujinx-saves" = {
           path = "${homeDir}/.config/Ryujinx/bis";
@@ -63,19 +63,19 @@ in
           path = "${homeDir}/.local/share/dolphin-emu";
           devices = [ "proxmox-syncthing" ];
           type = "sendreceive";
-          ignorePatterns = "// DO NOT IGNORE\n!/GC\n!/Wii\n!/GBA\n!/states\n!/StateSaves\n// IGNORE\n*\n.DS_Store";
+          ignorePatterns = [ "// DO NOT IGNORE" "!/GC" "!/Wii" "!/GBA" "!/states" "!/StateSaves" "// IGNORE" "*" ".DS_Store" ];
         };
         "primehack-saves" = {
           path = "${homeDir}/.local/share/primehack";
           devices = [ "proxmox-syncthing" ];
           type = "sendreceive";
-          ignorePatterns = "// DO NOT IGNORE\n!/GC\n!/Wii\n!/GBA\n!/states\n!/StateSaves\n// IGNORE\n*\n.DS_Store";
+          ignorePatterns = [ "// DO NOT IGNORE" "!/GC" "!/Wii" "!/GBA" "!/states" "!/StateSaves" "// IGNORE" "*" ".DS_Store" ];
         };
         "ppsspp-saves" = {
           path = "${homeDir}/.var/app/org.ppsspp.PPSSPP/config/ppsspp/PSP";
           devices = [ "proxmox-syncthing" ];
           type = "sendreceive";
-          ignorePatterns = "// DO NOT IGNORE\n!/PPSSPP_STATE\n!/SAVEDATA\n// IGNORE\n*\n.DS_Store";
+          ignorePatterns = [ "// DO NOT IGNORE" "!/PPSSPP_STATE" "!/SAVEDATA" "// IGNORE" "*" ".DS_Store" ];
         };
         "pcsx2-states" = {
           path = "${emuBase}/saves/pcsx2/states";

@@ -46,7 +46,7 @@ in
     kando
     kdePackages.ark
     kdePackages.dolphin
-    kio-fuse
+    kdePackages.kio-fuse
     kdePackages.kate
     kdePackages.kio-extras
     kdePackages.kio-gdrive
@@ -55,7 +55,7 @@ in
     kdePackages.kservice
     kdePackages.qt6ct
     kdePackages.skanlite
-    libreoffice
+    # libreoffice
     nixd
     solaar
     system-config-printer

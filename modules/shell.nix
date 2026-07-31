@@ -73,6 +73,8 @@ in
         head = "fissh root@10.0.0.94";
         nixi = "fissh Jester@10.0.0.175";
         ssync = "fissh root@syncthing";
+        homepage = "fissh root@homepage";
+        authentik = "fissh root@authentik";
       };
       functions = {
         fissh = "SSH_PREFER_FISH=1 ssh -o SendEnv=SSH_PREFER_FISH $argv";

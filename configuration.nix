@@ -7,6 +7,9 @@
   imports = [ ./hardware-configuration.nix ];
   nixpkgs.config.allowUnfree = true;
 
+  nixpkgs.config.permittedInsecurePackages = [
+    "pnpm-9.15.9"
+  ];
   nixpkgs.overlays = [
     (final: prev: {
       openldap = prev.openldap.overrideAttrs (_: {
@@ -69,6 +72,7 @@
   services.flatpak.enable = true;
   services.flatpak.packages = [
     "net.retrodeck.retrodeck"
+    "org.libreoffice.LibreOffice"
   ];
   environment.sessionVariables = {
     XDG_DATA_DIRS = [

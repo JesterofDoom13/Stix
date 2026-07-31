@@ -27,7 +27,7 @@ in
       lutris
       protonup-qt
       protontricks
-      bottles
+      # bottles
     ];
   };
 

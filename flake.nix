@@ -53,8 +53,6 @@
     ghostty.url = "github:ghostty-org/ghostty";
     ghostty.inputs.nixpkgs.follows = "nixpkgs";
 
-    pvetui.url = "github:devnullvoid/pvetui";
-
     nix-yazi-plugins.url = "github:lordkekz/nix-yazi-plugins";
     nix-yazi-plugins.inputs.nixpkgs.follows = "nixpkgs";
 

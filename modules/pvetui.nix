@@ -1,10 +1,9 @@
-{
-  inputs,
-  pkgs,
-  ...
+{ pkgs
+, ...
 }:
 {
   home.packages = [
-    inputs.pvetui.packages.${pkgs.system}.default
+    pkgs.pvetui
+    # inputs.pvetui.packages.${pkgs.system}.default
   ];
 }
