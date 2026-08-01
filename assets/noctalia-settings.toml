@@ -203,13 +203,13 @@ wallpaper_scheme = "faithful"
 interval_seconds = 300
 
 [wallpaper.default]
-path = "/home/Jester/Pictures/Wallpapers/aiw5lqn.jpeg"
+path = "/home/Jester/Pictures/Wallpapers/ShadowsOf.jpg"
 
 [wallpaper.last]
-path = "/home/Jester/Pictures/Wallpapers/aiw5lqn.jpeg"
+path = "/home/Jester/Pictures/Wallpapers/ShadowsOf.jpg"
 
 [wallpaper.monitors.DP-1]
-path = "/home/Jester/Pictures/Wallpapers/aiw5lqn.jpeg"
+path = "/home/Jester/Pictures/Wallpapers/ShadowsOf.jpg"
 
 [weather]
 unit = "imperial"

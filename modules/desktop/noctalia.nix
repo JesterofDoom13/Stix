@@ -28,12 +28,23 @@ in
   programs.noctalia = {
     enable = true;
   };
+
+  gtk = {
+    enable = true;
+    theme = {
+      name = "adw-gtk3-dark";
+      package = pkgs.adw-gtk3;
+    };
+  };
   home = {
 
-    packages = with pkgs; [
-      sn
-      jq
-    ];
+
+    packages = with pkgs;
+      [
+        sn
+        adw-gtk3
+      ];
+
     file = {
       # Main config
       ".config/noctalia/zz-synced.toml" = lib.mkIf (builtins.pathExists settingsFile) {
