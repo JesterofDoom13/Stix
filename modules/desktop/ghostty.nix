@@ -11,7 +11,6 @@ in
     enable = true;
     package = ghostty-pkg;
     settings = {
-      # keybind = [ "global:super+semicolon=toggle_quick_terminal" ];
       quick-terminal-size = "72.5%,90%";
       window-decoration = "none";
       gtk-titlebar = false;
@@ -29,6 +28,8 @@ in
       command = "${pkgs.fish}/bin/fish";
       confirm-close-surface = false;
       theme = "noctalia";
+      # -- enable these if you want quick termial dropdown style ------
+      # keybind = [ "global:super+semicolon=toggle_quick_terminal" ];
       # initial-window = false;
       # quit-after-last-window-closed = false;
     };

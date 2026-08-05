@@ -32,7 +32,7 @@
     disko.url = "github:nix-community/disko/latest";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
-    # -- Niri and tweaks --------------
+    # -- Niri and tweaks -------------------------------------------
     niri.url = "github:sodiboo/niri-flake";
     niri.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -40,7 +40,7 @@
       url = "github:heyoeyo/niri_tweaks";
       flake = false;
     };
-    # -------------------------------- 
+    # ---------------------------------------------------------------
 
     noctalia.url = "github:noctalia-dev/noctalia-shell";
     noctalia.inputs.nixpkgs.follows = "nixpkgs";
@@ -56,7 +56,7 @@
     nix-yazi-plugins.url = "github:lordkekz/nix-yazi-plugins";
     nix-yazi-plugins.inputs.nixpkgs.follows = "nixpkgs";
 
-    # -- zen-browser and plugins -----------
+    # -- zen-browser and plugins -------------------------------------
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     zen-browser.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -65,12 +65,13 @@
 
     vimium-options.url = "github:uimataso/vimium-nixos";
     vimium-options.inputs.nixpkgs.follows = "nixpkgs";
-    # ----------------------------zen-browser
 
+
+    # -- nix-index for comma to work --------------------------------
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
-    # -- nixCats-nvim and added plugins --
+    # -- nixCats-nvim and added plugins -----------------------------
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
 
     plugins-kanban-nvim = {
@@ -81,7 +82,7 @@
       url = "github:yousefhadder/markdown-plus.nvim";
       flake = false;
     };
-    # -------------------------------------
+    # ---------------------------------------------------------------
   };
 
   outputs =

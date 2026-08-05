@@ -58,7 +58,8 @@ in
     kdePackages.dolphin-plugins
     kdePackages.gwenview
     kdePackages.kservice
-    kdePackages.skanlite
+    # kdePackages.skanlite
+    gscan2pdf
     kdePackages.qtstyleplugin-kvantum
     qt6Packages.qt6ct
     libsForQt5.qtstyleplugin-kvantum
