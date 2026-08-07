@@ -1,7 +1,6 @@
 { pkgs, ... }:
 let
   cac-google-setup = pkgs.writeShellScriptBin "cac-google-setup" ''
-    #!/bin/sh
     NSSDB="''${HOME}/.pki/nssdb"
     mkdir -p ''${NSSDB}
     ${pkgs.nssTools}/bin/modutil -force -dbdir sql:$NSSDB -add cac-card \
@@ -75,6 +74,8 @@ in
     jq
     ffmpeg-full
     pear-desktop
+    nssTools
+    opensc
     cac-google-setup
   ];
   home.file.".local/share/kservices6/ServiceMenus/steam.desktop".source =

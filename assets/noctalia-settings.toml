@@ -7,18 +7,7 @@ capsule_padding = 9.0
 capsule_radius = 10
 center = [ "date", "media" ]
 contact_shadow = true
-end = [
-    "tray",
-    "notifications",
-    "clipboard",
-    "network",
-    "bluetooth",
-    "volume",
-    "brightness",
-    "battery",
-    "control-center",
-    "session"
-]
+end = [ "tray", "notifications", "clipboard", "network", "bluetooth", "volume", "brightness", "battery", "session" ]
 margin_edge = 4
 padding = 4
 scale = 0.80000000447034836
@@ -210,13 +199,13 @@ wallpaper_scheme = "faithful"
 interval_seconds = 300
 
 [wallpaper.default]
-path = "/home/Jester/Pictures/Wallpapers/japan-artistic-3840x2160-25406.jpg"
+path = "/home/Jester/Pictures/Wallpapers/aiw5lqn.jpeg"
 
 [wallpaper.last]
-path = "/home/Jester/Pictures/Wallpapers/japan-artistic-3840x2160-25406.jpg"
+path = "/home/Jester/Pictures/Wallpapers/aiw5lqn.jpeg"
 
 [wallpaper.monitors.DP-1]
-path = "/home/Jester/Pictures/Wallpapers/japan-artistic-3840x2160-25406.jpg"
+path = "/home/Jester/Pictures/Wallpapers/aiw5lqn.jpeg"
 
 [weather]
 unit = "imperial"
