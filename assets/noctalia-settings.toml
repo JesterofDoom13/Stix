@@ -5,13 +5,13 @@ capsule_fill = "surface"
 capsule_opacity = 0.35999999195337296
 capsule_padding = 9.0
 capsule_radius = 10
-center = [ "date", "media" ]
+center = [ "date", "media", "bar" ]
 contact_shadow = true
 end = [ "tray", "notifications", "clipboard", "network", "bluetooth", "volume", "brightness", "battery", "session" ]
 margin_edge = 4
 padding = 4
 scale = 0.80000000447034836
-start = [ "workspaces", "group:g1" ]
+start = [ "workspaces", "group:g1", "status", "bar_2" ]
 thickness = 21
 
     [[bar.widgets.capsule_group]]
@@ -54,7 +54,7 @@ launcher_custom_image_colorize = true
 launcher_position = "start"
 magnification_scale = 1.800000011920929
 main_axis_padding = 8
-pinned = [ "google-chrome", "pcmanfm-qt" ]
+pinned = [ "google-chrome", "pcmanfm-qt", "net.sourceforge.gscan2pdf" ]
 reserve_space = false
 shadow = false
 show_dots = true
@@ -140,8 +140,14 @@ background_opacity = 1.0
 [osd]
 background_opacity = 1.0
 
+[plugin_settings."davemhammer/tailscale"]
+manager_placement = "attached"
+
+[plugin_settings."icefish/phone-connect"]
+device_alias = "S23 Ultra"
+
 [plugins]
-enabled = []
+enabled = [ "davemhammer/tailscale", "icefish/phone-connect" ]
 
 [shell]
 app_icon_colorize = true
@@ -199,21 +205,30 @@ wallpaper_scheme = "faithful"
 interval_seconds = 300
 
 [wallpaper.default]
-path = "/home/Jester/Pictures/Wallpapers/aiw5lqn.jpeg"
+path = "/home/Jester/Pictures/Wallpapers/uUaMAGR.jpeg"
 
 [wallpaper.last]
-path = "/home/Jester/Pictures/Wallpapers/aiw5lqn.jpeg"
+path = "/home/Jester/Pictures/Wallpapers/uUaMAGR.jpeg"
 
 [wallpaper.monitors.DP-1]
-path = "/home/Jester/Pictures/Wallpapers/aiw5lqn.jpeg"
+path = "/home/Jester/Pictures/Wallpapers/uUaMAGR.jpeg"
 
 [weather]
 unit = "imperial"
+
+[widget.bar]
+type = "icefish/phone-connect:bar"
+
+[widget.bar_2]
+type = "icefish/phone-connect:bar"
 
 [widget.clock]
 capsule = true
 capsule_border = "primary"
 capsule_padding = 11
+
+[widget.cpu]
+enabled = false
 
 [widget.date]
 anchor = true
@@ -230,7 +245,10 @@ capsule = false
 show_label = false
 
 [widget.network_rx]
-stat = "disk_pct"
+stat = "disk_used_pct"
+
+[widget.status]
+type = "davemhammer/tailscale:status"
 
 [widget.sysmon]
 custom_image_colorize = true

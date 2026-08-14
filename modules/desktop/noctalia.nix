@@ -43,6 +43,10 @@ in
       [
         sn
         adw-gtk3
+        # Glib for use with phone connect plugin in noctalia
+        # really just needs it for the gdbus.
+        glib
+
       ];
 
     file = {
@@ -74,7 +78,6 @@ in
         # Message command line
         set -g message-style "bg={{colors.secondary_container.default.hex}},fg={{colors.on_secondary_container.default.hex}}"
       '';
-      # TODO: Haven't gotten this working yet
       # -- fish noctalia wallpaper template ------------------
       ".config/noctalia/templates/colors-template.fish".text = ''
         set -U fish_color_normal {{colors.on_surface.default.hex_stripped}}
