@@ -73,6 +73,7 @@
   services.flatpak.packages = [
     "net.retrodeck.retrodeck"
     "org.libreoffice.LibreOffice"
+    # "com.discordapp.Discord"
   ];
   environment.sessionVariables = {
     # QT_QPA_PLATFORMTHEME = "qt6ct";

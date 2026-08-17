@@ -14,26 +14,26 @@
   programs.yazi.yaziPlugins = {
     enable = true;
     plugins = {
-      ouch = {
-        enable = true;
-      };
       rich-preview = {
         enable = true;
       };
-      glow = {
-        enable = false;
+      relative-motions = {
+        enable = true;
+        show_numbers = "relative_absolute";
+        show_motion = true;
       };
-      chmod = {
+      ouch = {
         enable = true;
       };
       jump-to-char = {
         enable = true;
         keys.toggle.on = [ "F" ];
       };
-      relative-motions = {
+      glow = {
+        enable = false;
+      };
+      chmod = {
         enable = true;
-        show_numbers = "relative_absolute";
-        show_motion = true;
       };
     };
   };

@@ -5,13 +5,13 @@ capsule_fill = "surface"
 capsule_opacity = 0.35999999195337296
 capsule_padding = 9.0
 capsule_radius = 10
-center = [ "date", "media", "bar" ]
+center = [ "bar", "date", "media" ]
 contact_shadow = true
 end = [ "tray", "notifications", "clipboard", "network", "bluetooth", "volume", "brightness", "battery", "session" ]
 margin_edge = 4
 padding = 4
 scale = 0.80000000447034836
-start = [ "workspaces", "group:g1", "status", "bar_2" ]
+start = [ "workspaces", "group:g1", "status" ]
 thickness = 21
 
     [[bar.widgets.capsule_group]]
@@ -205,13 +205,13 @@ wallpaper_scheme = "faithful"
 interval_seconds = 300
 
 [wallpaper.default]
-path = "/home/Jester/Pictures/Wallpapers/uUaMAGR.jpeg"
+path = "/home/Jester/Pictures/Wallpapers/anime_skull.png"
 
 [wallpaper.last]
-path = "/home/Jester/Pictures/Wallpapers/uUaMAGR.jpeg"
+path = "/home/Jester/Pictures/Wallpapers/anime_skull.png"
 
 [wallpaper.monitors.DP-1]
-path = "/home/Jester/Pictures/Wallpapers/uUaMAGR.jpeg"
+path = "/home/Jester/Pictures/Wallpapers/anime_skull.png"
 
 [weather]
 unit = "imperial"
