@@ -75,6 +75,7 @@ in
         ssync = "fissh root@syncthing";
         homepage = "fissh root@homepage";
         authentik = "fissh root@authentik";
+        romm = "fissh root@romm";
       };
       functions = {
         fissh = "SSH_PREFER_FISH=1 ssh -o SendEnv=SSH_PREFER_FISH $argv";

@@ -73,6 +73,7 @@
   services.flatpak.packages = [
     "net.retrodeck.retrodeck"
     "org.libreoffice.LibreOffice"
+    "com.github.tchx84.Flatseal"
     # "com.discordapp.Discord"
   ];
   environment.sessionVariables = {
@@ -116,6 +117,7 @@
       extraPortals = [
         pkgs.kdePackages.xdg-desktop-portal-kde
         pkgs.xdg-desktop-portal-gnome
+        pkgs.xdg-desktop-portal-gtk
       ];
       config.niri = {
         default = [
@@ -229,6 +231,7 @@
   # System-level packages (minimal — rest in home.nix)
   home-manager.backupFileExtension = "hmup";
   environment.systemPackages = with pkgs; [
+    libcap
     git
     vim
     wget

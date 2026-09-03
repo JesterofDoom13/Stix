@@ -205,13 +205,13 @@ wallpaper_scheme = "faithful"
 interval_seconds = 300
 
 [wallpaper.default]
-path = "/home/Jester/Pictures/Wallpapers/anime_skull.png"
+path = "/home/Jester/Pictures/Wallpapers/brown_city_planet_w.jpg"
 
 [wallpaper.last]
-path = "/home/Jester/Pictures/Wallpapers/anime_skull.png"
+path = "/home/Jester/Pictures/Wallpapers/brown_city_planet_w.jpg"
 
 [wallpaper.monitors.DP-1]
-path = "/home/Jester/Pictures/Wallpapers/anime_skull.png"
+path = "/home/Jester/Pictures/Wallpapers/brown_city_planet_w.jpg"
 
 [weather]
 unit = "imperial"

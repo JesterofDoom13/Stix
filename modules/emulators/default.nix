@@ -9,6 +9,9 @@
     eden
     discord
     discover-overlay
+    (pkgs.writeShellScriptBin "retrodeck-gamescope" ''
+      exec capsh --noamb -- -c "flatpak run net.retrodeck.retrodeck"
+    '')
     (writeShellScriptBin "with-discord-overlay" ''
       #!/usr/bin/env bash
       unset LD_PRELOAD
