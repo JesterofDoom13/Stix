@@ -55,7 +55,7 @@
   };
 
   # Niri
-  programs.niri= {
+  programs.niri = {
     enable = true;
     package = pkgs.niri-unstable;
   };
@@ -108,7 +108,9 @@
   # Graphics
   hardware.graphics.enable = true;
   hardware.logitech.wireless.enable = true;
-  hardware.logitech.wireless.enableGraphical = true;
+  # hardware.logitech.wireless.enableGraphical = true;
+  # replacing line above with line below
+  programs.solaar.enable = true;
 
   # XDG portals
   xdg = {
@@ -134,7 +136,7 @@
       };
     };
   };
-  # in configuration.nix
+
   environment.etc."xdg/menus/applications.menu".source =
     "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
 
@@ -183,7 +185,10 @@
     # Smart card support (for CAC)
     pcscd.enable = true;
 
-    openssh.enable = true;
+    openssh = {
+      enable = true;
+      settings.PermitRootLogin = "yes";
+    };
   };
 
   # Networking

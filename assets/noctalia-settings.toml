@@ -149,6 +149,21 @@ device_alias = "S23 Ultra"
 [plugins]
 enabled = [ "davemhammer/tailscale", "icefish/phone-connect" ]
 
+    [[plugins.source]]
+    kind = "git"
+    location = "https://github.com/noctalia-dev/official-plugins"
+    name = "official"
+
+    [[plugins.source]]
+    kind = "git"
+    location = "https://github.com/noctalia-dev/community-plugins"
+    name = "community"
+
+    [[plugins.source]]
+    kind = "path"
+    location = "/home/Jester/Workspace/Projects/noctalia"
+    name = "my-plugins"
+
 [shell]
 app_icon_colorize = true
 font_family = "FiraCode Nerd Font"
