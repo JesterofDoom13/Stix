@@ -7,6 +7,8 @@
   imports = [ ./hardware-configuration.nix ];
   nixpkgs.config.allowUnfree = true;
 
+  # nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
   nixpkgs.config.permittedInsecurePackages = [
     "pnpm-9.15.9"
   ];

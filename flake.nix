@@ -227,7 +227,7 @@
           modules = [
             "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
             disko.nixosModules.disko
-            ({ config, pkgs, ... }: {
+            ({ config, pkgs, lib, ... }: {
               isoImage.isoName = "stix-rescue.iso";
 
               # The whole point: kharon's built system, pre-loaded so nixos-install
@@ -239,6 +239,8 @@
               # Carry your flake source itself so `nixos-install --flake` works offline
               environment.etc."stix-flake".source = self.outPath;
 
+              services.getty.autologinUser = lib.mkForce "root";
+
               # So you can SSH in remotely if you're not physically at the machine
               # services.openssh.enable = true;
               # services.openssh.settings.PermitRootLogin = "prohibit-password";
@@ -247,7 +249,14 @@
               # ];
               services.tailscale.enable = true;
 
-              environment.systemPackages = with pkgs; [ git parted gptfdisk ];
+              nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+              environment.systemPackages = with pkgs; [
+                git 
+                parted 
+                gptfdisk
+                inputs.disko.packages.${pkgs.system}.disko
+              ];
               system.activationScripts.rescueScript.text = ''
                 cat > /root/run-me.sh <<'EOF'
                 #!/usr/bin/env bash
@@ -264,6 +273,19 @@
                 chmod +x /root/run-me.sh
               '';
             })
+          ];
+        };
+        nixosConfigurations.kharon-vmtest = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
+
+          modules = [
+            disko.nixosModules.disko
+            (self.nixosConfigurations.kharon._module.args.modules ++ [
+              {
+                disko.devices.disk.main.device = nixpkgs.lib.mkForce "/dev/sda"; 
+              }
+            ])
           ];
         };
         default = self.nixosConfigurations.steamdeck;
