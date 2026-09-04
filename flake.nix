@@ -221,6 +221,51 @@
             }
           ];
         };
+        rescue = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
+          modules = [
+            "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+            disko.nixosModules.disko
+            ({ config, pkgs, ... }: {
+              isoImage.isoName = "stix-rescue.iso";
+
+              # The whole point: kharon's built system, pre-loaded so nixos-install
+              # doesn't need to fetch or build anything.
+              isoImage.storeContents = [
+                self.nixosConfigurations.kharon.config.system.build.toplevel
+              ];
+
+              # Carry your flake source itself so `nixos-install --flake` works offline
+              environment.etc."stix-flake".source = self.outPath;
+
+              # So you can SSH in remotely if you're not physically at the machine
+              # services.openssh.enable = true;
+              # services.openssh.settings.PermitRootLogin = "prohibit-password";
+              # users.users.root.openssh.authorizedKeys.keys = [
+              #   "ssh-ed25519 AAAA... your-key-here"
+              # ];
+              services.tailscale.enable = true;
+
+              environment.systemPackages = with pkgs; [ git parted gptfdisk ];
+              system.activationScripts.rescueScript.text = ''
+                cat > /root/run-me.sh <<'EOF'
+                #!/usr/bin/env bash
+                set -euo pipefail
+
+                echo "==> Partitioning via disko..."
+                disko --mode disko --flake /etc/stix-flake#kharon
+
+                echo "==> Installing kharon..."
+                nixos-install --root /mnt --flake /etc/stix-flake#kharon --no-channel-copy
+
+                echo "==> Done. Reboot when ready."
+                EOF
+                chmod +x /root/run-me.sh
+              '';
+            })
+          ];
+        };
         default = self.nixosConfigurations.steamdeck;
       };
     };
