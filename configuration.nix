@@ -55,7 +55,10 @@
   };
 
   # Niri
-  programs.niri.enable = true;
+  programs.niri= {
+    enable = true;
+    package = pkgs.niri-unstable;
+  };
   programs.kdeconnect.enable = true;
   programs.dconf.enable = true;
 

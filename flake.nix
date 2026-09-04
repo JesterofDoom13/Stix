@@ -33,7 +33,7 @@
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
     # -- Niri and tweaks -------------------------------------------
-    niri.url = "github:sodiboo/niri-flake";
+    niri.url = "github:epireyn/niri-flake";
     niri.inputs.nixpkgs.follows = "nixpkgs";
 
     niri-tweaks = {
@@ -110,6 +110,9 @@
               ;
           };
           modules = [
+            {
+              nixpkgs.overlays = [ niri.overlays.niri ];
+            }
             jovian.nixosModules.default
             niri.nixosModules.niri
             disko.nixosModules.disko
@@ -144,8 +147,12 @@
               ;
           };
           modules = [
+            {
+              nixpkgs.overlays = [ niri.overlays.niri ];
+            }
             jovian.nixosModules.default
             niri.nixosModules.niri
+            niri.homeModules.niri
             nix-flatpak.nixosModules.nix-flatpak
             disko.nixosModules.disko
             home-manager.nixosModules.home-manager
@@ -183,6 +190,9 @@
               ;
           };
           modules = [
+            {
+              nixpkgs.overlays = [ niri.overlays.niri ];
+            }
             jovian.nixosModules.default
             niri.nixosModules.niri
             nix-flatpak.nixosModules.nix-flatpak
