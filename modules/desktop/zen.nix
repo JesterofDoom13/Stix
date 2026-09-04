@@ -145,7 +145,7 @@ in
           disabled = true;
         }
       ];
-      keyboardShortcutsVersion = 19;
+      keyboardShortcutsVersion = 20;
       containersForce = true;
       spacesForce = true;
       pinsForce = true;

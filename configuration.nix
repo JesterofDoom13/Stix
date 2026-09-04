@@ -64,6 +64,8 @@
   programs.kdeconnect.enable = true;
   programs.dconf.enable = true;
 
+  programs.openlogi.enable = true;
+
   # Noctalia - Just in case we didn't get it from Jovian-NixOS
   # All labeled as requirements under Noctalia docs for NixOS
 

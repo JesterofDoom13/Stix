@@ -32,6 +32,9 @@
     disko.url = "github:nix-community/disko/latest";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
+    openlogi.url = "github:AprilNEA/OpenLogi";
+    openlogi.inputs.nixpkgs.follows = "nixpkgs";
+
     # -- Niri and tweaks -------------------------------------------
     niri.url = "github:epireyn/niri-flake";
     niri.inputs.nixpkgs.follows = "nixpkgs";
@@ -90,6 +93,7 @@
     , home-manager
     , disko
     , niri
+    , openlogi
     , ...
     }@inputs:
     let
@@ -196,6 +200,7 @@
             jovian.nixosModules.default
             niri.nixosModules.niri
             nix-flatpak.nixosModules.nix-flatpak
+            openlogi.nixosModules.default
             disko.nixosModules.disko
             home-manager.nixosModules.home-manager
             ./configuration.nix
@@ -252,8 +257,8 @@
               nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
               environment.systemPackages = with pkgs; [
-                git 
-                parted 
+                git
+                parted
                 gptfdisk
                 inputs.disko.packages.${pkgs.system}.disko
               ];
@@ -283,7 +288,7 @@
             disko.nixosModules.disko
             (self.nixosConfigurations.kharon._module.args.modules ++ [
               {
-                disko.devices.disk.main.device = nixpkgs.lib.mkForce "/dev/sda"; 
+                disko.devices.disk.main.device = nixpkgs.lib.mkForce "/dev/sda";
               }
             ])
           ];
