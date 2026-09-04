@@ -55,7 +55,7 @@
   };
 
   # Niri
-  programs.niri= {
+  programs.niri = {
     enable = true;
     package = pkgs.niri-unstable;
   };
@@ -134,7 +134,7 @@
       };
     };
   };
-  # in configuration.nix
+
   environment.etc."xdg/menus/applications.menu".source =
     "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
 
@@ -183,7 +183,10 @@
     # Smart card support (for CAC)
     pcscd.enable = true;
 
-    openssh.enable = true;
+    openssh = {
+      enable = true;
+      settings.PermitRootLogin = "yes";
+    };
   };
 
   # Networking
