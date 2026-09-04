@@ -76,6 +76,7 @@ in
         homepage = "fissh root@homepage";
         authentik = "fissh root@authentik";
         romm = "fissh root@romm";
+        deploy = "fissh deploy@stix-deploy";
       };
       functions = {
         fissh = "SSH_PREFER_FISH=1 ssh -o SendEnv=SSH_PREFER_FISH $argv";
@@ -84,6 +85,19 @@ in
           set unattached (tmux list-sessions -F "#{session_attached}" | grep 0)
           if test -z "$unattached"; tmux new-session; else; tmux attach-session; end
         '';
+        stix-apply = {
+          description = "Apply staged Stix update";
+          body = ''
+            if not test -f ~/.local/state/stix-deploy/pending-generation
+                echo "No pending update."
+                return 1
+            end
+            set -l path (cat ~/.local/state/stix-deploy/pending-generation)
+            sudo nix-env -p /nix/var/nix/profiles/system --set $path
+            sudo $path/bin/switch-to-configuration switch
+            rm ~/.local/state/stix-deploy/gcroot ~/.local/state/stix-deploy/pending-generation
+          '';
+        };
       };
     };
     bat = {

@@ -108,7 +108,9 @@
   # Graphics
   hardware.graphics.enable = true;
   hardware.logitech.wireless.enable = true;
-  hardware.logitech.wireless.enableGraphical = true;
+  # hardware.logitech.wireless.enableGraphical = true;
+  # replacing line above with line below
+  programs.solaar.enable = true;
 
   # XDG portals
   xdg = {
