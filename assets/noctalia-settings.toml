@@ -97,11 +97,11 @@ widget_order = [ "lockscreen-login-box@eDP-1", "lockscreen-login-box@DP-1" ]
     [lockscreen_widgets.widget."lockscreen-login-box@DP-1"]
     box_height = 196.0
     box_width = 720.0
-    cx = 1720.0
-    cy = 1321.0
+    cx = 640.0001220703125
+    cy = 660.5
     output = "DP-1"
-    placement_height = 1440.0
-    placement_width = 3440.0
+    placement_height = 720.0
+    placement_width = 1280.0
     rotation = 0.0
     type = "login_box"
 
@@ -127,8 +127,8 @@ widget_order = [ "lockscreen-login-box@eDP-1", "lockscreen-login-box@DP-1" ]
     cx = 267.0
     cy = 734.0
     output = "eDP-1"
-    placement_height = 0.0
-    placement_width = 0.0
+    placement_height = 1024.0
+    placement_width = 640.0
     rotation = 0.0
     type = "login_box"
 
@@ -182,6 +182,7 @@ enabled = [ "davemhammer/tailscale", "icefish/phone-connect", "jester/stix-updat
 app_icon_colorize = true
 font_family = "FiraCode Nerd Font"
 niri_overview_type_to_launch_enabled = true
+settings_show_advanced = false
 
     [shell.launcher.providers.emoji]
     global = true
@@ -230,17 +231,20 @@ wallpaper_scheme = "faithful"
         output_path = "$XDG_CONFIG_HOME/tmux/noctalia.conf"
         post_hook = "tmux source-file $XDG_CONFIG_HOME/tmux/noctalia.conf 2>/dev/null || true"
 
-[wallpaper.automation]
-interval_seconds = 300
+[wallpaper]
+directory = "/home/Jester/Pictures/Wallpapers"
 
-[wallpaper.default]
-path = "/home/Jester/Pictures/Wallpapers/FNV-wall.jpeg"
+    [wallpaper.automation]
+    interval_seconds = 300
 
-[wallpaper.last]
-path = "/home/Jester/Pictures/Wallpapers/FNV-wall.jpeg"
+    [wallpaper.default]
+    path = "/home/Jester/Pictures/Wallpapers/DoomSlayer.jpg"
 
-[wallpaper.monitors.DP-1]
-path = "/home/Jester/Pictures/Wallpapers/FNV-wall.jpeg"
+    [wallpaper.last]
+    path = "/home/Jester/Pictures/Wallpapers/DoomSlayer.jpg"
+
+    [wallpaper.monitors.DP-1]
+    path = "/home/Jester/Pictures/Wallpapers/DoomSlayer.jpg"
 
 [weather]
 unit = "imperial"

@@ -52,7 +52,7 @@
       enable = true;
       autoStart = true;
       inherit user;
-      desktopSession = "niri";
+      desktopSession = "umbriel";
     };
   };
 
