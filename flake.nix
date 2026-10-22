@@ -47,6 +47,8 @@
 
     noctalia.url = "github:noctalia-dev/noctalia-shell";
     noctalia.inputs.nixpkgs.follows = "nixpkgs";
+    umbriel.url = "git+https://github.com/noctalia-dev/umbriel";
+    umbriel.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
 
@@ -203,6 +205,7 @@
             openlogi.nixosModules.default
             disko.nixosModules.disko
             home-manager.nixosModules.home-manager
+            inputs.umbriel.nixosModules.default
             ./configuration.nix
             ./disko.nix
             { networking.hostName = "kharon"; }

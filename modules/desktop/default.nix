@@ -7,6 +7,7 @@
     ./niri.nix
     ./niri-tweaks.nix
     ./noctalia.nix
+    ./umbriel.nix
     ./orca.nix
     # ./stylix.nix
     ./zathura.nix

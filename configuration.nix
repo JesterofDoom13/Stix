@@ -52,9 +52,11 @@
       enable = true;
       autoStart = true;
       inherit user;
-      desktopSession = "niri";
+      desktopSession = "umbriel";
     };
   };
+
+  programs.umbriel.enable = true;
 
   # Niri
   programs.niri = {
