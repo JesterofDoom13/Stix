@@ -56,6 +56,8 @@
     };
   };
 
+  programs.umbriel.enable = true;
+
   # Niri
   programs.niri = {
     enable = true;

@@ -205,6 +205,7 @@
             openlogi.nixosModules.default
             disko.nixosModules.disko
             home-manager.nixosModules.home-manager
+            inputs.umbriel.nixosModules.default
             ./configuration.nix
             ./disko.nix
             { networking.hostName = "kharon"; }
