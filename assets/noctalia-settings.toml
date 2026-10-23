@@ -97,11 +97,11 @@ widget_order = [ "lockscreen-login-box@eDP-1", "lockscreen-login-box@DP-1" ]
     [lockscreen_widgets.widget."lockscreen-login-box@DP-1"]
     box_height = 196.0
     box_width = 720.0
-    cx = 640.0001220703125
-    cy = 660.5
+    cx = 1097.000244140625
+    cy = 1132.023681640625
     output = "DP-1"
-    placement_height = 720.0
-    placement_width = 1280.0
+    placement_height = 1234.0
+    placement_width = 2194.0
     rotation = 0.0
     type = "login_box"
 
@@ -124,11 +124,11 @@ widget_order = [ "lockscreen-login-box@eDP-1", "lockscreen-login-box@DP-1" ]
     [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
     box_height = 196.0
     box_width = 720.0
-    cx = 267.0
-    cy = 734.0
+    cx = 333.75
+    cy = 917.5
     output = "eDP-1"
-    placement_height = 1024.0
-    placement_width = 640.0
+    placement_height = 1280.0
+    placement_width = 800.0
     rotation = 0.0
     type = "login_box"
 
@@ -182,7 +182,8 @@ enabled = [ "davemhammer/tailscale", "icefish/phone-connect", "jester/stix-updat
 app_icon_colorize = true
 font_family = "FiraCode Nerd Font"
 niri_overview_type_to_launch_enabled = true
-settings_show_advanced = false
+settings_show_advanced = true
+umbriel_overview_type_to_launch_enabled = true
 
     [shell.launcher.providers.emoji]
     global = true
@@ -207,7 +208,7 @@ source = "wallpaper"
 wallpaper_scheme = "faithful"
 
     [theme.templates]
-    builtin_ids = [ "btop", "gtk3", "gtk4", "ghostty", "kcolorscheme", "niri", "qt" ]
+    builtin_ids = [ "btop", "gtk3", "gtk4", "ghostty", "kcolorscheme", "niri", "qt", "umbriel" ]
     community_ids = [
         "pear-desktop",
         "zen-browser",
@@ -238,13 +239,16 @@ directory = "/home/Jester/Pictures/Wallpapers"
     interval_seconds = 300
 
     [wallpaper.default]
-    path = "/home/Jester/Pictures/Wallpapers/DoomSlayer.jpg"
+    path = "/home/Jester/Pictures/Wallpapers/doctor_who_wallpaper__by_vvjosephvv_ddfcyed-pre.jpg"
 
     [wallpaper.last]
-    path = "/home/Jester/Pictures/Wallpapers/DoomSlayer.jpg"
+    path = "/home/Jester/Pictures/Wallpapers/doctor_who_wallpaper__by_vvjosephvv_ddfcyed-pre.jpg"
 
     [wallpaper.monitors.DP-1]
-    path = "/home/Jester/Pictures/Wallpapers/DoomSlayer.jpg"
+    path = "/home/Jester/Pictures/Wallpapers/doctor_who_wallpaper__by_vvjosephvv_ddfcyed-pre.jpg"
+
+    [wallpaper.monitors.eDP-1]
+    path = "/home/Jester/Pictures/Wallpapers/doctor_who_wallpaper__by_vvjosephvv_ddfcyed-pre.jpg"
 
 [weather]
 unit = "imperial"
