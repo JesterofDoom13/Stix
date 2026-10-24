@@ -235,7 +235,7 @@
           modules = [
             "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
             disko.nixosModules.disko
-            ({ config, pkgs, lib, ... }: {
+            ({ pkgs, lib, ... }: {
               isoImage.isoName = "stix-rescue.iso";
 
               # The whole point: kharon's built system, pre-loaded so nixos-install
