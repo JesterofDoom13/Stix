@@ -197,11 +197,17 @@ in
           url = "https://fastplex:32400/web/index.html";
           position = 103;
         };
+        "Jellyfin" = {
+          workspace = spaces.Server.id;
+          id = "734a0edf-ac24-4094-90e3-d36b3780ce73";
+          url = "http://jellyfin:8096/web/#/home";
+          position = 104;
+        };
         "dockge" = {
           workspace = spaces.Server.id;
           id = "fb316d70-2b5e-4c46-bf42-f4e82d635153";
           url = "http://docker:5001";
-          position = 104;
+          position = 105;
         };
         "Johnny" = {
           workspace = spaces."3D Printing".id;

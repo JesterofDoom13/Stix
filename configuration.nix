@@ -81,6 +81,8 @@
   services.flatpak.enable = true;
   services.flatpak.packages = [
     "net.retrodeck.retrodeck"
+    "org.jellyfin.JellyfinDesktop"
+    # "cafe.avery.Delfin"
     "org.libreoffice.LibreOffice"
     "com.github.tchx84.Flatseal"
     # "com.discordapp.Discord"

@@ -69,6 +69,7 @@ in
         ob = "fissh root@10.0.0.218";
         prox = "fissh root@bigprox";
         plex = "fissh root@10.0.0.90";
+        jelly = "fissh root@jellyfin";
         pi = "fissh pi@johnny";
         head = "fissh root@10.0.0.94";
         nixi = "fissh Jester@10.0.0.175";
