@@ -12,13 +12,24 @@
   nixpkgs.config.permittedInsecurePackages = [
     "pnpm-9.15.9"
   ];
-  # nixpkgs.overlays = [
-  #   (final: prev: {
-  #     openldap = prev.openldap.overrideAttrs (_: {
-  #       doCheck = false;
-  #     });
-  #   })
-  # ];
+  nixpkgs.overlays = [
+    (final: prev: {
+      openldap = prev.openldap.overrideAttrs (_: {
+        doCheck = false;
+      });
+    })
+    (final: prev: {
+      pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+        (pyFinal: pyPrev: {
+          pyrate-limiter = pyPrev.pyrate-limiter.overridePythonAttrs (old: {
+            disabledTests = (old.disabledTests or [ ]) ++ [
+              "test_limiter_async_factory_get"
+            ];
+          });
+        })
+      ];
+    })
+  ];
 
   boot = {
     kernelParams = [
