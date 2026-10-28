@@ -24,7 +24,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     jovian.url = "github:Jovian-Experiments/Jovian-NixOS";
-    jovian.inputs.nixpkgs.follows = "nixpkgs";
+    # jovian.inputs.nixpkgs.follows = "nixpkgs";
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -32,7 +32,7 @@
     disko.url = "github:nix-community/disko/latest";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
-    openlogi.url = "github:AprilNEA/OpenLogi";
+    openlogi.url = "github:AprilNEA/OpenLogi?dir=packaging";
     openlogi.inputs.nixpkgs.follows = "nixpkgs";
 
     # -- Niri and tweaks -------------------------------------------

@@ -12,13 +12,13 @@
   nixpkgs.config.permittedInsecurePackages = [
     "pnpm-9.15.9"
   ];
-  nixpkgs.overlays = [
-    (final: prev: {
-      openldap = prev.openldap.overrideAttrs (_: {
-        doCheck = false;
-      });
-    })
-  ];
+  # nixpkgs.overlays = [
+  #   (final: prev: {
+  #     openldap = prev.openldap.overrideAttrs (_: {
+  #       doCheck = false;
+  #     });
+  #   })
+  # ];
 
   boot = {
     kernelParams = [
