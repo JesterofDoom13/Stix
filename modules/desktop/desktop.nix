@@ -38,7 +38,11 @@ in
   home.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
     nerd-fonts.fira-code
-    (pkgs.kodi.withPackages (kodiPkgs: with kodiPkgs; [ plex-for-kodi ]))
+    (pkgs.kodi.withPackages (kodiPkgs: with kodiPkgs; [
+      plex-for-kodi
+      jellyfin
+    ]))
+    # jellyfin-desktop
     flips
     freecad
     google-chrome
