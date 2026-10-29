@@ -36,9 +36,9 @@
       "quiet"
       "udev.log_level=3"
     ];
-    extraModulePackages = [
-      config.boot.kernelPackages.gcadapter-oc-kmod
-    ];
+    # extraModulePackages = [
+    #   config.boot.kernelPackages.gcadapter-oc-kmod
+    # ];
     kernelModules = [
       "gcadapter_oc"
     ];
