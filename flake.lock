@@ -448,6 +448,19 @@
         "type": "github"
       }
     },
+    "nixpkgs_3": {
+      "locked": {
+        "lastModified": 1792773339,
+        "narHash": "sha256-17eNBI5Khe4JZaRkL5hRGPWf8MZ6qv+bWAr4V8YeKBw=",
+        "rev": "3ec636362e1816bc2f0888fa0fa2c69f1bc9e504",
+        "type": "tarball",
+        "url": "https://releases.nixos.org/nixos/unstable/nixos-26.11pre1100280.3ec636362e18/nixexprs.tar.xz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz"
+      }
+    },
     "noctalia": {
       "inputs": {
         "nixpkgs": [
@@ -600,23 +613,22 @@
     },
     "umbriel": {
       "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ],
+        "nixpkgs": "nixpkgs_3",
         "xdg-desktop-portal-umbriel": "xdg-desktop-portal-umbriel"
       },
       "locked": {
-        "lastModified": 1793207071,
-        "narHash": "sha256-grxAvXO2215VpVlMzEQ9TzpeMeQpP8EAOqj1WqC5qNU=",
-        "ref": "refs/heads/main",
-        "rev": "2958d582953a9eb623d945f50ffd5cc1a921ee18",
-        "revCount": 1422,
-        "type": "git",
-        "url": "https://github.com/noctalia-dev/umbriel"
+        "lastModified": 1793336202,
+        "narHash": "sha256-bD7JjYwYKOj9Z/kEAA7aSq9ufkbKMvsxz3MEhKmjyeQ=",
+        "owner": "noctalia-dev",
+        "repo": "umbriel",
+        "rev": "d1db16a5abc10763b19eb4535047f5be75ca6064",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "https://github.com/noctalia-dev/umbriel"
+        "owner": "noctalia-dev",
+        "ref": "cachix",
+        "repo": "umbriel",
+        "type": "github"
       }
     },
     "vimium-options": {

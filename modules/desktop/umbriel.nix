@@ -31,6 +31,8 @@
       };
     };
     output = {
+      # Leaving these here so a good starting point.
+      # Noctalia plugin fixes it and saves it to the outputs.toml that's sourced earlier
       eDP-1 = {
         hdr = "auto";
         transform = "270";
@@ -57,8 +59,12 @@
       ## Resizing
       "Mod+Equal" = "window-modify-width-right:0.1";
       "Mod+Minus" = "window-modify-width-right:-0.1";
+      # "Mod+Alt+Equal" = "window-set-secondary-extent:0.1";
+      # "Mod+Alt+Minus" = "window-set-secondary-extent:-0.1";
       "Mod+Shift+F" = "window-toggle-fullscreen";
       "Mod+F" = "window-toggle-maximize";
+
+      # Pinning and floating
       "Mod+Alt+F" = "spawn:umbriel msg window-toggle-floating && umbriel msg window-center";
       "Mod+P" = "window-toggle-pinned";
 
@@ -69,6 +75,10 @@
       "Mod+J" = "window-focus-or-workspace-down";
       "Alt+Tab" = "window-focus-next";
       "Alt+Shift+Tab" = "window-focus-previous";
+      "Mod+Comma" = "window-consume-left";
+      "Mod+Ctrl+Comma" = "window-consume-from-left";
+      "Mod+Period" = "window-consume-right";
+      "Mod+Ctrl+Period" = "window-consume-from-right";
 
       "Mod+Shift+1" = "window-move-to-workspace:1";
       "Mod+Shift+2" = "window-move-to-workspace:2";
@@ -103,15 +113,26 @@
       "Mod+Tab" = "output-focus-next";
       "Mod+Shift+Tab" = "spawn:umbriel msg output-toggle:eDP-1";
 
+      "Mod+Shift+Space" = "window-move-to-scratchpad";
+      "Mod+Space" = "scratchpad-toggle";
+      "Mod+Ctrl+Space" = "window-restore-from-scratchpad";
+      "Mod+Alt+Space" = "scratchpad-focus-next";
+
+
       # Misc
       # "Esc+1" = "spawn:umbriel msg ouput-toggle:eDP-1"; # Can't figure out what chord I want for this yet.
-      "Mod+Space" = "spawn:noctalia msg panel-toggle launcher";
+      "Mod" = "spawn:noctalia msg panel-toggle launcher";
       "Mod+Slash" = "cheatsheet-toggle";
       "Mod+Shift+W" = "spawn:noctalia msg wallpaper-random"; # Change wallpaper when I want a new theme
+      "Mod+Shift+Escape" = "shortcuts-inhibit-toggle";
 
       # Special Keys
       "XF86AudioRaiseVolume" = {
         action = "spawn:noctalia msg volume-up";
+        allow_when_locked = true;
+      };
+      "XF86PowerOff" = {
+        action = "spawn:noctalia msg session lock-and-suspend";
         allow_when_locked = true;
       };
       "XF86AudioLowerVolume" = {
