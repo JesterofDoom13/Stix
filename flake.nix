@@ -10,6 +10,7 @@
       "https://jovian.cachix.org"
       "https://ghostty.cachix.org"
       "https://nix-community.cachix.org"
+      "https://umbriel.cachix.org"
     ];
     extra-trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
@@ -17,6 +18,7 @@
       "jovian.cachix.org-1:8Vq4Txku6VZIRhYrHYki3Ab9XHJRoWmdYqMqj4rB/Uc="
       "ghostty.cachix.org-1:QB389yTa6gTyneehvqG58y0WnHjQOqgnA+wBnpWWxns="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "umbriel.cachix.org-1:JfNq/2yg2S6D6z4Z2dVSZrZlDPQTKtexB6GAVLD98nw="
     ];
   };
 
@@ -47,8 +49,7 @@
 
     noctalia.url = "github:noctalia-dev/noctalia-shell";
     noctalia.inputs.nixpkgs.follows = "nixpkgs";
-    umbriel.url = "git+https://github.com/noctalia-dev/umbriel";
-    umbriel.inputs.nixpkgs.follows = "nixpkgs";
+    umbriel.url = "github:noctalia-dev/umbriel/cachix";
 
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
 

@@ -97,7 +97,7 @@ widget_order = [ "lockscreen-login-box@eDP-1", "lockscreen-login-box@DP-1" ]
     [lockscreen_widgets.widget."lockscreen-login-box@DP-1"]
     box_height = 196.0
     box_width = 720.0
-    cx = 1097.0003662109375
+    cx = 1097.00048828125
     cy = 1132.023681640625
     output = "DP-1"
     placement_height = 1234.0
@@ -106,7 +106,7 @@ widget_order = [ "lockscreen-login-box@eDP-1", "lockscreen-login-box@DP-1" ]
     type = "login_box"
 
         [lockscreen_widgets.widget."lockscreen-login-box@DP-1".settings]
-        background_color = "surface_variant"
+        background_color = "surface_container"
         background_opacity = 0.88
         background_radius = 12.0
         center_password_text = false
@@ -117,6 +117,7 @@ widget_order = [ "lockscreen-login-box@eDP-1", "lockscreen-login-box@DP-1" ]
         show_keyboard_layout = true
         show_login_button = true
         show_media = true
+        show_password_reveal = true
         show_session_buttons = true
         show_unlock_hint = true
         show_weather = true
@@ -133,7 +134,7 @@ widget_order = [ "lockscreen-login-box@eDP-1", "lockscreen-login-box@DP-1" ]
     type = "login_box"
 
         [lockscreen_widgets.widget."lockscreen-login-box@eDP-1".settings]
-        background_color = "surface_variant"
+        background_color = "surface_container"
         background_opacity = 0.88
         background_radius = 12.0
         center_password_text = false
@@ -144,6 +145,7 @@ widget_order = [ "lockscreen-login-box@eDP-1", "lockscreen-login-box@DP-1" ]
         show_keyboard_layout = true
         show_login_button = true
         show_media = true
+        show_password_reveal = true
         show_session_buttons = true
         show_unlock_hint = true
         show_weather = true
@@ -198,6 +200,7 @@ settings_show_advanced = true
 umbriel_overview_type_to_launch_enabled = true
 
     [shell.launcher]
+    pinned = [ "org.jellyfin.JellyfinDesktop" ]
     show_app_actions = true
 
         [shell.launcher.providers.emoji]
@@ -254,13 +257,13 @@ directory = "/home/Jester/Pictures/Wallpapers"
     interval_seconds = 300
 
     [wallpaper.default]
-    path = "/home/Jester/Pictures/Wallpapers/games-wallpaper-92.jpg"
+    path = "/home/Jester/Pictures/Wallpapers/aiw5lqn.jpeg"
 
     [wallpaper.last]
-    path = "/home/Jester/Pictures/Wallpapers/games-wallpaper-92.jpg"
+    path = "/home/Jester/Pictures/Wallpapers/aiw5lqn.jpeg"
 
     [wallpaper.monitors.DP-1]
-    path = "/home/Jester/Pictures/Wallpapers/games-wallpaper-92.jpg"
+    path = "/home/Jester/Pictures/Wallpapers/aiw5lqn.jpeg"
 
     [wallpaper.monitors.eDP-1]
     path = "/home/Jester/Pictures/Wallpapers/anime_skull.png"
@@ -291,7 +294,7 @@ enabled = false
 [widget.date]
 anchor = true
 capsule = true
-capsule_border = "outline"
+capsule_border = "outline_variant"
 capsule_padding = 13
 format = "{:%H:%M %a %d %b}"
 

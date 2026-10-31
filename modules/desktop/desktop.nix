@@ -6,6 +6,18 @@ let
     ${pkgs.nssTools}/bin/modutil -force -dbdir sql:$NSSDB -add cac-card \
       -libfile ${pkgs.opensc}/lib/opensc-pkcs11.so
   '';
+  # "flatpak" "run" "--env=QT_DEBUG_PLUGINS=1" "--env=QT_QPA_PLATFORM=xcb" "--branch=stable" "--arch=x86_64" "--command=jellyfin-desktop" "org.jellyfin.JellyfinDesktop"
+  gm-debug = pkgs.writeShellScriptBin "gm-debug" ''
+    unset LD_PRELOAD LD_LIBRARY_PATH
+    exec >/tmp/jellyfin-gm.log 2>&1
+    echo "host DISPLAY=$DISPLAY"
+    exec flatpak run \
+      --socket=x11 --share=ipc \
+      --env=LC_ALL=C.UTF-8 \
+      --branch=stable --arch=x86_64 \
+      --command=jellyfin-desktop \
+      org.jellyfin.JellyfinDesktop
+  '';
 in
 {
   xdg.configFile = {
@@ -81,6 +93,7 @@ in
     nssTools
     opensc
     cac-google-setup
+    gm-debug
   ];
   home.file.".local/share/kservices6/ServiceMenus/steam.desktop".source =
     pkgs.fetchurl {

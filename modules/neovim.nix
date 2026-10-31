@@ -1,9 +1,8 @@
-{
-  myStylix,
-  inputs,
-  pkgs,
-  lib,
-  ...
+{ myStylix
+, inputs
+, pkgs
+, lib
+, ...
 }:
 let
   inherit (inputs.nixCats) utils;

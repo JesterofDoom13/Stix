@@ -1,7 +1,41 @@
 { pkgs
 , user
+, options
 , ...
 }:
+let
+  electronLibraries = with pkgs; [
+    alsa-lib
+    at-spi2-core
+    cairo
+    cups
+    dbus
+    expat
+    fontconfig
+    freetype
+    glib
+    gtk3
+    libdrm
+    libgbm
+    libglvnd
+    libx11
+    libxcb
+    libxcomposite
+    libxcursor
+    libxdamage
+    libxext
+    libxfixes
+    libxi
+    libxkbcommon
+    libxrandr
+    libxrender
+    libxshmfence
+    libxtst
+    nspr
+    nss
+    pango
+  ];
+in
 {
   imports = [ ./hardware-configuration.nix ];
   nixpkgs.config.allowUnfree = true;
@@ -67,6 +101,11 @@
   };
 
   programs.umbriel.enable = true;
+  programs.nix-ld = {
+    enable = true;
+    libraries = options.programs.nix-ld.libraries.default ++ electronLibraries;
+  };
+  programs.steam.extraPackages = electronLibraries;
 
   # Niri
   programs.niri = {
@@ -86,7 +125,23 @@
   hardware.bluetooth.enable = true;
   services.power-profiles-daemon.enable = true;
   services.upower.enable = true;
-
+  services.pipewire.wireplumber.extraConfig."51-hdmi-surround71" = {
+    "monitor.alsa.rules" = [
+      {
+        matches = [{ "device.name" = "alsa_card.pci-0000_04_00.1"; }];
+        actions.update-props = {
+          "device.profile" = "output:hdmi-surround71-extra2";
+        };
+      }
+      {
+        matches = [{ "node.name" = "alsa_output.pci-0000_04_00.1.hdmi-surround71*"; }];
+        actions.update-props = {
+          "priority.session" = 2000;
+          "priority.driver" = 2000;
+        };
+      }
+    ];
+  };
   # Retrodeck - Enabling Flatpaks and installing it
   services.flatpak.enable = true;
   services.flatpak.packages = [
