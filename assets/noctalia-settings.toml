@@ -97,11 +97,11 @@ widget_order = [ "lockscreen-login-box@eDP-1", "lockscreen-login-box@DP-1" ]
     [lockscreen_widgets.widget."lockscreen-login-box@DP-1"]
     box_height = 196.0
     box_width = 720.0
-    cx = 1097.00048828125
-    cy = 1132.023681640625
+    cx = 960.00042724609375
+    cy = 990.75006103515625
     output = "DP-1"
-    placement_height = 1234.0
-    placement_width = 2194.0
+    placement_height = 1080.0
+    placement_width = 1920.0
     rotation = 0.0
     type = "login_box"
 
@@ -197,6 +197,7 @@ app_icon_colorize = true
 font_family = "FiraCode Nerd Font"
 niri_overview_type_to_launch_enabled = true
 settings_show_advanced = true
+umbriel_audio_provider_enabled = true
 umbriel_overview_type_to_launch_enabled = true
 
     [shell.launcher]

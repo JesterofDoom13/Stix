@@ -18,6 +18,17 @@ let
       --command=jellyfin-desktop \
       org.jellyfin.JellyfinDesktop
   '';
+  jellyfin-hdr-debug = pkgs.writeShellScriptBin "jellyfin-hdr-debug" ''
+    unset LD_PRELOAD LD_LIBRARY_PATH
+    exec >/tmp/jellyfin-gm.log 2>&1
+    echo "host DISPLAY=$DISPLAY"
+    exec flatpak run \
+      --socket=x11 --share=ipc \
+      --env=LC_ALL=C.UTF-8 \
+      --branch=stable --arch=x86_64 \
+      --command=jellyfin-desktop \
+      org.jellyfin.JellyfinDesktop
+  '';
 in
 {
   xdg.configFile = {
@@ -94,6 +105,7 @@ in
     opensc
     cac-google-setup
     gm-debug
+    jellyfin-hdr-debug
   ];
   home.file.".local/share/kservices6/ServiceMenus/steam.desktop".source =
     pkgs.fetchurl {
