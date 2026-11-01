@@ -14,8 +14,6 @@ in
 {
   home.packages = [ jellyfin-hdr ];
 
-  # Location: check where your Jellyfin Desktop build reads mpv.conf
-  # (I believe ~/.local/share/jellyfin-desktop/mpv.conf, but verify).
   xdg.dataFile."jellyfin-desktop/mpv.conf".text = ''
     vo=gpu-next
     gpu-api=vulkan

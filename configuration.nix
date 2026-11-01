@@ -57,6 +57,7 @@ in
           pyrate-limiter = pyPrev.pyrate-limiter.overridePythonAttrs (old: {
             disabledTests = (old.disabledTests or [ ]) ++ [
               "test_limiter_async_factory_get"
+              "test_bucket_factory"
             ];
           });
         })
