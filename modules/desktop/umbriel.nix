@@ -1,7 +1,59 @@
 { inputs, ... }: {
   imports = [ inputs.umbriel.homeModules.default ];
+  xdg.configFile = {
+    "umbriel/effects/slide-down.glsl".text = ''
+      vec4 animation(vec2 uv) {
+        float shown = umbriel_direction > 0.0 ? umbriel_clamped_progress : 1.0 - umbriel_clamped_progress;
+        vec2 from = vec2(uv.x, uv.y + 1.0 - shown);
+        return from.y > 1.0 ? vec4(0.0) : umbriel_sample(from);
+      }
+    '';
+  };
   programs.umbriel.enable = true;
   programs.umbriel.settings = {
+    scratchpad = [
+      {
+        name = "quake";
+        spawn_when_empty = "ghostty --class=dev.jester.quake";
+      }
+      {
+        name = "btop";
+        spawn_when_empty = "ghostty --class=dev.jester.btop -e btop";
+      }
+      {
+        name = "music";
+        spawn_when_empty = "pear-desktop";
+      }
+    ];
+
+    window_rule = [
+      {
+        match.app_id = "^dev[.]jester[.]quake$";
+        default_scratchpad = "quake";
+        default_floating_size = { width = 0.91; height = 0.5; };
+        default_position = { x = 0; y = 0; anchor = "top"; };
+      }
+      {
+        match.app_id = "^dev[.]jester[.]btop$";
+        default_scratchpad = "btop";
+        default_floating_size = { width = 0.91; height = 0.5; };
+        default_position = { x = 0; y = 0; anchor = "top"; };
+      }
+      {
+        match.app_id = "^com[.]github[.]th-ch[.]youtube-music$";
+        default_scratchpad = "music";
+        default_floating_size = { width = 0.6; height = 0.7; };
+        default_position = { x = 0; y = 0; anchor = "top"; };
+      }
+    ];
+    effects.preset.slide-down = {
+      kind = "animation";
+      shader = "effects/slide-down.glsl";
+    };
+    animation.scratchpad = {
+      effect = "slide-down";
+      dim = 0.0;
+    };
     environment = {
       QT_QPA_PLATFORMTHEME = "qt6ct";
       SDL_VIDEODRIVER = "wayland";
@@ -46,25 +98,56 @@
     keybinds = {
       # Apps
       "Mod+Semicolon" = "spawn ghostty";
+      "Mod+Apostrophe" = { action = "scratchpad-toggle quake"; repeat = false; };
+      "Mod+P" = { action = "scratchpad-toggle btop"; repeat = false; };
       "Mod+B" = "spawn zen-beta";
       "Mod+E" = "spawn pcmanfm-qt";
       "Mod+G" = "spawn google-chrome";
       "Mod+Shift+G" = "spawn noctalia msg notification-show 'Launching Gamescope...' && start-gamescope-session";
 
+      # Noctalias and Umbriel integration
+      "Mod+Slash" = "spawn noctalia msg plugin jester/umbriel-which-key:service all root";
+      "Mod+X" = { action = "submap noctalia"; repeat = false; };
+      "submap[noctalia],A" = { action = "spawn noctalia caffeine-enable"; submap = "reset"; };
+      "submap[noctalia],C" = { action = "spawn noctalia msg panel-toggle clipboard"; submap = "reset"; };
+      "submap[noctalia],S" = { action = "spawn noctalia msg panel-toggle session"; submap = "reset"; };
+      "submap[noctalia],P" = { action = "spawn noctalia msg panel-toggle icefish/phone-connect:details_floating"; submap = "reset"; };
+      "submap[noctalia],M" = { action = "spawn noctalia msg calendar toggle"; submap = "reset"; };
+      "submap[noctalia],Mod+X" = "submap reset";
+      "submap[noctalia],Escape" = "submap reset";
+
+      ## Noctalias Media management
+      "Mod+M" = { action = "spawn umbriel msg submap media && umbriel msg scratchpad-toggle music"; repeat = false; };
+      "submap[media],Mod+M" = "spawn umbriel msg submap reset && umbriel msg scratchpad-toggle music";
+      "submap[media],Escape" = "spawn umbriel msg submap reset && umbriel msg scratchpad-toggle music";
+      "submap[media],H" = "spawn noctalia msg media previous";
+      "submap[media],L" = "spawn noctalia msg media next";
+      "submap[media],J" = "spawn noctalia msg media toggle";
+      # "submap[media],P" = "spawn pear-desktop";
+      "submap[media],Shift+J" = "spawn noctalia msg media volume-down 5";
+      "submap[media],Shift+K" = "spawn noctalia msg media volume-up 5";
+
+
       # Window management
       "Mod+Q" = "window-close";
 
       ## Resizing
+      "Mod+R" = { action = "submap resize"; repeat = false; };
+      "submap[resize],Mod+R" = "submap reset";
+      "submap[resize],Escape" = "submap reset";
+      "submap[resize],H" = "window-modify-width-right -0.1";
+      "submap[resize],L" = "window-modify-width-right 0.1";
+      "submap[resize],Q" = "window-set-secondary-extent 0.25";
+      "submap[resize],W" = "window-set-secondary-extent 0.33";
+      "submap[resize],E" = "window-set-secondary-extent 0.5";
+      "submap[resize],R" = "window-set-secondary-extent 0.66";
+      "submap[resize],T" = "window-set-secondary-extent 0.75";
+      "submap[resize],F" = "window-set-secondary-extent 1.0";
+
       "Mod+Equal" = "window-modify-width-right 0.1";
       "Mod+Minus" = "window-modify-width-right -0.1";
-      # "Mod+Alt+Equal" = "window-set-secondary-extent 0.1";
-      # "Mod+Alt+Minus" = "window-set-secondary-extent -0.1";
       "Mod+Shift+F" = "window-toggle-fullscreen";
       "Mod+F" = "window-toggle-maximize";
-
-      # Pinning and floating
-      "Mod+Alt+F" = "spawn umbriel msg window-toggle-floating && umbriel msg window-center";
-      "Mod+P" = "window-toggle-pinned";
 
       ## Moving
       "Mod+H" = "window-focus-left";
@@ -111,16 +194,16 @@
       "Mod+Tab" = "output-focus-next";
       "Mod+Shift+Tab" = "spawn umbriel msg output-toggle eDP-1";
 
-      "Mod+Shift+Space" = "window-move-to-scratchpad";
-      # "Mod+Space" = "scratchpad-toggle";
-      "Mod+Ctrl+Space" = "window-restore-from-scratchpad";
-      "Mod+Alt+Space" = "scratchpad-focus-next";
+      # "Mod+Shift+Space" = "window-move-to-scratchpad default";
+      # # "Mod+Space" = "scratchpad-toggle";
+      # "Mod+Ctrl+Space" = "window-restore-from-scratchpad default";
+      # "Mod+Alt+Space" = "scratchpad-focus-next default";
 
 
       # Misc
       # "Esc+1" = "spawn umbriel msg ouput-toggle eDP-1"; # Can't figure out what chord I want for this yet.
       "Mod+Space" = "spawn noctalia msg panel-toggle launcher";
-      "Mod+Slash" = "cheatsheet-toggle";
+      "Mod+Shift+Slash" = "cheatsheet-toggle";
       "Mod+Shift+W" = "spawn noctalia msg wallpaper-random"; # Change wallpaper when I want a new theme
       "Mod+Shift+Escape" = "shortcuts-inhibit-toggle";
 
@@ -171,4 +254,5 @@
       };
     };
   };
+
 }
