@@ -97,11 +97,11 @@ widget_order = [ "lockscreen-login-box@eDP-1", "lockscreen-login-box@DP-1" ]
     [lockscreen_widgets.widget."lockscreen-login-box@DP-1"]
     box_height = 196.0
     box_width = 720.0
-    cx = 960.00042724609375
-    cy = 990.75006103515625
+    cx = 1097.00048828125
+    cy = 1132.023681640625
     output = "DP-1"
-    placement_height = 1080.0
-    placement_width = 1920.0
+    placement_height = 1234.0
+    placement_width = 2194.0
     rotation = 0.0
     type = "login_box"
 
@@ -162,6 +162,21 @@ manager_placement = "attached"
 [plugin_settings."icefish/phone-connect"]
 device_alias = "S23 Ultra"
 
+[plugin_settings."jester/umbriel-which-key"]
+background = "surface/0.90"
+columns = 4
+config_path = "~/.config/umbriel/config.toml"
+font_size = 11
+hide_commands = [ "window-focus", "workspace-switch" ]
+hide_keys = [ "Escape" ]
+hide_media_keys = true
+hide_navigation_keys = true
+margin = 0
+max_label_length = 40
+position = "bottom_right"
+root_columns = 4
+sort = "config"
+
 [plugin_settings."noctalia/umbriel-companion"]
 panel_placement = "floating"
 panel_position = "center"
@@ -174,7 +189,8 @@ enabled = [
     "noctalia/umbriel-companion",
     "prponkshe/umbriel-displays",
     "muhammadessam/umbriel-monitor-control",
-    "tordex/xwayland"
+    "tordex/xwayland",
+    "jester/umbriel-which-key"
 ]
 
     [[plugins.source]]
@@ -258,13 +274,13 @@ directory = "/home/Jester/Pictures/Wallpapers"
     interval_seconds = 300
 
     [wallpaper.default]
-    path = "/home/Jester/Pictures/Wallpapers/aiw5lqn.jpeg"
+    path = "/home/Jester/Pictures/Wallpapers/games-wallpaper-156.jpg"
 
     [wallpaper.last]
-    path = "/home/Jester/Pictures/Wallpapers/aiw5lqn.jpeg"
+    path = "/home/Jester/Pictures/Wallpapers/games-wallpaper-156.jpg"
 
     [wallpaper.monitors.DP-1]
-    path = "/home/Jester/Pictures/Wallpapers/aiw5lqn.jpeg"
+    path = "/home/Jester/Pictures/Wallpapers/games-wallpaper-156.jpg"
 
     [wallpaper.monitors.eDP-1]
     path = "/home/Jester/Pictures/Wallpapers/anime_skull.png"
