@@ -1,82 +1,80 @@
+# DO-NOT-EDIT. This file was auto-generated using github:denful/flake-file.
+# Use `nix run .#write-flake` to regenerate it.
 {
   description = "Jester's Jovian NixOS Steam Deck config";
 
-  # Left this at the top for anyone who is looking/using this flake
-  # can find it easily
+  outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
+
   nixConfig = {
     extra-substituters = [
-      "https://cache.nixos.org"
-      "https://noctalia.cachix.org"
-      "https://jovian.cachix.org"
-      "https://ghostty.cachix.org"
-      "https://nix-community.cachix.org"
       "https://umbriel.cachix.org"
+      "https://noctalia.cachix.org"
+      "https://ghostty.cachix.org"
+      "https://cache.nixos.org"
+      "https://nix-community.cachix.org"
+      "https://jovian.cachix.org"
     ];
     extra-trusted-public-keys = [
-      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-      "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
-      "jovian.cachix.org-1:8Vq4Txku6VZIRhYrHYki3Ab9XHJRoWmdYqMqj4rB/Uc="
-      "ghostty.cachix.org-1:QB389yTa6gTyneehvqG58y0WnHjQOqgnA+wBnpWWxns="
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "umbriel.cachix.org-1:JfNq/2yg2S6D6z4Z2dVSZrZlDPQTKtexB6GAVLD98nw="
+      "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+      "ghostty.cachix.org-1:QB389yTa6gTyneehvqG58y0WnHjQOqgnA+wBnpWWxns="
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "jovian.cachix.org-1:8Vq4Txku6VZIRhYrHYki3Ab9XHJRoWmdYqMqj4rB/Uc="
     ];
   };
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-
+    determinate = {
+      url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    flake-file.url = "github:vic/flake-file";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    ghostty.url = "github:ghostty-org/ghostty";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    impermanence.url = "github:nix-community/impermanence";
+    import-tree.url = "github:vic/import-tree";
     jovian.url = "github:Jovian-Experiments/Jovian-NixOS";
-    # jovian.inputs.nixpkgs.follows = "nixpkgs";
-
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-
-    disko.url = "github:nix-community/disko/latest";
-    disko.inputs.nixpkgs.follows = "nixpkgs";
-
-    openlogi.url = "github:AprilNEA/OpenLogi?dir=packaging";
-    openlogi.inputs.nixpkgs.follows = "nixpkgs";
-
-    # -- Niri and tweaks -------------------------------------------
-    niri.url = "github:epireyn/niri-flake";
-    niri.inputs.nixpkgs.follows = "nixpkgs";
-
-    niri-tweaks = {
-      url = "github:heyoeyo/niri_tweaks";
+    lichii = {
+      url = "github:zortos293/Lichii?ref=nx2&submodules=1";
       flake = false;
     };
-    # ---------------------------------------------------------------
-
-    noctalia.url = "github:noctalia-dev/noctalia-shell";
-    noctalia.inputs.nixpkgs.follows = "nixpkgs";
-    umbriel.url = "github:noctalia-dev/umbriel/cachix";
-
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
-
-    ghostty.url = "github:ghostty-org/ghostty";
-    ghostty.inputs.nixpkgs.follows = "nixpkgs";
-
-    nix-yazi-plugins.url = "github:lordkekz/nix-yazi-plugins";
-    nix-yazi-plugins.inputs.nixpkgs.follows = "nixpkgs";
-
-    # -- zen-browser and plugins -------------------------------------
-    zen-browser.url = "github:0xc000022070/zen-browser-flake";
-    zen-browser.inputs.nixpkgs.follows = "nixpkgs";
-
-    firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-    firefox-addons.inputs.nixpkgs.follows = "nixpkgs";
-
-    vimium-options.url = "github:uimataso/vimium-nixos";
-    vimium-options.inputs.nixpkgs.follows = "nixpkgs";
-
-
-    # -- nix-index for comma to work --------------------------------
-    nix-index-database.url = "github:nix-community/nix-index-database";
-    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
-
-    # -- nixCats-nvim and added plugins -----------------------------
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nix-yazi-plugins = {
+      url = "github:lordkekz/nix-yazi-plugins";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
-
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    packages = {
+      url = "path:./packages";
+      flake = false;
+    };
+    pkgs-by-name-for-flake-parts.url = "github:drupol/pkgs-by-name-for-flake-parts";
     plugins-kanban-nvim = {
       url = "github:arakkkkk/kanban.nvim";
       flake = false;
@@ -85,219 +83,14 @@
       url = "github:yousefhadder/markdown-plus.nvim";
       flake = false;
     };
-    # ---------------------------------------------------------------
-  };
-
-  outputs =
-    { self
-    , nixpkgs
-    , jovian
-    , nix-flatpak
-    , home-manager
-    , disko
-    , niri
-    , openlogi
-    , ...
-    }@inputs:
-    let
-      system = "x86_64-linux";
-      user = "Jester";
-      myStylix = "gruvbox-material-dark-hard";
-    in
-    {
-      nixosConfigurations = {
-        min = nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = {
-            inherit
-              inputs
-              user
-              myStylix
-              system
-              ;
-          };
-          modules = [
-            {
-              nixpkgs.overlays = [ niri.overlays.niri ];
-            }
-            jovian.nixosModules.default
-            niri.nixosModules.niri
-            disko.nixosModules.disko
-            home-manager.nixosModules.home-manager
-            ./configuration.nix
-            ./disko.nix
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                extraSpecialArgs = {
-                  inherit
-                    inputs
-                    user
-                    myStylix
-                    system
-                    ;
-                };
-                users.${user} = import ./home.nix;
-              };
-            }
-          ];
-        };
-        steamdeck = nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = {
-            inherit
-              inputs
-              user
-              myStylix
-              system
-              ;
-          };
-          modules = [
-            {
-              nixpkgs.overlays = [ niri.overlays.niri ];
-            }
-            jovian.nixosModules.default
-            niri.nixosModules.niri
-            niri.homeModules.niri
-            nix-flatpak.nixosModules.nix-flatpak
-            disko.nixosModules.disko
-            home-manager.nixosModules.home-manager
-            ./configuration.nix
-            ./disko.nix
-            { networking.hostName = "steamdeck"; }
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                extraSpecialArgs = {
-                  inherit
-                    inputs
-                    user
-                    myStylix
-                    system
-                    ;
-                };
-                users.${user}.imports = [
-                  ./home.nix
-                  ./modules/default.nix
-                ];
-              };
-            }
-          ];
-        };
-        kharon = nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = {
-            inherit
-              inputs
-              user
-              myStylix
-              system
-              ;
-          };
-          modules = [
-            {
-              nixpkgs.overlays = [ niri.overlays.niri ];
-            }
-            jovian.nixosModules.default
-            niri.nixosModules.niri
-            nix-flatpak.nixosModules.nix-flatpak
-            openlogi.nixosModules.default
-            disko.nixosModules.disko
-            home-manager.nixosModules.home-manager
-            inputs.umbriel.nixosModules.default
-            ./configuration.nix
-            ./disko.nix
-            { networking.hostName = "kharon"; }
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                extraSpecialArgs = {
-                  inherit
-                    inputs
-                    user
-                    myStylix
-                    system
-                    ;
-                };
-                users.${user}.imports = [
-                  ./home.nix
-                  ./modules/default.nix
-                ];
-              };
-            }
-          ];
-        };
-        rescue = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs; };
-          modules = [
-            "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-            disko.nixosModules.disko
-            ({ pkgs, lib, ... }: {
-              isoImage.isoName = "stix-rescue.iso";
-
-              # The whole point: kharon's built system, pre-loaded so nixos-install
-              # doesn't need to fetch or build anything.
-              isoImage.storeContents = [
-                self.nixosConfigurations.kharon.config.system.build.toplevel
-              ];
-
-              # Carry your flake source itself so `nixos-install --flake` works offline
-              environment.etc."stix-flake".source = self.outPath;
-
-              services.getty.autologinUser = lib.mkForce "root";
-
-              # So you can SSH in remotely if you're not physically at the machine
-              # services.openssh.enable = true;
-              # services.openssh.settings.PermitRootLogin = "prohibit-password";
-              # users.users.root.openssh.authorizedKeys.keys = [
-              #   "ssh-ed25519 AAAA... your-key-here"
-              # ];
-              services.tailscale.enable = true;
-
-              nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-              environment.systemPackages = with pkgs; [
-                git
-                parted
-                gptfdisk
-                inputs.disko.packages.${pkgs.system}.disko
-              ];
-              system.activationScripts.rescueScript.text = ''
-                cat > /root/run-me.sh <<'EOF'
-                #!/usr/bin/env bash
-                set -euo pipefail
-
-                echo "==> Partitioning via disko..."
-                disko --mode disko --flake /etc/stix-flake#kharon
-
-                echo "==> Installing kharon..."
-                nixos-install --root /mnt --flake /etc/stix-flake#kharon --no-channel-copy
-
-                echo "==> Done. Reboot when ready."
-                EOF
-                chmod +x /root/run-me.sh
-              '';
-            })
-          ];
-        };
-        nixosConfigurations.kharon-vmtest = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs; };
-
-          modules = [
-            disko.nixosModules.disko
-            (self.nixosConfigurations.kharon._module.args.modules ++ [
-              {
-                disko.devices.disk.main.device = nixpkgs.lib.mkForce "/dev/sda";
-              }
-            ])
-          ];
-        };
-        default = self.nixosConfigurations.steamdeck;
-      };
+    umbriel.url = "github:noctalia-dev/umbriel/cachix";
+    vimium-options = {
+      url = "github:uimataso/vimium-nixos";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
 }
