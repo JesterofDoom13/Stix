@@ -1,0 +1,106 @@
+{ inputs, ... }:
+{
+  flake.modules.nixos.nordend = { pkgs, ... }: {
+    nixpkgs.overlays = [ inputs.nordend.overlays.default ];
+    environment.systemPackages = [ pkgs.nordend ];
+  };
+  flake.modules.homeManager.nordend = { pkgs, ... }: {
+    home.packages = [ pkgs.nordend ];
+    xdg.configFile."nordend/config.toml".text = ''
+            # Nordend configuration: ~/.config/nordend/config.toml ($XDG_CONFIG_HOME/nordend/config.toml).
+      # Every key is optional; the values below are the defaults. A bad value is reported in the log
+      # and keeps its default. Check a file without starting Nordend: nordend --check-config
+      # Nordend reads the file again when it changes: background opacity, corners, double click, the
+      # text size, the icon, the terminal and the actions at once, the font families at the next start.
+      #
+      # Colours are not set here: Nordend follows your theme by itself (GTK's colours in
+      # ~/.config/gtk-4.0/gtk.css, else the desktop's light or dark style and accent). For exact colours
+      # instead, put a colors.toml next to this file; it overrides everything and is read live:
+      #   mode = "dark"
+      #   [colors]
+      #   primary = "#8abfe2"    # roles named as in Noctalia's palettes: surface, on_surface, ...
+
+      [font]
+      # fontconfig pattern: a family name, optionally with properties ("Inter", "Inter:weight=medium").
+      family = "sans-serif"
+      # The same for text previews (Quick Look of text files).
+      monospace = "monospace"
+      # The usual text size in logical pixels, 8 to 32 (decimals allowed). The whole interface follows
+      # it in proportion: the other text, rows, paddings, icons, the sidebar; zoom (Ctrl+plus) goes on
+      # from there. A size in the family pattern ("Inter:size=11") does not change it.
+      size = 13
+
+      [pointer]
+      # Two presses of the same button closer than this (milliseconds, 100-2000)...
+      double_click_ms = 400
+      # ...and closer than this (logical pixels, 0-50) make a double click.
+      double_click_distance = 4
+
+      [window]
+      # "integrated": Nordend's own header, as in a modern file manager: the sidebar runs to the top, the
+      # path and the window's buttons share one row. "compositor": the compositor's title bar instead,
+      # where it draws one (the path back in its own row). Read at the next start.
+      title_bar = "integrated"
+      # Background only (0-1), read live; text, icons and thumbnails retain their original opacity.
+      # Transparency is disabled by default (1.0). Keep compositor window opacity at 1.0.
+      # Compositor blur can still be enabled.
+      background_opacity = 0.90
+      # The window's corners, in logical pixels (0-24): 0 keeps them square. Where Nordend draws its own
+      # header, and not when maximized or tiled; the shadow stays either way.
+      corner_radius = 12
+
+      [icon]
+      # Nordend's icon in your theme's accent colour (GTK's colours, GNOME's or Plasma's accent):
+      # Nordend writes it to ~/.local/share/icons/hicolor/scalable/apps/nordend.svg, where the dock and
+      # the launcher look first. false takes it away and leaves the installed icon.
+      follow_accent = true
+
+      [terminal]
+      # The terminal "Open in Terminal" (F4) and terminal applications (Terminal=true) use, read live.
+      # Not set by default: then $TERMINAL, xdg-terminal-exec, then the first of foot, ghostty, kitty,
+      # alacritty, wezterm, konsole, gnome-terminal and xterm that is installed. A program that is not
+      # found is reported in the log and the same order follows. The known terminals keep their own way
+      # of running a command; any other gets -e. args are its own options, before the command.
+      # program = "ghostty"
+      # args = []
+
+      [open]
+      # Enter on a program starts it: an ELF executable or an AppImage, named as one (a program named
+      # like a document opens as a document), that may already run (its execute bit set). One that may
+      # not run is asked about first ("Allow and Run"); one on a disk mounted noexec is reported.
+      # Scripts never start this way: they open as text. false: Nordend never starts a program.
+      programs = true
+
+      # Actions: entries of your own in the context menu, each running a program on the selected files.
+      # None by default. An action shows only when every selected entry fits it: its kinds ("file",
+      # "folder"; files only by default), and its patterns (globs on the whole name, case left aside)
+      # or its types (as Open With: "text/plain" takes "text/x-c++src"); neither given: any name.
+      # exec is a command line with the quoting and field codes of a desktop file's Exec: %F all the
+      # paths in one process, %f one process per path, %U and %u as file:// URIs, %d the folder shown,
+      # %% a '%'; with no code, the paths are added at the end. As a list, each word is taken as
+      # written and a code counts only as a whole word ("%F"), handy for a shell script: the paths
+      # then come as its arguments, never inside its text. Nordend adds no shell of its own.
+      # Other keys: min and max (how many entries may be selected; 1 and no limit), submenu (actions
+      # with the same one are grouped), background (also on the folder's empty space, run on the
+      # folder), terminal (run in the terminal above). An action with a problem is left out, reported.
+      #
+      # [[action]]
+      # name = "Extract Here"
+      # patterns = ["*.zip", "*.7z", "*.tar.gz", "*.tar.xz", "*.tar.zst"]
+      # exec = "file-roller --extract-here %F"
+      #
+      # [[action]]
+      # name = "Add to 7z"
+      # submenu = "Archive"
+      # kinds = ["file", "folder"]
+      # exec = "7z a Archive.7z %F"
+      #
+      # [[action]]
+      # name = "Copy Paths"
+      # kinds = ["file", "folder"]
+      # exec = ["sh", "-c", 'printf "%s\n" "$@" | wl-copy', "sh", "%F"]
+    '';
+
+  };
+}
+

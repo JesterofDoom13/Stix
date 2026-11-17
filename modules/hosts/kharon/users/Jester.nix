@@ -8,7 +8,9 @@
         [
           Jester
           disko
+          openlogi
           gaming
+          printing
           umbriel-desktop
           (jovian "Jester" "umbriel")
         ];

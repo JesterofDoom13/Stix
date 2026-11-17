@@ -84,6 +84,7 @@ in
         udftools
         libcap
         wget
+        wl-clipboard-rs
       ];
     };
 
