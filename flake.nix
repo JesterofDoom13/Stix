@@ -48,7 +48,7 @@
     import-tree.url = "github:vic/import-tree";
     jovian.url = "github:Jovian-Experiments/Jovian-NixOS";
     lichii = {
-      url = "github:zortos293/Lichii?ref=nx2&submodules=1";
+      url = "github:zortos293/Lichii";
       flake = false;
     };
     nix-darwin = {
@@ -70,6 +70,7 @@
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nordend.url = "github:pankaspe/nordend-fm";
     packages = {
       url = "path:./packages";
       flake = false;
@@ -89,7 +90,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     zen-browser = {
-      url = "github:0xc000022070/zen-browser-flake";
+      url = "github:0xc000022070/zen-browser-flake/beta";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

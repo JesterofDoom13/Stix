@@ -7,8 +7,8 @@ let m = inputs.self.modules; in
     bluetooth
     flatpak
     minimal
-    openlogi
-    pcmanfm
+    nordend
+    # pcmanfm
   ];
   flake.modules.homeManager.umbriel-desktop.imports = with m.homeManager; [
     umbriel
@@ -19,7 +19,8 @@ let m = inputs.self.modules; in
     minimal
     noctalia
     orca
-    pcmanfm
+    nordend
+    # pcmanfm
     zathura
   ];
 }
