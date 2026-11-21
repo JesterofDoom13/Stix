@@ -10,12 +10,14 @@
         sunshine
       ];
     };
-    programs.umbriel.settings.window_rule = {
-      match.app_id = "^steam$";
-      match.title = "[Bb]ig [Pp]icture";
+    programs.umbriel.settings.window_rule = [{
+      match = {
+        app_id = "^steam$";
+        title = "[Bb]ig [Pp]icture";
+      };
       default_output = "sunshine";
       default_fullscreen = true;
-    };
+    }];
     xdg.configFile = {
       "sunshine/sunshine.conf".text = ''
         capture = wlr
@@ -67,6 +69,7 @@
     };
   };
 }
+
 
 
 
