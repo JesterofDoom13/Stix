@@ -5,6 +5,7 @@ let
       environment.systemPackages = with pkgs; [
         git
         home-manager
+        jq
         tmux
         vim
       ];

@@ -51,6 +51,7 @@
       url = "github:zortos293/Lichii";
       flake = false;
     };
+    luciole.url = "github:noctalia-dev/luciole";
     nix-darwin = {
       url = "github:nix-darwin/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -67,7 +68,7 @@
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
+      url = "github:noctalia-dev/noctalia";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nordend.url = "github:pankaspe/nordend-fm";

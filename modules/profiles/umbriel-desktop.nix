@@ -4,23 +4,26 @@ let m = inputs.self.modules; in
   flake.modules.nixos.umbriel-desktop.imports = with m.nixos; [
     umbriel
 
-    bluetooth
-    flatpak
+    # List of Modules that pull in multiple defaults
     minimal
-    nordend
-    # pcmanfm
+    filemanager
+
+    bluetooth
+    flatpak # DO NOT REMOVE. Designed to pull in if homeManager has enabled a flatpak.
   ];
   flake.modules.homeManager.umbriel-desktop.imports = with m.homeManager; [
     umbriel
 
+    # List of modules that pull in multiple defaults
+    minimal
+    filemanager
     browsers
     gaming
+
+    # Individual programs
     ghostty
-    minimal
     noctalia
     orca
-    nordend
-    # pcmanfm
     zathura
   ];
 }

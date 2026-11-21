@@ -55,6 +55,7 @@
             unrar
             p7zip
             libarchive
+            ryzenadj
             unzip
           ];
           extraPythonPackages = p: [
