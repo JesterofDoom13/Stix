@@ -9,7 +9,7 @@
         users.users.Jester = {
           group = "users";
         };
-        # services.snapper.configs.home.ALLOW_USERS = [ "Jester" ];
+        # services.snapper.configs.home.ALLOW_USERS = [ "Jester" ]; 
         system.stateVersion = "26.11";
       };
 
