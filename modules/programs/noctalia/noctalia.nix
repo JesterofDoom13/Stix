@@ -34,8 +34,6 @@
         };
       };
       home = {
-
-
         packages = with pkgs;
           [
             sn
