@@ -1,10 +1,10 @@
 {
-  flake.modules.nixos.pcmanfm = { pkgs, ... }: {
+  flake.modules.nixos.sunshine = { pkgs, ... }: {
     environment.systemPackages = with pkgs;[
       sunshine
     ];
   };
-  flake.modules.homeManager.pcmanfm = { pkgs, ... }: {
+  flake.modules.homeManager.sunshine = { pkgs, ... }: {
     home = {
       packages = with pkgs;[
         sunshine
