@@ -113,9 +113,9 @@
         };
         keybinds = {
           # Master submapper
-          "Mod" = { action = "submap Mod"; repeat = false; };
-          "submap[Mod],Mod" = "submap reset";
-          "submap[Mod],Escape" = "submap reset";
+          # "Mod" = { action = "submap Mod"; repeat = false; };
+          # "submap[Mod],Mod" = "submap reset";
+          # "submap[Mod],Escape" = "submap reset";
 
           # Apps
           "Mod+Semicolon" = "spawn ghostty";
