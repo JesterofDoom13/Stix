@@ -121,7 +121,7 @@
           "Mod+Semicolon" = "spawn ghostty";
           "Mod+Apostrophe" = { action = "scratchpad-toggle quake"; repeat = false; };
           "Mod+P" = { action = "scratchpad-toggle btop"; repeat = false; };
-          "Mod+B" = "spawn zen-beta";
+          "Mod+B" = "spawn qutebrowser";
           "Mod+E" = "spawn pcmanfm-qt";
           "Mod+G" = "spawn google-chrome";
           "Mod+Shift+G" = "spawn noctalia msg notification-show 'Launching Gamescope...' && start-gamescope-session";
