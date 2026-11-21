@@ -10,6 +10,7 @@
           "audio"
           "dialout"
           "input"
+          "uinput"
           "lpadmin"
           "networkmanager"
           "video"

@@ -1,13 +1,15 @@
 { inputs, ... }: {
-  flake.modules.nixos.gamix = { pkgs, ... }:
+  flake.modules.nixos.gamix = { ... }:
     {
       imports = with inputs.self.modules.nixos;
         [
           home-manager
+          prox-nvidia
           "${inputs.nixpkgs}/nixos/modules/virtualisation/proxmox-lxc.nix"
         ];
       nix.settings = { sandbox = false; };
       systemd.network.wait-online.enable = false;
+
       security.pam.services.sshd.allowNullPassword = true;
       services.openssh = {
         enable = true;
@@ -44,6 +46,11 @@
         "pnpm-9.15.9"
       ];
       nixpkgs.overlays = [
+        (final: prev: {
+          xdg-desktop-portal = prev.xdg-desktop-portal.overrideAttrs (_: {
+            doCheck = false;
+          });
+        })
         (final: prev: {
           openldap = prev.openldap.overrideAttrs (_: {
             doCheck = false;
@@ -90,11 +97,11 @@
         # };
         portal = {
           enable = true;
-          extraPortals = [
-            pkgs.kdePackages.xdg-desktop-portal-kde
-            pkgs.xdg-desktop-portal-gnome
-            pkgs.xdg-desktop-portal-gtk
-          ];
+          # extraPortals = [
+          #   pkgs.kdePackages.xdg-desktop-portal-kde
+          #   pkgs.xdg-desktop-portal-gnome
+          #   pkgs.xdg-desktop-portal-gtk
+          # ];
         };
       };
 
@@ -104,7 +111,11 @@
       };
 
       # Networking
+
       networking.networkmanager.enable = true;
+      networking.networkmanager.wifi.backend = "iwd";
+      networking.wireless.enable = false;
+
       services.tailscale.enable = true;
 
       # Locale / time

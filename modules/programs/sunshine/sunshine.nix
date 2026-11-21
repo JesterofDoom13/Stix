@@ -3,11 +3,23 @@
     environment.systemPackages = with pkgs;[
       sunshine
     ];
+    services.sunshine = {
+      enable = true;
+      autoStart = true;
+      capSysAdmin = true; # only needed for Wayland -- omit this when using with Xorg
+      openFirewall = true;
+    };
+    hardware.uinput.enable = true;
+    # For dualshock controller support
+    services.udev.extraRules = ''
+      KERNEL=="uhid", GROUP="input", MODE="0660", OPTIONS+="static_node=uhid", TAG+="uaccess"
+    '';
   };
   flake.modules.homeManager.sunshine = { pkgs, ... }: {
     home = {
       packages = with pkgs;[
         sunshine
+        jq
       ];
     };
     programs.umbriel.settings.window_rule = [{
@@ -36,7 +48,7 @@
               create)
                   umbriel output-destroy "$name" >/dev/null 2>&1 || true
                   umbriel output-create "$name" \
-                      "${SUNSHINE_CLIENT_WIDTH:-1920}x${SUNSHINE_CLIENT_HEIGHT:-1080}@${SUNSHINE_CLIENT_FPS:-60}" >/dev/null
+                      "''${SUNSHINE_CLIENT_WIDTH:-1920}x''${SUNSHINE_CLIENT_HEIGHT:-1080}@''${SUNSHINE_CLIENT_FPS:-60}" >/dev/null
                   ;;
               remove)
                   # Give windows that the app's undo command is closing up to 5 seconds to

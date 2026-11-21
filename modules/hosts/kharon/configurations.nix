@@ -1,6 +1,7 @@
 { inputs, ... }: {
   flake.modules.nixos.kharon = { pkgs, ... }:
     {
+
       imports = with inputs.self.modules.nixos;
         [
           home-manager
@@ -31,6 +32,7 @@
         })
       ];
 
+      jovian.devices.steamdeck.enable = true;
       boot = {
         kernelParams = [
           "quiet"
