@@ -1,6 +1,6 @@
 { inputs, ... }: {
   flake.modules.nixos.kharon =
-    { ... }:
+    { pkgs, ... }:
     {
       imports =
         with inputs.self.modules.nixos;
@@ -23,6 +23,9 @@
             umbriel-desktop
           ];
         programs.xbox-cloud-gaming.enable = true;
+        home.packages = [
+          pkgs.moonlight-qt
+        ];
       };
     };
 }

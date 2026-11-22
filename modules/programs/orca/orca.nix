@@ -1,14 +1,13 @@
 { inputs, ... }:
 {
-  flake.modules.homeManager.orca = { pkgs, config, ... }: {
-    imports = [ inputs.self.modules.homeManager.syncthing ];
+  flake.modules.homeManager.orca = { pkgs, config, ... }:
+    let
+      mkFolder = inputs.self.lib.syncthing.mkFolder config;
+    in
+    {
+      imports = [ inputs.self.modules.homeManager.syncthing ];
+      home.packages = [ pkgs.orca-slicer ];
 
-    home.packages = [ pkgs.orca-slicer ];
-
-    services.syncthing.settings.folders."orca-slicer" = {
-      path = "${config.home.homeDirectory}/.config/OrcaSlicer";
-      devices = [ "proxmox-syncthing" ];
-      type = "sendreceive";
+      services.syncthing.settings.folders."orca-slicer" = mkFolder "${config.home.homeDirectory}/.config/OrcaSlicer" { };
     };
-  };
 }
