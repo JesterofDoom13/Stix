@@ -55,9 +55,26 @@
           ];
         })
       ];
+      #-- For Umbriel ------------------------------
+      services.greetd = {
+        enable = true;
+        settings = rec {
+          terminal.vt = lib.mkForce 7;
+          initial_session = {
+            command = "start-umbriel";
+            user = "Jester";
+          };
+          default_session = initial_session;
+        };
+      };
 
-      # programs.dconf.enable = true;
+      jovian.steam.autoStart = lib.mkForce false;
+      services.displayManager.sddm.enable = lib.mkForce false;
 
+      users.users.Jester.linger = true;
+      #----------------------------------------------
+
+      systemd.user.services.sunshine.environment.LD_LIBRARY_PATH = "/run/opengl-driver/lib";
       environment.sessionVariables = {
         # QT_QPA_PLATFORMTHEME = "qt6ct";
         XDG_DATA_DIRS = [

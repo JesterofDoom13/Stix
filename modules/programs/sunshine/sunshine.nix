@@ -1,27 +1,19 @@
 {
-  flake.modules.nixos.sunshine = { pkgs, ... }: {
-    environment.systemPackages = with pkgs;[
-      sunshine
-    ];
+  flake.modules.nixos.sunshine = { ... }: {
     services.sunshine = {
       enable = true;
       autoStart = true;
-      capSysAdmin = true; # only needed for Wayland -- omit this when using with Xorg
+      capSysAdmin = false; # only needed for KMS capture, not capture = wlr
       openFirewall = true;
     };
     hardware.uinput.enable = true;
-    # For dualshock controller support
+    # For dualshock controller support (no effect inside an LXC; set mode= on the Proxmox dev lines)
     services.udev.extraRules = ''
       KERNEL=="uhid", GROUP="input", MODE="0660", OPTIONS+="static_node=uhid", TAG+="uaccess"
     '';
   };
-  flake.modules.homeManager.sunshine = { pkgs, ... }: {
-    home = {
-      packages = with pkgs;[
-        sunshine
-        jq
-      ];
-    };
+
+  flake.modules.homeManager.sunshine = { config, pkgs, ... }: {
     programs.umbriel.settings.window_rule = [{
       match = {
         app_id = "^steam$";
@@ -34,13 +26,16 @@
       "sunshine/sunshine.conf".text = ''
         capture = wlr
         output_name = sunshine
-        global_prep_cmd = [{"do":"/home/user/.config/sunshine/umbriel-output.sh create","undo":"/home/user/.config/sunshine/umbriel-output.sh remove"}]
+        csrf_allowed_origins = https://10.0.0.233:47990,https://gamix:47990,https://100.64.0.17:47990
+        global_prep_cmd = [{"do":"${config.xdg.configHome}/sunshine/umbriel-output.sh create","undo":"${config.xdg.configHome}/sunshine/umbriel-output.sh remove"}]
       '';
       "sunshine/umbriel-output.sh" = {
         executable = true;
         text = ''
           #!/bin/sh
           set -eu
+          export PATH="/run/current-system/sw/bin:$PATH"
+          jq=${pkgs.jq}/bin/jq
 
           name=sunshine
 
@@ -51,23 +46,19 @@
                       "''${SUNSHINE_CLIENT_WIDTH:-1920}x''${SUNSHINE_CLIENT_HEIGHT:-1080}@''${SUNSHINE_CLIENT_FPS:-60}" >/dev/null
                   ;;
               remove)
-                  # Give windows that the app's undo command is closing up to 5 seconds to
-                  # go away, so they do not flash onto a physical monitor.
                   i=0
                   while [ "$i" -lt 25 ]; do
                       left="$(umbriel windows --json |
-                          jq --arg out "$name:" '[.[] | select(.workspace | startswith($out))] | length')"
+                          $jq --arg out "$name:" '[.[] | select(.workspace | startswith($out))] | length')"
                       [ "$left" = 0 ] && break
                       sleep 0.2
                       i=$((i + 1))
                   done
-                  # Move what is left to the focused workspace of another output, so it
-                  # does not return to the next session's output (see below).
                   target="$(umbriel workspaces --json |
-                      jq -r --arg out "$name" '[.[] | select(.output != $out and .active)]
+                      $jq -r --arg out "$name" '[.[] | select(.output != $out and .active)]
                           | (map(select(.focused)) + .) | first | "\(.name)/\(.output)" // empty')"
                   for id in $(umbriel windows --json |
-                      jq -r --arg out "$name:" '.[] | select(.workspace | startswith($out)) | .id'); do
+                      $jq -r --arg out "$name:" '.[] | select(.workspace | startswith($out)) | .id'); do
                       [ -n "$target" ] || break
                       umbriel msg window-focus "$id"
                       umbriel msg window-move-to-workspace-silent "$target"
@@ -76,24 +67,7 @@
                   ;;
           esac
         '';
-
       };
     };
   };
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
