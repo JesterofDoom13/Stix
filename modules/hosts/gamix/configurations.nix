@@ -1,33 +1,19 @@
 { inputs, ... }: {
-  flake.modules.nixos.gamix = { ... }:
+  flake.modules.nixos.gamix = { modulesPath, lib, ... }:
     {
       imports = with inputs.self.modules.nixos;
         [
           home-manager
           prox-nvidia
-          "${inputs.nixpkgs}/nixos/modules/virtualisation/proxmox-lxc.nix"
+          (modulesPath + "/virtualisation/proxmox-lxc.nix")
         ];
       nix.settings = { sandbox = false; };
-      systemd.network.wait-online.enable = false;
-
-      security.pam.services.sshd.allowNullPassword = true;
-      services.openssh = {
-        enable = true;
-        openFirewall = true;
-        settings = {
-          PermitRootLogin = "yes";
-          PasswordAuthentication = true;
-          PermitEmptyPasswords = "yes";
-        };
-      };
-
       proxmoxLXC = {
         privileged = true;
         manageNetwork = false;
         manageHostName = false;
       };
 
-      networking.hostName = "gamix";
       nixpkgs.config.allowUnfree = true;
       nix.settings = {
         accept-flake-config = true;
@@ -70,7 +56,7 @@
         })
       ];
 
-      programs.dconf.enable = true;
+      # programs.dconf.enable = true;
 
       environment.sessionVariables = {
         # QT_QPA_PLATFORMTHEME = "qt6ct";
@@ -85,40 +71,41 @@
 
       # Security / auth
       security.polkit.enable = true;
-      # security.pam.services.swaylock = { };
 
       # Graphics
       hardware.graphics.enable = true;
 
       # XDG portals
-      xdg = {
-        # mime.defaultApplications = {
-        #   "inode/directory" = [ "org.kde.dolphin.desktop" ];
-        # };
-        portal = {
-          enable = true;
-          # extraPortals = [
-          #   pkgs.kdePackages.xdg-desktop-portal-kde
-          #   pkgs.xdg-desktop-portal-gnome
-          #   pkgs.xdg-desktop-portal-gtk
-          # ];
-        };
-      };
+      xdg.portal.enable = true;
 
       console.useXkbConfig = true;
       services = {
         xserver.xkb.options = "caps:swapescape";
       };
 
-      # Networking
-
-      networking.networkmanager.enable = true;
-      networking.networkmanager.wifi.backend = "iwd";
-      networking.wireless.enable = false;
-
+      #-- Networking ------------------------------
+      #------DO NOT REMOVE ------------------------
+      networking.hostName = "gamix";
+      systemd.additionalUpstreamSystemUnits = [ "systemd-udev-trigger.service" ];
+      systemd.services.systemd-rfkill = {
+        wantedBy = lib.mkForce [ ];
+        enable = false;
+      };
+      systemd.network.wait-online.enable = false;
+      #------DO NOT REMOVE ------------------------
+      security.pam.services.sshd.allowNullPassword = true;
+      services.openssh = {
+        enable = true;
+        openFirewall = true;
+        settings = {
+          PermitRootLogin = "yes";
+          PasswordAuthentication = true;
+          PermitEmptyPasswords = "yes";
+        };
+      };
       services.tailscale.enable = true;
 
-      # Locale / time
+      #-- Locale / time----------------------------
       time.timeZone = "America/Denver";
       i18n.defaultLocale = "en_US.UTF-8";
     };
