@@ -9,6 +9,7 @@ let m = inputs.self.modules; in
     filemanager
 
     bluetooth
+    sunshine
     flatpak # DO NOT REMOVE. Designed to pull in if homeManager has enabled a flatpak.
   ];
   flake.modules.homeManager.umbriel-desktop.imports = with m.homeManager; [
