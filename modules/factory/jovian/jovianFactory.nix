@@ -44,7 +44,7 @@
     {
       imports = [ inputs.jovian.nixosModules.default ];
       jovian = {
-        devices.steamdeck.enable = true;
+        # devices.steamdeck.enable = true;
         devices.steamdeck.autoUpdate = true;
         decky-loader = {
           enable = true;

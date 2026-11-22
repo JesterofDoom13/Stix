@@ -278,13 +278,14 @@ in
       fi
     '';
     home.activation.pushNvimConfig = lib.hm.dag.entryBefore [ "writeBoundary" ] ''
-        export PATH="${pkgs.git}/bin:${pkgs.openssh}/bin:$PATH"
+      export PATH="${pkgs.git}/bin:${pkgs.openssh}/bin:$PATH"
       if [ -d "$HOME/.config/nvim/.git" ]; then
         cd "$HOME/.config/nvim"
-        ${pkgs.git}/bin/git add -A
-        ${pkgs.git}/bin/git diff --quiet && ${pkgs.git}/bin/git diff --staged --quiet || \
-          ${pkgs.git}/bin/git commit -m "auto: pre-rebuild snapshot" && \
-          ${pkgs.git}/bin/git push
+        git add -A
+        if ! git diff --staged --quiet; then
+          git commit -m "auto: pre-rebuild snapshot" || true
+          git push || echo "pushNvimConfig: push failed, continuing" >&2
+        fi
       fi
     '';
   };

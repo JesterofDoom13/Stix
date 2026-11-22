@@ -21,6 +21,7 @@ let m = inputs.self.modules; in
     gaming
 
     # Individual programs
+    sunshine
     ghostty
     noctalia
     orca

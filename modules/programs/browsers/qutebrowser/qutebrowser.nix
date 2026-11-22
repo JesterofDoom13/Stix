@@ -1,11 +1,15 @@
 { ... }:
 {
-  flake.modules.homeManager.browsers = { pkgs, ... }: {
-    home.packages = [
-      pkgs.qutebrowser
-    ];
-    #     programs.qutebrowser = {
-    #   enable = true;
-    # };
+  flake.modules.homeManager.browsers = { ... }: {
+    # home.packages = [
+    #   pkgs.qutebrowser
+    # ];
+    programs.qutebrowser = {
+      enable = true;
+      extraConfig = ''
+        config.source('noctalia/colors.py')
+
+      '';
+    };
   };
 }
