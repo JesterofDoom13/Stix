@@ -25,6 +25,7 @@
         programs.xbox-cloud-gaming.enable = true;
         home.packages = [
           pkgs.moonlight-qt
+          pkgs.pear-desktop
         ];
       };
     };

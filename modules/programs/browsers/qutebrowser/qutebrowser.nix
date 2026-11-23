@@ -11,8 +11,8 @@
         c.scrolling.bar = 'never'
         c.statusbar.show = 'in-mode'
         c.tabs.show = 'switching'
-        c.autosave.session = True
-        c.coontent.cookies.accept = 'no-3rdparty'
+        c.auto_save.session = True
+        c.content.cookies.accept = 'no-3rdparty'
         c.hints.uppercase = True
 
       '';
