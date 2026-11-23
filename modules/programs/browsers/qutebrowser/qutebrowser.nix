@@ -14,6 +14,7 @@
         c.auto_save.session = True
         c.content.cookies.accept = 'no-3rdparty'
         c.hints.uppercase = True
+        c.colors.webpage.darkmode.enabled = True
 
       '';
     };
