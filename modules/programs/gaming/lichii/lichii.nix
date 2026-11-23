@@ -1,9 +1,9 @@
 { inputs, ... }:
 {
-  flake.modules.homeManager.lichii = { pkgs, lib, ... }:
+  flake.modules.homeManager.lichii = { pkgs, lib, config, ... }:
     let
       # Part of the commented out part below
-      # mkFolder = inputs.self.lib.syncthing.mkFolder config;
+      mkFolder = inputs.self.lib.syncthing.mkFolder config;
     in
     {
       home.packages = [
@@ -13,6 +13,6 @@
       ];
 
       # Have to add these invidually to each user finding out what the last directory 32 character is when lichii starts
-      # services.syncthing.settings.folders."lichii-nand" = mkFolder "${config.xdg.dataHome}/lichii/nand/save" { };
+      services.syncthing.settings.folders."lichii-nand" = mkFolder "${config.xdg.dataHome}/lichii/nand/user/save" { };
     };
 }
