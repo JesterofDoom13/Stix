@@ -115,9 +115,9 @@
         enable = true;
         openFirewall = true;
         settings = {
-          PermitRootLogin = "no";
-          PasswordAuthentication = false;
-          PermitEmptyPasswords = "yes";
+          PermitRootLogin = lib.mkForce "no";
+          PasswordAuthentication = lib.mkForce false;
+          PermitEmptyPasswords = lib.mkForce "yes";
         };
       };
       services.tailscale.enable = true;

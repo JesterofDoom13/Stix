@@ -14,6 +14,7 @@ let
           cmake-lint
           curl
           fd
+          fzf
           lua5_1
           lua51Packages.lualine-nvim
           lua51Packages.luarocks

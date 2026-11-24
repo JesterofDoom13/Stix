@@ -7,6 +7,10 @@ let
         home-manager
         jq
         tmux
+        fzf
+        ripgrep
+        fd
+        zoxide
         vim
       ];
     };
