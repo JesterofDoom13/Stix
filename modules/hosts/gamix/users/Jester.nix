@@ -11,12 +11,12 @@
           umbriel-desktop
           (jovian "Jester" "umbriel")
         ];
+      users.users.Jester.openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC8BPmGuNXUEmhqpkZJQxuyUv+X/C5wQgUS3eThEf7fl Jester@steamdeck"
+      ];
 
       home-manager.users.Jester =
         { ... }:
-        # let
-        #   mkFolder = inputs.self.lib.syncthing.mkFolder config;
-        # in
         {
           imports =
             with inputs.self.modules.homeManager;
@@ -24,9 +24,11 @@
               syncthing
               umbriel-desktop
             ];
-          # Have to add these invidually to each user finding out what the last directory 32 character is when lichii starts
-          # services.syncthing.settings.folders."lichii-nand" = mkFolder "${config.xdg.dataHome}/lichii/nand/user/save/0000000000000000/6D939F1107CDC4B67F6412651D439A14" { };
           programs.xbox-cloud-gaming.enable = true;
         };
     };
 }
+
+
+
+

@@ -14,6 +14,9 @@
         "com.github.tchx84.Flatseal"
       ];
       services.syncthing.settings.folders = {
+        #-- All the roms ------------------------------------------------------
+        "roms" = mkFolder "${retrodeck}/roms" { };
+
         # -- Save folders ------------------------------------------------------
         "mame-saves" = mkFolder "${saves}/mame-sa" { };
         "duckstation-saves" = mkFolder "${saves}/psx/duckstation" { };
@@ -40,13 +43,6 @@
         "retoarch-saves" = mkFolder "${home}/.var/app/org.libretro.RetroArch/config/retroarch" {
           ignorePatterns = [ "// DO NOT IGNORE" "!/states" "!/saves" "// IGNORE" "*" ".DS_Store" ];
         };
-
-        #-- All the roms ------------------------------------------------------
-        "roms" = mkFolder "${retrodeck}/roms" { };
-
-        # -- Eden    ---------------------------------------------------------
-        # Here until I make eden module 
-        "eden-nand" = mkFolder "${config.xdg.dataHome}/eden/nand" { };
       };
     };
 }
