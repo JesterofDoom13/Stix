@@ -1,12 +1,5 @@
 {
-  flake.modules.homeManager.keepassxc = { pkgs, ... }:
-    let
-      gpgKeyId = "D29E85FF9B3B52B7";
-      qbKeepassxc = pkgs.writeShellScript "qb-keepassxc" ''
-        exec ${pkgs.python3.withPackages (ps: [ ps.pynacl ])}/bin/python \
-          ${pkgs.qutebrowser}/share/qutebrowser/userscripts/qute-keepassxc "$@"
-      '';
-    in
+  flake.modules.homeManager.keepassxc = { ... }:
     {
       programs = {
         keepassxc = {
@@ -33,15 +26,6 @@
               "Mod+Shift+P" = { action = "scratchpad-toggle keepass"; repeat = false; };
             };
           };
-        };
-        qutebrowser = {
-          extraConfig = ''
-            config.bind('<Space>p','spawn --userscript ${qbKeepassxc} --key ${gpgKeyId}', mode='normal');
-            config.bind("<Alt+p>",  'spawn --userscript ${qbKeepassxc} --key ${gpgKeyId}', mode='insert');
-            config.bind("<Alt+p>",  'spawn --userscript ${qbKeepassxc} --key ${gpgKeyId}', mode='prompt');
-            config.bind("<Space+Pu>",  'spawn --userscript ${qbKeepassxc} --key ${gpgKeyId} --username-only', mode='normal');
-            config.bind("<Space+Pp>",  'spawn --userscript ${qbKeepassxc} --key ${gpgKeyId} --password-only', mode='normal');
-          '';
         };
       };
     };
