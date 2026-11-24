@@ -1,13 +1,6 @@
 { inputs, ... }:
 {
-  flake.modules.homeManager.browsers = { pkgs, ... }:
-    let
-      gpgKeyId = "D29E85FF9B3B52B7";
-      qbKeepassxc = pkgs.writeShellScript "qb-keepassxc" ''
-        exec ${pkgs.python3.withPackages (ps: [ ps.pynacl ])}/bin/python \
-          ${pkgs.qutebrowser}/share/qutebrowser/userscripts/qute-keepassxc "$@"
-      '';
-    in
+  flake.modules.homeManager.browsers = { ... }:
     {
       # home.packages = [
       # ];
@@ -35,10 +28,6 @@
           config.bind('<Space>td', 'config-cycle colors.webpage.darkmod.enabled')
           config.bind('<Space>sl', 'cmd-set-text -s :session-load -c ')
           config.bind('<Space>ss', 'cmd-set-text -s :session-save -o ')
-
-          config.bind('<Space>p','spawn --userscript ${qbKeepassxc} --key ${gpgKeyId}', mode='normal');
-          config.bind("<Alt+p>",  'spawn --userscript ${qbKeepassxc} --key ${gpgKeyId}', mode='insert');
-          config.bind("<Alt+p>",  'spawn --userscript ${qbKeepassxc} --key ${gpgKeyId}', mode='prompt');
 
           #-- Adblcokingi ------------------------------------------
           c.content.blocking.method = "both"
