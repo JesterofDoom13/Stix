@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.nixos.prox-nvidia = { config, lib, ... }:
+  flake.modules.nixos.prox-nvidia = { config, lib, pkgs, ... }:
     let
       nvidiaLibs =
         (config.boot.kernelPackages.nvidiaPackages.mkDriver {
@@ -16,32 +16,14 @@
       hardware.graphics = {
         enable = true;
         enable32Bit = true; # Steam / 32-bit games
-        extraPackages = [ nvidiaLibs ];
+        extraPackages = [ nvidiaLibs pkgs.egl-gbm pkgs.egl-wayland ];
         extraPackages32 = [ nvidiaLibs.lib32 ];
 
       };
 
-      # services.xserver.videoDrivers = [ "nvidia" ];
+      environment.etc."egl/egl_external_platform.d".source =
+        "/run/opengl-driver/share/egl/egl_external_platform.d/";
 
-      # hardware.nvidia = {
-      #   modesetting.enable = true;
-      #   open = false;
-      #   nvidiaSettings = false;
-      #   gsp.enable = false;
-      #   # Userspace libs only: the kernel module comes from the Proxmox host.
-      #   # Version must match the host exactly.
-      #   package =
-      #     (config.boot.kernelPackages.nvidiaPackages.mkDriver {
-      #       version = "595.84";
-      #       sha256_64bit = lib.fakeHash;
-      #       sha256_aarch64 = lib.fakeHash;
-      #       openSha256 = lib.fakeHash;
-      #       settingsSha256 = lib.fakeHash;
-      #       persistencedSha256 = lib.fakeHash;
-      #     }).override {
-      #       libsOnly = true;
-      #       # kernel = null;
-      #     };
-      # };
+      environment.sessionVariables.WLR_DRM_DEVICES = "/dev/dri/card2";
     };
 }

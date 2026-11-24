@@ -34,10 +34,10 @@
       programs.zen-browser = {
         enable = true;
         package = inputs.zen-browser.packages.${system}.beta;
-        policies = {
-          SecurityDevices."CAC-Device" = "${pkgs.opensc}/lib/opensc-pkcs11.so";
-          SecurityDevices.p11-kit-proxy = "${pkgs.p11-kit}/lib/p11-kit-proxy.so";
-        };
+        # policies = {
+        #   SecurityDevices."CAC-Device" = "${pkgs.opensc}/lib/opensc-pkcs11.so";
+        #   SecurityDevices.p11-kit-proxy = "${pkgs.p11-kit}/lib/p11-kit-proxy.so";
+        # };
         profiles.default = rec {
           id = 0;
           isDefault = true;
@@ -149,7 +149,7 @@
               disabled = true;
             }
           ];
-          keyboardShortcutsVersion = 22;
+          # keyboardShortcutsVersion = 22;
           containersForce = true;
           spacesForce = true;
           pinsForce = true;
