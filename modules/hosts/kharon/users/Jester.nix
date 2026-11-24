@@ -27,7 +27,13 @@
           home.packages = [
             pkgs.moonlight-qt
             pkgs.pear-desktop
+            pkgs.keepassxc
           ];
+          programs.gpg.enable = true;
+          services.gpg-agent = {
+            enable = true;
+            pinentry.package = pkgs.pinentry-egui;
+          };
         };
     };
 }
