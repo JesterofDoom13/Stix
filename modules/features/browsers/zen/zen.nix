@@ -1,6 +1,6 @@
 { inputs, ... }:
 {
-  flake.modules.homeManager.browsers = { pkgs, config, ... }:
+  flake.modules.homeManager.zen = { pkgs, config, ... }:
     let
       inherit (pkgs.stdenv.hostPlatform) system;
     in

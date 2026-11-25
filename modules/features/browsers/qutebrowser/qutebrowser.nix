@@ -1,18 +1,24 @@
-{ inputs, ... }:
+{ inputs, self, ... }:
 {
-  flake.modules.homeManager.browsers = { pkgs, ... }:
-    let
-      gpgKeyId = "D29E85FF9B3B52B7";
-      qbKeepassxc = pkgs.writeShellScript "qb-keepassxc" ''
-        exec ${pkgs.python3.withPackages (ps: [ ps.pynacl ])}/bin/python \
-          ${pkgs.qutebrowser}/share/qutebrowser/userscripts/qute-keepassxc "$@"
-      '';
-    in
+  flake.modules.homeManager.qutebrowser = { ... }:
     {
-      # home.packages = [
-      # ];
+      imports = with self.modules.homeManager;
+        [
+          qutebrowser-keepassxc
+        ];
       programs.qutebrowser = {
         enable = true;
+        keyBindings = {
+          normal = {
+            "<Ctrl+s>" = "config-cycle tabs.show always never";
+            "tt" = "cmd-set-text -s :tab-select";
+            "co" = "tab-only --prev";
+            "<Space>td" = "config-cycle colors.webpage.darkmode.enabled";
+            "<Space>sl" = "cmd-set-text -s :session-load -c ";
+            "<Space>ss" = "cmd-set-text -s :session-save -o ";
+
+          };
+        };
         extraConfig = ''
           #-- Visuals----------------------------------------------
           config.source('noctalia/colors.py')
@@ -27,21 +33,6 @@
           c.colors.webpage.darkmode.enabled = True
           c.completion.shrink = True
 
-          #-- Keybinds ---------------------------------------------
-
-          config.bind("<Ctrl+s>", "config-cycle tabs.show always never")
-          config.bind('tt', 'cmd-set-text -s :tab-select')
-          config.bind('co', 'tab-only --prev')
-          config.bind('<Space>td', 'config-cycle colors.webpage.darkmod.enabled')
-          config.bind('<Space>sl', 'cmd-set-text -s :session-load -c ')
-          config.bind('<Space>ss', 'cmd-set-text -s :session-save -o ')
-
-          config.bind('<Space>p','spawn --userscript ${qbKeepassxc} --key ${gpgKeyId}', mode='normal');
-          config.bind("<Alt+p>",  'spawn --userscript ${qbKeepassxc} --key ${gpgKeyId}', mode='insert');
-          config.bind("<Alt+p>",  'spawn --userscript ${qbKeepassxc} --key ${gpgKeyId}', mode='prompt');
-          config.bind("<Space+Pu>",  'spawn --userscript ${qbKeepassxc} --key ${gpgKeyId} --username-only', mode='normal');
-          config.bind("<Space+Pp>",  'spawn --userscript ${qbKeepassxc} --key ${gpgKeyId} --password-only', mode='normal');
-            
           #-- Adblcokingi ------------------------------------------
           c.content.blocking.method = "both"
           c.content.blocking.adblock.lists += [
@@ -51,7 +42,7 @@
 
           #-- Search enngines --------------------------------------
           c.url.searchengines = {
-              "DEFAULT": "https://kagi.com/search?q={}",
+              "DEFAULT": "https://duckduckgo.com/?q={}",
               "nw": "https://wiki.nixos.org/index.php?search={}",
               "ns": "https://search.nixos.org/packages?channel=26.05&query={}",
               "gh": "https://github.com/search?q={}",
