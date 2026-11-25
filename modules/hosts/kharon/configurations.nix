@@ -146,7 +146,7 @@
       console.useXkbConfig = true;
       services = {
         udev.packages = [ pkgs.dolphin-emu ];
-        gnome.gnome-keyring.enable = true;
+        # gnome.gnome-keyring.enable = true;
         xserver.xkb.options = "caps:swapescape";
         # Btrfs maintenance
         btrfs.autoScrub = {
