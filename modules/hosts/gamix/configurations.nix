@@ -110,6 +110,12 @@
       };
       systemd.network.wait-online.enable = false;
       #------DO NOT REMOVE ------------------------
+      networking.hosts =
+        {
+          "10.0.0.154" = [ "headscale.jestserve.duckdns.org" ];
+          "10.0.0.214" = [ "authentik.jestserve.duckdns.org" ];
+
+        };
       security.pam.services.sshd.allowNullPassword = true;
       services.openssh = {
         enable = true;
