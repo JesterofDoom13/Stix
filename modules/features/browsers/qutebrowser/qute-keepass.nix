@@ -1,9 +1,11 @@
-{ self, ... }:
+{ self, config, ... }:
+let
+  gpgKeyId = config.flake.meta.gpgKeyId;
+in
 {
   flake.modules.homeManager.qutebrowser-keepassxc =
     { config, lib, pkgs, ... }:
     let
-      gpgKeyId = "D29E85FF9B3B52B7";
       assets = "${self}/assets/qute-autofill";
 
       upstream = pkgs.fetchFromGitHub {
@@ -16,7 +18,10 @@
       src = pkgs.applyPatches {
         name = "qute-autofill-keepassxc-gpg";
         src = upstream;
-        patches = [ "${assets}/qute-autofill-gpg.patch" ];
+        patches = [
+          "${assets}/qute-autofill-gpg.patch"
+          "${assets}/qute-autofill-phone.patch"
+        ];
       };
 
       py = pkgs.python3.withPackages (ps: [ ps.pynacl ps.tomlkit ]);
@@ -59,6 +64,36 @@
           };
           insert."<Alt+p>" = "spawn --userscript ${qbKeepassxc} ${key}";
           prompt."<Alt+p>" = "spawn --userscript ${qbKeepassxc} ${key}";
+        };
+        programs.fish.functions.autofill-pass = {
+          description = "Edit the autofill file in qutebrowser";
+          body = ''
+            set -l dir ~/.config/qutebrowser/autofill
+            set -l t /run/user/(id -u)/profiles.toml
+
+            if test -z "$GPG_KEYID";
+            or test -z "$EDITOR"
+              echo "GPG_KEYID and EDITOR must both be set" >&2
+              return 1
+            end
+
+            gpg --quiet --decrypt $dir/profiles.toml.gpg > $t
+            or begin
+              rm -f $t
+              return 1
+            end
+
+            $EDITOR $t
+            or begin
+              echo "editor exited with an error; plaintext left at $t" >&2
+              return 1
+            end
+
+            cp $dir/profiles.toml.gpg $dir/profiles.toml.gpg.bak
+            and gpg --yes --encrypt --recipient $GPG_KEYID --output $dir/profiles.toml.gpg $t
+            and rm -f $t
+            or echo "encrypting failed; your edits are still at $t" >&2
+          '';
         };
       };
     };

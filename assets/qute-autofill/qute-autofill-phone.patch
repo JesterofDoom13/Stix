@@ -1,0 +1,231 @@
+diff -u a/profiles.toml.template b/profiles.toml.template
+--- a/profiles.toml.template
++++ b/profiles.toml.template
+@@ -33,6 +33,16 @@
+ # (autocomplete="tel-national", or a short maxlength next to a separate
+ # country-code selector). Falls back to `phone` when left out.
+ phone_national = "333 1234567"
++# Optional pieces for sites that split the phone number into separate boxes
++# (autocomplete="tel-country-code", "tel-area-code", "tel-local-prefix", ...).
++# +1 (US/Canada) numbers are split automatically from `phone`; for any other
++# country set them yourself, or those boxes stay empty.
++# phone_country_code = "+39"
++# phone_area_code = ""
++# phone_local_prefix = ""
++# phone_local_suffix = ""
++# phone_local = ""
++# phone_extension = ""
+ organization = "Acme SRL"
+ street = "Via Roma"
+ house_number = "1"
+@@ -132,6 +142,8 @@
+ # fills in from your profile -- see valueForKind() in
+ # ~/.local/share/qutebrowser/userscripts/autofill.js):
+ #   given_name, family_name, full_name, email, phone, phone_national,
++#   phone_country_code, phone_area_code, phone_local, phone_local_prefix,
++#   phone_local_suffix, phone_extension,
+ #   organization, street, house_number, address_line2, neighborhood,
+ #   street_full, postal_code, city, province, province_code, country,
+ #   country_code, birth_date, birth_day, birth_month, birth_year,
+diff -u a/tests/autofill/fixtures/en-us-split-phone.html b/tests/autofill/fixtures/en-us-split-phone.html
+--- a/tests/autofill/fixtures/en-us-split-phone.html
++++ b/tests/autofill/fixtures/en-us-split-phone.html
+@@ -0,0 +1,20 @@
++<!DOCTYPE html>
++<html lang="en-US">
++<head><meta charset="utf-8"><title>Split phone number</title></head>
++<body>
++<h1>Contact</h1>
++<!-- Mirrors the "all supported @autocomplete" demo page: every box is labelled
++     with its own token, which also contains "tel" and used to trip the keyword
++     matcher, and the tel-ish boxes use type="tel", which used to trip the type
++     fallback. Both used to put the whole number into every box. -->
++<form id="contact">
++  <label>tel: <input type="tel" autocomplete="tel" id="tel" name="tel"></label>
++  <label>tel-country-code: <input type="text" autocomplete="tel-country-code" id="cc" name="cc"></label>
++  <label>tel-area-code: <input type="tel" autocomplete="tel-area-code" id="area" name="area"></label>
++  <label>tel-local: <input type="tel" autocomplete="tel-local" id="local" name="local"></label>
++  <label>tel-local-prefix: <input type="tel" autocomplete="tel-local-prefix" id="prefix" name="prefix"></label>
++  <label>tel-local-suffix: <input type="tel" autocomplete="tel-local-suffix" id="suffix" name="suffix"></label>
++  <label>tel-extension: <input type="tel" autocomplete="tel-extension" id="ext" name="ext"></label>
++</form>
++</body>
++</html>
+diff -u a/tests/autofill/run-tests.js b/tests/autofill/run-tests.js
+--- a/tests/autofill/run-tests.js
++++ b/tests/autofill/run-tests.js
+@@ -451,6 +451,71 @@
+ }
+ 
+ // ---------------------------------------------------------------------
++// Split phone numbers (tel-country-code / tel-area-code / tel-local-* ...)
++// ---------------------------------------------------------------------
++section('en-us-split-phone.html (profile: us, +1 number split automatically)');
++{
++  const { doc } = runOn('en-us-split-phone.html', us, { profileName: 'us' });
++  check('tel keeps the full number', valueOf(doc, 'tel'), '+1 415 555 0100');
++  check('tel-country-code', valueOf(doc, 'cc'), '+1');
++  check('tel-area-code', valueOf(doc, 'area'), '415');
++  check('tel-local', valueOf(doc, 'local'), '5550100');
++  check('tel-local-prefix', valueOf(doc, 'prefix'), '555');
++  check('tel-local-suffix', valueOf(doc, 'suffix'), '0100');
++  check('tel-extension stays empty', valueOf(doc, 'ext'), '');
++}
++
++section('en-us-split-phone.html (profile: italia, non-+1 number, no explicit pieces)');
++{
++  const { doc } = runOn('en-us-split-phone.html', italia, { profileName: 'italia' });
++  check('tel keeps the full number', valueOf(doc, 'tel'), '+39 333 1234567');
++  for (const id of ['cc', 'area', 'local', 'prefix', 'suffix', 'ext']) {
++    check('split box "' + id + '" stays empty (not the whole number)', valueOf(doc, id), '');
++  }
++}
++
++section('en-us-split-phone.html (explicit pieces for a non-+1 number)');
++{
++  const prof = Object.assign({}, italia, {
++    phone_country_code: '+39', phone_area_code: '333',
++    phone_local_prefix: '123', phone_local_suffix: '4567', phone_extension: 12,
++  });
++  const { doc } = runOn('en-us-split-phone.html', prof, { profileName: 'italia' });
++  check('country code', valueOf(doc, 'cc'), '+39');
++  check('area code', valueOf(doc, 'area'), '333');
++  check('prefix', valueOf(doc, 'prefix'), '123');
++  check('suffix', valueOf(doc, 'suffix'), '4567');
++  check('local = prefix + suffix', valueOf(doc, 'local'), '1234567');
++  check('extension (TOML number) is filled as text', valueOf(doc, 'ext'), '12');
++}
++
++section('en-us-split-phone.html (explicit value beats the derived one)');
++{
++  const prof = Object.assign({}, us, { phone_area_code: '650' });
++  const { doc } = runOn('en-us-split-phone.html', prof, { profileName: 'us' });
++  check('area code is the explicit one', valueOf(doc, 'area'), '650');
++  check('prefix still derived', valueOf(doc, 'prefix'), '555');
++}
++
++section('split phone: national number + US country code, and field-shape edge cases');
++{
++  const nat = { given_name: 'John', phone_national: '(415) 555-0100', country_code: 'US' };
++  const { doc } = runOn('en-us-split-phone.html', nat, { profileName: 'nat' });
++  check('area code from phone_national', valueOf(doc, 'area'), '415');
++  check('suffix from phone_national', valueOf(doc, 'suffix'), '0100');
++  check('country code', valueOf(doc, 'cc'), '+1');
++
++  const dom = new JSDOM(`<form>
++    <input autocomplete="tel-country-code" maxlength="1" id="c1">
++    <select autocomplete="tel-country-code" id="c2">
++      <option value="">Code</option><option value="+39">+39</option><option value="+1">+1</option>
++    </select></form>`, { url: 'https://example.test/' });
++  QuteAutofill.run(us, { strictVisibility: false, profileName: 'us' }, dom.window.document, dom.window);
++  check('maxlength=1 country-code box gets "1" without the plus', valueOf(dom.window.document, 'c1'), '1');
++  check('country-code <select> picks the +1 option', valueOf(dom.window.document, 'c2'), '+1');
++}
++
++// ---------------------------------------------------------------------
+ // Some sections above (late-field observer) are asynchronous: their checks
+ // run inside a setTimeout/Promise, so the final pass/fail totals and
+ // process.exit() must wait for those to settle first.
+diff -u a/userscripts/autofill b/userscripts/autofill
+--- a/userscripts/autofill
++++ b/userscripts/autofill
+@@ -151,6 +151,16 @@
+ # (autocomplete="tel-national", or a short maxlength next to a separate
+ # country-code selector). Falls back to `phone` when left out.
+ phone_national = "333 1234567"
++# Optional pieces for sites that split the phone number into separate boxes
++# (autocomplete="tel-country-code", "tel-area-code", "tel-local-prefix", ...).
++# +1 (US/Canada) numbers are split automatically from `phone`; for any other
++# country set them yourself, or those boxes stay empty.
++# phone_country_code = "+39"
++# phone_area_code = ""
++# phone_local_prefix = ""
++# phone_local_suffix = ""
++# phone_local = ""
++# phone_extension = ""
+ organization = "Acme SRL"
+ street = "Via Roma"
+ house_number = "1"
+@@ -250,6 +260,8 @@
+ # fills in from your profile -- see valueForKind() in
+ # ~/.local/share/qutebrowser/userscripts/autofill.js):
+ #   given_name, family_name, full_name, email, phone, phone_national,
++#   phone_country_code, phone_area_code, phone_local, phone_local_prefix,
++#   phone_local_suffix, phone_extension,
+ #   organization, street, house_number, address_line2, neighborhood,
+ #   street_full, postal_code, city, province, province_code, country,
+ #   country_code, birth_date, birth_day, birth_month, birth_year,
+diff -u a/userscripts/autofill.js b/userscripts/autofill.js
+--- a/userscripts/autofill.js
++++ b/userscripts/autofill.js
+@@ -137,6 +137,12 @@
+     'email': 'email',
+     'tel': 'phone',
+     'tel-national': 'phone_national',
++    'tel-country-code': 'phone_country_code',
++    'tel-area-code': 'phone_area_code',
++    'tel-local': 'phone_local',
++    'tel-local-prefix': 'phone_local_prefix',
++    'tel-local-suffix': 'phone_local_suffix',
++    'tel-extension': 'phone_extension',
+     'organization': 'organization',
+     'street-address': 'street_full',
+     'address-line1': 'street',
+@@ -389,6 +395,44 @@
+     return s;
+   }
+ 
++  // Split phone numbers (autocomplete="tel-country-code", "tel-area-code",
++  // "tel-local-prefix", ...). North American (+1) numbers are split
++  // automatically from `phone` (or from `phone_national` when country_code is
++  // US/CA). For any other country the pieces must be set explicitly in the
++  // profile (phone_country_code, phone_area_code, phone_local_prefix,
++  // phone_local_suffix, phone_local); otherwise those boxes are left empty
++  // instead of each getting the whole number. Explicit values always win.
++  function nanpDigits(profile) {
++    var intl = profile.phone || '';
++    var d = intl.replace(/\D/g, '');
++    if (/^\s*\+/.test(intl) && d.length === 11 && d.charAt(0) === '1') return d.slice(1);
++    var cc = (profile.country_code || '').toUpperCase();
++    if (cc === 'US' || cc === 'CA') {
++      var n = (profile.phone_national || intl).replace(/\D/g, '');
++      if (n.length === 11 && n.charAt(0) === '1') n = n.slice(1);
++      if (n.length === 10) return n;
++    }
++    return '';
++  }
++
++  function phonePart(profile, part, meta) {
++    var explicit = profile['phone_' + part];
++    if (explicit) return String(explicit);
++    if (part === 'local' && profile.phone_local_prefix && profile.phone_local_suffix) {
++      return String(profile.phone_local_prefix) + String(profile.phone_local_suffix);
++    }
++    var n = nanpDigits(profile);
++    if (!n) return '';
++    switch (part) {
++      case 'country_code': return (meta && meta.maxLength === 1) ? '1' : '+1';
++      case 'area_code': return n.slice(0, 3);
++      case 'local_prefix': return n.slice(3, 6);
++      case 'local_suffix': return n.slice(6, 10);
++      case 'local': return n.slice(3, 10);
++      default: return '';
++    }
++  }
++
+   function formatPostal(raw, meta) {
+     if (!raw) return '';
+     var digits = raw.replace(/\D/g, '');
+@@ -439,6 +483,12 @@
+       case 'email': return profile.email || '';
+       case 'phone': return profile.phone || profile.phone_national || '';
+       case 'phone_national': return profile.phone_national || profile.phone || '';
++      case 'phone_country_code': return phonePart(profile, 'country_code', meta);
++      case 'phone_area_code': return phonePart(profile, 'area_code', meta);
++      case 'phone_local': return phonePart(profile, 'local', meta);
++      case 'phone_local_prefix': return phonePart(profile, 'local_prefix', meta);
++      case 'phone_local_suffix': return phonePart(profile, 'local_suffix', meta);
++      case 'phone_extension': return profile.phone_extension ? String(profile.phone_extension) : '';
+       case 'organization': return profile.organization || '';
+       case 'street': return profile.street || '';
+       case 'house_number': return profile.house_number || '';

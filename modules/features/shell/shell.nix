@@ -80,6 +80,7 @@
             authentik = "fissh root@authentik";
             romm = "fissh root@romm";
             deploy = "fissh deploy@stix-deploy";
+            gamix = "fissh Jester@gamix";
           };
           functions = {
             fissh = "SSH_PREFER_FISH=1 ssh -o SendEnv=SSH_PREFER_FISH $argv";
@@ -92,8 +93,8 @@
               description = "Apply staged Stix update";
               body = ''
                 if not test -f ~/.local/state/stix-deploy/pending-generation
-                    echo "No pending update."
-                    return 1
+                  echo "No pending update."
+                  return 1
                 end
                 set -l path (cat ~/.local/state/stix-deploy/pending-generation)
                 sudo nix-env -p /nix/var/nix/profiles/system --set $path
@@ -197,3 +198,5 @@
       ];
     };
 }
+
+
