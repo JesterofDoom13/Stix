@@ -52,6 +52,7 @@ in
             "<Space>p" = "spawn --userscript ${qbKeepassxc} ${key}";
             "<Space>Pu" = "spawn --userscript ${qbKeepassxc} ${key} --username-only";
             "<Space>Pp" = "spawn --userscript ${qbKeepassxc} ${key} --password-only";
+            "<Space>Pt" = "spawn --userscript ${qbKeepassxc} ${key} --totp";
 
             "<Space>af" = "spawn --userscript ${autofill}";
             "<Space>aF" = "spawn --userscript ${autofill} --choose";
