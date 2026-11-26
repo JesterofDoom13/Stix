@@ -1,3 +1,6 @@
+[audio]
+colorize_icons = true
+
 [bar.widgets]
 background_opacity = 0.75999998301267624
 capsule_border = "on_surface"
@@ -44,6 +47,7 @@ widget_order = []
 
 [dock]
 background_opacity = 0.74999998323619366
+colorize_icons = true
 concave_edge_corners = false
 cross_axis_padding = 2
 enabled = true
@@ -54,11 +58,14 @@ launcher_custom_image_colorize = true
 launcher_position = "start"
 magnification_scale = 1.800000011920929
 main_axis_padding = 8
-pinned = [ "google-chrome", "pcmanfm-qt", "net.sourceforge.gscan2pdf" ]
+pinned = [ "google-chrome", "nordend", "dev.noctalia.luciole", "org.gnome.SimpleScan" ]
 reserve_space = false
 shadow = false
 show_dots = true
 smart_auto_hide = true
+
+[hooks]
+wallpaper_changed = "sed -i \"s/^icon_theme=.*/icon_theme=$( [ \"$NOCTALIA_THEME_MODE\" = dark ] && echo Papirus-Dark || echo Papirus )/\" ~/.config/qt6ct/qt6ct.conf"
 
 [idle]
 behavior_order = [ "lock", "screen-off", "lock-and-suspend" ]
@@ -85,9 +92,17 @@ auto_locate = true
 blur_intensity = 0.84999998100101948
 
 [lockscreen_widgets]
-enabled = false
+enabled = true
 schema_version = 2
-widget_order = [ "lockscreen-login-box@eDP-1", "lockscreen-login-box@DP-1", "lockscreen-login-box@WL-1" ]
+widget_order = [
+    "lockscreen-login-box@eDP-1",
+    "lockscreen-login-box@DP-1",
+    "lockscreen-login-box@WL-1",
+    "lockscreen-widget-0000000000000001",
+    "lockscreen-widget-0000000000000002",
+    "lockscreen-widget-0000000000000003",
+    "lockscreen-widget-0000000000000004"
+]
 
     [lockscreen_widgets.grid]
     cell_size = 16
@@ -117,6 +132,7 @@ widget_order = [ "lockscreen-login-box@eDP-1", "lockscreen-login-box@DP-1", "loc
         show_keyboard_layout = true
         show_login_button = true
         show_media = true
+        show_media_controls = true
         show_password_reveal = true
         show_session_buttons = true
         show_unlock_hint = true
@@ -126,9 +142,9 @@ widget_order = [ "lockscreen-login-box@eDP-1", "lockscreen-login-box@DP-1", "loc
     box_height = 196.0
     box_width = 810.0
     cx = 640.0
-    cy = 1013.0
+    cy = 882.45440673828125
     output = "WL-1"
-    placement_height = 1195.0
+    placement_height = 1041.0
     placement_width = 1280.0
     rotation = 0.0
     type = "login_box"
@@ -145,6 +161,7 @@ widget_order = [ "lockscreen-login-box@eDP-1", "lockscreen-login-box@DP-1", "loc
         show_keyboard_layout = true
         show_login_button = true
         show_media = true
+        show_media_controls = true
         show_password_reveal = true
         show_session_buttons = true
         show_unlock_hint = true
@@ -153,11 +170,11 @@ widget_order = [ "lockscreen-login-box@eDP-1", "lockscreen-login-box@DP-1", "loc
     [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
     box_height = 196.0
     box_width = 720.0
-    cx = 333.75
-    cy = 917.5
+    cx = 534.0
+    cy = 573.4375
     output = "eDP-1"
-    placement_height = 1280.0
-    placement_width = 800.0
+    placement_height = 800.0
+    placement_width = 1280.0
     rotation = 0.0
     type = "login_box"
 
@@ -173,13 +190,66 @@ widget_order = [ "lockscreen-login-box@eDP-1", "lockscreen-login-box@DP-1", "loc
         show_keyboard_layout = true
         show_login_button = true
         show_media = true
+        show_media_controls = true
         show_password_reveal = true
         show_session_buttons = true
         show_unlock_hint = true
         show_weather = true
 
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000001]
+    box_height = 208.0
+    box_width = 368.0
+    cx = 960.43756103515625
+    cy = 295.38088989257812
+    output = "DP-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "clock"
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000002]
+    box_height = 304.0
+    box_width = 816.0
+    cx = 561.3856201171875
+    cy = 540.4376220703125
+    output = "DP-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "fancy_audio_visualizer"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000002.settings]
+        background = false
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000003]
+    box_height = 0.0
+    box_width = 0.0
+    cx = 1369.990966796875
+    cy = 582.44732666015625
+    output = "DP-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "calendar"
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000004]
+    box_height = 256.0
+    box_width = 416.0
+    cx = 309.352783203125
+    cy = 890.51861572265625
+    output = "DP-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "sysmon"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000004.settings]
+        stat = "cpu_usage"
+        stat2 = "cpu_temp"
+
 [notification]
 background_opacity = 1.0
+colorize_icons = true
 
 [osd]
 background_opacity = 1.0
@@ -217,8 +287,7 @@ enabled = [
     "noctalia/umbriel-companion",
     "prponkshe/umbriel-displays",
     "muhammadessam/umbriel-monitor-control",
-    "tordex/xwayland",
-    "jester/umbriel-which-key"
+    "tordex/xwayland"
 ]
 
     [[plugins.source]]
@@ -237,16 +306,18 @@ enabled = [
     name = "my-plugins"
 
 [shell]
-app_icon_colorize = true
 avatar_path = "/home/Jester/Pictures/Wallpapers/DoomSlayer.jpg"
 font_family = "FiraCode Nerd Font"
 niri_overview_type_to_launch_enabled = true
+polkit_colorize_icons = true
+screen_time_colorize_icons = true
 settings_show_advanced = true
 umbriel_audio_provider_enabled = true
 umbriel_overview_type_to_launch_enabled = true
 
     [shell.launcher]
-    pinned = [ "org.jellyfin.JellyfinDesktop" ]
+    colorize_icons = true
+    pinned = [ "org.jellyfin.JellyfinDesktop", "nordend" ]
     show_app_actions = true
 
         [shell.launcher.providers.emoji]
@@ -264,6 +335,9 @@ umbriel_overview_type_to_launch_enabled = true
     [shell.shadow]
     alpha = 0.48999998904764652
 
+    [shell.window_switcher]
+    colorize_icons = true
+
 [theme]
 custom_palette = "stylix"
 mode = "dark"
@@ -272,15 +346,18 @@ source = "wallpaper"
 wallpaper_scheme = "faithful"
 
     [theme.templates]
-    builtin_ids = [ "btop", "gtk3", "gtk4", "ghostty", "kcolorscheme", "niri", "qt", "umbriel" ]
+    builtin_ids = [ "btop", "gtk4", "ghostty", "kcolorscheme", "luciole", "qt", "umbriel" ]
     community_ids = [
         "pear-desktop",
+        "ytm-player",
+        "qutebrowser",
         "zen-browser",
         "neovim",
         "heroiclauncher",
         "prismlauncher",
         "steam",
         "zathura",
+        "papirus-icons",
         "bat",
         "lazygit",
         "yazi"
@@ -290,6 +367,11 @@ wallpaper_scheme = "faithful"
         input_path = "$XDG_CONFIG_HOME/noctalia/templates/colors-template.fish"
         output_path = "$XDG_CONFIG_HOME/fish/generated-colors.fish"
         post_hook = "fish $XDG_CONFIG_HOME/fish/generated-colors.fish"
+
+        [theme.templates.user.qutebrowser]
+        input_path = "$XDG_CONFIG_HOME/qutebrowser/noctalia/template.py"
+        output_path = "$XDG_CONFIG_HOME/qutebrowser/noctalia/colors.py"
+        post_hook = "sh $XDG_CONFIG_HOME/qutebrowser/noctalia/reload.sh"
 
         [theme.templates.user.tmux]
         input_path = "$XDG_CONFIG_HOME/noctalia/templates/tmux.conf"
@@ -303,19 +385,22 @@ directory = "/home/Jester/Pictures/Wallpapers"
     interval_seconds = 180
 
     [wallpaper.default]
-    path = "/home/Jester/Pictures/Wallpapers/games-wallpaper-207.jpg"
+    path = "/home/Jester/Pictures/Wallpapers/anime-moon-landscape.jpg"
 
     [wallpaper.last]
-    path = "/home/Jester/Pictures/Wallpapers/games-wallpaper-207.jpg"
+    path = "/home/Jester/Pictures/Wallpapers/anime-moon-landscape.jpg"
 
     [wallpaper.monitors.DP-1]
-    path = "/home/Jester/Pictures/Wallpapers/games-wallpaper-207.jpg"
+    path = "/home/Jester/Pictures/Wallpapers/anime-moon-landscape.jpg"
 
     [wallpaper.monitors.eDP-1]
-    path = "/home/Jester/Pictures/Wallpapers/doctor_who_wallpaper__by_vvjosephvv_ddfcyed-pre.jpg"
+    path = "/home/Jester/Pictures/Wallpapers/anime-moon-landscape.jpg"
 
 [weather]
 unit = "imperial"
+
+[widget.active_window]
+colorize_icons = true
 
 [widget.bar]
 type = "icefish/phone-connect:bar"
@@ -364,11 +449,18 @@ type = "davemhammer/tailscale:status"
 custom_image_colorize = true
 stat = "swap_pct"
 
+[widget.taskbar]
+colorize_icons = true
+
+[widget.tray]
+colorize_icons = true
+
 [widget.update]
 type = "jester/stix-update:update"
 
 [widget.workspaces]
 capsule_opacity = 0.0
 capsule_padding = 8
+colorize_icons = true
 focused_output_only = true
 labels_only_when_occupied = true
