@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.keepassxc = { pkgs, ... }:
+  flake.modules.homeManager.keepassxc = { pkgs, config, ... }:
     {
       xdg.autostart.enable = true;
       programs.gpg.enable = true;
@@ -26,33 +26,16 @@
         };
         Install.WantedBy = [ "graphical-session.target" ];
       };
+      services.syncthing.settings.folders."keepassdx" = {
+        path = "${config.home.homeDirectory}/.password-store/keepass";
+        devices = [ "S23Ultra" ];
+        type = "sendreceive";
+      };
       programs = {
         keepassxc = {
           enable = true;
           autostart = true;
         };
-        umbriel = {
-          settings = {
-            scratchpad = [
-              {
-                name = "keepass";
-                spawn_when_empty = "keepassxc";
-              }
-            ];
-            window_rule = [
-              {
-                match.app_id = "^org[.]keepassxc[.]KeePassXC$";
-                default_scratchpad = "keepass";
-                default_floating_size = { width = 0.5; height = 0.6; };
-                default_position = { x = 0; y = 0; anchor = "center"; };
-              }
-            ];
-            keybinds = {
-              "Mod+Shift+P" = { action = "scratchpad-toggle keepass"; repeat = false; };
-            };
-          };
-        };
       };
     };
 }
-
