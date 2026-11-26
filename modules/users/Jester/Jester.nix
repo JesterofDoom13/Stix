@@ -1,4 +1,8 @@
-{ self, lib, ... }: {
+{ self, lib, config, ... }:
+let
+  gpgKeyId = config.flake.meta.gpgKeyId;
+in
+{
   flake.modules = lib.mkMerge [
     (self.factory.user "Jester" true)
     {
@@ -28,6 +32,7 @@
           packages = with pkgs; [
             mediainfo
           ];
+          sessionVariables.GPG_KEYID = gpgKeyId;
           shellAliases = {
             du = "dust";
             q = "exit";

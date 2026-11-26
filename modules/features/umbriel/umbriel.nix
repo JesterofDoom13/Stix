@@ -40,10 +40,6 @@
             name = "music";
             spawn_when_empty = "pear-desktop";
           }
-          {
-            name = "keepass";
-            spawn_when_empty = "keepassxc";
-          }
         ];
 
         window_rule = [
@@ -58,18 +54,6 @@
             default_scratchpad = "btop";
             default_floating_size = { width = 0.91; height = 0.5; };
             default_position = { x = 0; y = 0; anchor = "top"; };
-          }
-          {
-            match.app_id = "^com[.]github[.]th-ch[.]youtube-music$";
-            default_scratchpad = "music";
-            default_floating_size = { width = 0.6; height = 0.7; };
-            default_position = { x = 0; y = 0; anchor = "top"; };
-          }
-          {
-            match.app_id = "^org[.]keepassxc[.]KeePassXC$";
-            default_scratchpad = "keepass";
-            default_floating_size = { width = 0.5; height = 0.6; };
-            default_position = { x = 0; y = 0; anchor = "center"; };
           }
         ];
         effects.preset.slide-down = {
@@ -131,7 +115,6 @@
           "Mod+Semicolon" = "spawn ghostty";
           "Mod+Apostrophe" = { action = "scratchpad-toggle quake"; repeat = false; };
           "Mod+P" = { action = "scratchpad-toggle btop"; repeat = false; };
-          "Mod+Shift+P" = { action = "scratchpad-toggle keepass"; repeat = false; };
           "Mod+B" = "spawn qutebrowser";
           "Mod+E" = "spawn pcmanfm-qt";
           "Mod+G" = "spawn google-chrome";

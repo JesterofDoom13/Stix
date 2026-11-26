@@ -1,0 +1,78 @@
+diff -u a/userscripts/autofill b/userscripts/autofill
+--- a/userscripts/autofill
++++ b/userscripts/autofill
+@@ -100,6 +100,9 @@
+ # under --basedir). Unset (the normal case): the real per-user file.
+ PROFILES_PATH = Path(os.environ["AUTOFILL_PROFILES"]) if os.environ.get("AUTOFILL_PROFILES") \
+     else AUTOFILL_DIR / "profiles.toml"
++# Encrypted variant: if profiles.toml.gpg exists it wins and the plain file is
++# never created or read. Decrypted through gpg-agent (pinentry once per cache TTL).
++GPG_PROFILES_PATH = PROFILES_PATH.with_name(PROFILES_PATH.name + ".gpg")
+ 
+ # Misses ("learn from misses", requirement #5) live under the *data* dir
+ # (~/.local/share/qutebrowser/autofill/), deliberately separate from
+@@ -308,6 +311,9 @@
+     created = False
+     AUTOFILL_DIR.mkdir(parents=True, exist_ok=True)
+     os.chmod(AUTOFILL_DIR, stat.S_IRWXU)  # 700, enforced every run
++    if GPG_PROFILES_PATH.exists():
++        os.chmod(GPG_PROFILES_PATH, stat.S_IRUSR | stat.S_IWUSR)
++        return False
+     if not PROFILES_PATH.exists():
+         PROFILES_PATH.write_text(TEMPLATE, encoding="utf-8")
+         created = True
+@@ -317,6 +323,19 @@
+ 
+ 
+ def load_profiles() -> dict:
++    if GPG_PROFILES_PATH.exists():
++        try:
++            proc = subprocess.run(
++                ["gpg", "--quiet", "--batch", "--decrypt", str(GPG_PROFILES_PATH)],
++                capture_output=True, timeout=120, check=False,
++            )
++        except (OSError, subprocess.TimeoutExpired):
++            message_error("autofill: could not run gpg to decrypt profiles.toml.gpg")
++            sys.exit(1)
++        if proc.returncode != 0:
++            message_error("autofill: could not decrypt profiles.toml.gpg (cancelled?)")
++            sys.exit(1)
++        return tomllib.loads(proc.stdout.decode("utf-8", "replace"))
+     with open(PROFILES_PATH, "rb") as f:
+         return tomllib.load(f)
+ 
+diff -u a/userscripts/keepassxc-newpass b/userscripts/keepassxc-newpass
+--- a/userscripts/keepassxc-newpass
++++ b/userscripts/keepassxc-newpass
+@@ -535,12 +535,25 @@
+     """
+     config_dir = Path(os.environ.get("QUTE_CONFIG_DIR") or os.path.expanduser("~/.config/qutebrowser"))
+     profiles_path = config_dir / "autofill" / "profiles.toml"
+-    if not profiles_path.exists():
+-        return None
+-    try:
+-        with open(profiles_path, "rb") as f:
+-            data = tomllib.load(f)
+-    except (OSError, tomllib.TOMLDecodeError):
++    gpg_path = profiles_path.with_name(profiles_path.name + ".gpg")
++    if gpg_path.exists():
++        try:
++            proc = subprocess.run(
++                ["gpg", "--quiet", "--batch", "--decrypt", str(gpg_path)],
++                capture_output=True, timeout=120, check=False,
++            )
++            if proc.returncode != 0:
++                return None
++            data = tomllib.loads(proc.stdout.decode("utf-8", "replace"))
++        except (OSError, subprocess.TimeoutExpired, tomllib.TOMLDecodeError):
++            return None
++    elif profiles_path.exists():
++        try:
++            with open(profiles_path, "rb") as f:
++                data = tomllib.load(f)
++        except (OSError, tomllib.TOMLDecodeError):
++            return None
++    else:
+         return None
+     profiles = data.get("profiles", {})
+     name = data.get("default")
