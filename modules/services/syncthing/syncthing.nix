@@ -14,6 +14,9 @@
         "gamix" = {
           id = "UC4K5U7-Q7UZ66W-XXRYDDH-CD2Y5UF-WTR46KU-XHNXM22-CMIYXVN-3X7OLAN";
         };
+        "S23Ultra" = {
+          id = "R7YD4NO-LBVQA4A-UOWWFOD-OXVZB2W-XCBMEMN-FBC35A6-LNWC6UM-NL5WWQ3";
+        };
       };
     };
   };

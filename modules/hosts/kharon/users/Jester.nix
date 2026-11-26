@@ -23,11 +23,13 @@
               syncthing
               umbriel-desktop
               keepassxc
+              ytm
             ];
           programs.xbox-cloud-gaming.enable = true;
           home.packages = [
             pkgs.moonlight-qt
             pkgs.pear-desktop
+            pkgs.termusic
           ];
         };
     };
