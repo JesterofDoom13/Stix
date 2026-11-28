@@ -19,7 +19,7 @@
 
           };
         };
-        searchengines = {
+        searchEngines = {
           DEFAULT = "https://duckduckgo.com/?q={}";
           g = "https://www.google.com/search?hl=en&q={}";
           nw = "https://wiki.nixos.org/index.php?search={}";
@@ -49,16 +49,6 @@
               "https://github.com/uBlockOrigin/uAssets/raw/master/filters/filters.txt",
               "https://github.com/uBlockOrigin/uAssets/raw/master/filters/annoyances-cookies.txt",
           ]
-
-          #-- Search enngines --------------------------------------
-          c.url.searchengines = {
-              "DEFAULT": "https://duckduckgo.com/?q={}",
-              "nw": "https://wiki.nixos.org/index.php?search={}",
-              "ns": "https://search.nixos.org/packages?channel=26.05&query={}",
-              "gh": "https://github.com/search?q={}",
-              "yt": "https://www.youtube.com/results?search_query={}",
-              "hm": "https://home-manager-options.extranix.com/?query={}&release=master",
-          }
           c.spellcheck.languages = ["en-US"]
         '';
       };
